@@ -1,19 +1,43 @@
 === Plagiary Search ===
 
-Contributors: Your name
-Author: Your name
-Author URI: http://www.yourdomain.com
-Plugin URI: http://wordpress.org/extend/plugins/my-plugin/
-Tags: plugin
+Author: SedLex
+Contributors: SedLex
+Author URI: http://www.sedlex.fr/
+Plugin URI: http://wordpress.org/extend/plugins/plagiary-search/
+Tags: tag
 Requires at least: 3.0
-Tested up to: 3.2
+Tested up to: 3.5
 Stable tag: trunk
 
-The short description
+Find websites that copy/paste your content without authorization. 
 
 == Description ==
 
-The long description
+Find websites that copy/paste your content without authorization. 
+
+In addition, you will avoid to include involuntary plagiarism in your articles. 
+
+This plugin is under GPL licence.
+
+= Multisite - Wordpress MU =
+
+= Localization =
+
+* English (United States), default language
+* French (France) translation provided by SedLex
+
+= Features of the framework =
+
+This plugin uses the SL framework. This framework eases the creation of new plugins by providing incredible tools and frames.
+
+For instance, a new created plugin comes with
+
+* A translation interface to simplify the localization of the text of the plugin ; 
+* An embedded SVN client (subversion) to easily commit/update the plugin in wordpress.org repository ; 
+* A detailled documentation of all available classes and methodes ; 
+* etc.
+
+Have fun !
 
 == Installation ==
 
@@ -25,9 +49,15 @@ The long description
 
 == Screenshots ==
 
+1. Examples of results with proximity images 
+2. Process screen
+
 == Changelog ==
+
+= 1.0.1 = 
+*First Release
 
 == Frequently Asked Questions ==
 
  
-InfoVersion:d70d051d69eb2aff8c18bcd418e944e4
+InfoVersion:15f377e44b0589afc7dadc42aa80a368
