@@ -1,0 +1,645 @@
+Content-Transfer-Encoding: 8bit
+
+#: plagiary-search.php:230
+#@ plagiary_search
+msgid "title"
+msgstr ""
+
+#: plagiary-search.php:347
+#@ plagiary_search
+msgid "With this plugin, you may find external websites that copy-and-paste your content without authorization."
+msgstr ""
+
+#: plagiary-search.php:348
+#@ plagiary_search
+msgid "In addition, you will avoid to include involuntary plagiarism in your articles."
+msgstr ""
+
+#: plagiary-search.php:364
+#@ plagiary_search
+msgid "Results"
+msgstr ""
+
+#: plagiary-search.php:372
+#@ plagiary_search
+msgid "Summary"
+msgstr ""
+
+#: plagiary-search.php:377
+#@ plagiary_search
+msgid "Select your content to be searched"
+msgstr ""
+
+#: plagiary-search.php:378
+#@ plagiary_search
+msgid "What type of articles do you want to search?"
+msgstr ""
+
+#: plagiary-search.php:379
+#@ plagiary_search
+msgid "The default value is:"
+msgstr ""
+
+#: plagiary-search.php:381
+#@ plagiary_search
+msgid "The minimum number of words that the article contains:"
+msgstr ""
+
+#: plagiary-search.php:383
+#@ plagiary_search
+msgid "Search your content"
+msgstr ""
+
+#: plagiary-search.php:384
+#@ plagiary_search
+msgid "Exclude from the search sentences shorter than (nb words):"
+msgstr ""
+
+#: plagiary-search.php:385
+#@ plagiary_search
+msgid "Exclude from the results if the searched sentence matches less than (% words):"
+msgstr ""
+
+#: plagiary-search.php:386
+#@ plagiary_search
+msgid "Use the Google Search:"
+msgstr ""
+
+#: plagiary-search.php:387
+#@ plagiary_search
+msgid "Google API key:"
+msgstr ""
+
+#: plagiary-search.php:388
+#@ plagiary_search
+msgid "If you do not set any key, you might not be able to search with Google."
+msgstr ""
+
+#: plagiary-search.php:389
+#@ plagiary_search
+msgid "If you set a key, only 100 searches are allowed per day (according to Google terms)."
+msgstr ""
+
+#: plagiary-search.php:390
+#@ plagiary_search
+msgid "To get this API key, please visit %s, create a projet, allow Custom Search API in services, and then go to API console to get a 'Key for browser apps'"
+msgstr ""
+
+#: plagiary-search.php:391
+#@ plagiary_search
+msgid "Use the Bing Search:"
+msgstr ""
+
+#: plagiary-search.php:392
+#@ plagiary_search
+msgid "Bing API Account key:"
+msgstr ""
+
+#: plagiary-search.php:393
+#@ plagiary_search
+msgid "If you do not set any key, you might not be able to search with Bing."
+msgstr ""
+
+#: plagiary-search.php:394
+#@ plagiary_search
+msgid "To get this API key, please visit %s, and subscribe to the free search. Then, go to your account and copy your primary account key number."
+msgstr ""
+
+#: plagiary-search.php:396
+#@ plagiary_search
+msgid "Filter the found results"
+msgstr ""
+
+#: plagiary-search.php:397
+#@ plagiary_search
+msgid "Consider that a sentence is a plagiary if it contains more than (% of identical letters) :"
+msgstr ""
+
+#: plagiary-search.php:398
+#: plagiary-search.php:401
+#@ plagiary_search
+msgid "This value should be between 10 and 90."
+msgstr ""
+
+#: plagiary-search.php:399
+#@ plagiary_search
+msgid "Exclude results that plagiarize less than (% of your content):"
+msgstr ""
+
+#: plagiary-search.php:400
+#@ plagiary_search
+msgid "The higher this value is, the less results you will have."
+msgstr ""
+
+#: plagiary-search.php:402
+#@ plagiary_search
+msgid "Exclude results with this pattern:"
+msgstr ""
+
+#: plagiary-search.php:403
+#@ plagiary_search
+msgid "Please enter one entry per line"
+msgstr ""
+
+#: plagiary-search.php:405
+#@ plagiary_search
+msgid "Display results"
+msgstr ""
+
+#: plagiary-search.php:406
+#@ plagiary_search
+msgid "Height of the proximity image:"
+msgstr ""
+
+#: plagiary-search.php:407
+#@ plagiary_search
+msgid "Width of the proximity image:"
+msgstr ""
+
+#: plagiary-search.php:409
+#@ plagiary_search
+msgid "Avanced options"
+msgstr ""
+
+#: plagiary-search.php:410
+#@ plagiary_search
+msgid "Number of characters to compare per iteration:"
+msgstr ""
+
+#: plagiary-search.php:411
+#@ plagiary_search
+msgid "Max number of iterations per turn:"
+msgstr ""
+
+#: plagiary-search.php:412
+#@ plagiary_search
+msgid "Max number of line per turn:"
+msgstr ""
+
+#: plagiary-search.php:413
+#@ plagiary_search
+msgid "Number of minutes between two background processing:"
+msgstr ""
+
+#: plagiary-search.php:414
+#@ plagiary_search
+msgid "Number of characters for the mini delta:"
+msgstr ""
+
+#: plagiary-search.php:418
+#@ plagiary_search
+msgid "Parameters"
+msgstr ""
+
+#: plagiary-search.php:426
+#@ plagiary_search
+msgid "Manage translations"
+msgstr ""
+
+#: plagiary-search.php:431
+#@ plagiary_search
+msgid "Information"
+msgstr ""
+
+#: plagiary-search.php:432
+#@ plagiary_search
+msgid "Please note that, without doing anything, a background ckeck is performed."
+msgstr ""
+
+#: plagiary-search.php:433
+#@ plagiary_search
+msgid "This background ckeck is triggered when users visits your site: thus, if you have very little traffic on your website, it could take hours to compare two texts. Just be patient :)"
+msgstr ""
+
+#: plagiary-search.php:434
+#@ plagiary_search
+msgid "If you want to accelerate the process, you may click on the force button (see below). Please note that it may quickly consume all your search quota (Google, etc.)"
+msgstr ""
+
+#: plagiary-search.php:435
+#@ plagiary_search
+msgid "When forcing the process, errors may occur. If too many errors are raised, please reduce parameters."
+msgstr ""
+
+#: plagiary-search.php:436
+#@ plagiary_search
+msgid "How to read the plagiary image?"
+msgstr ""
+
+#: plagiary-search.php:437
+#@ plagiary_search
+msgid "The image is a representation of the proximity between your article and an external website."
+msgstr ""
+
+#: plagiary-search.php:438
+#@ plagiary_search
+msgid "Your article is represented on the horizontal axis and the external website on the vertical axis."
+msgstr ""
+
+#: plagiary-search.php:440
+#@ plagiary_search
+msgid "The darker of a pixel indicates the proximity between a part of your article and a part of the external website."
+msgstr ""
+
+#: plagiary-search.php:441
+#@ plagiary_search
+msgid "Then, to find an actual plagiarism, you need to find a straight and dark line in the proximity image."
+msgstr ""
+
+#: plagiary-search.php:445
+#@ plagiary_search
+msgid "FAQ"
+msgstr ""
+
+#: plagiary-search.php:451
+#@ plagiary_search
+msgid "Give feedback"
+msgstr ""
+
+#: plagiary-search.php:459
+#@ plagiary_search
+msgid "Other plugins"
+msgstr ""
+
+#: plagiary-search.php:639
+#@ plagiary_search
+msgid "Force a search for plagiarism"
+msgstr ""
+
+#: plagiary-search.php:640
+#@ plagiary_search
+msgid "Stop the forced search"
+msgstr ""
+
+#: plagiary-search.php:642
+#@ plagiary_search
+msgid "Reset all searches and empty the search buffer"
+msgstr ""
+
+#: plagiary-search.php:647
+#@ plagiary_search
+msgid "Status of the current search"
+msgstr ""
+
+#: plagiary-search.php:663
+#@ plagiary_search
+msgid "Global Synthesis"
+msgstr ""
+
+#: plagiary-search.php:665
+#@ plagiary_search
+msgid "For now, %s URL have been checked for plagiarism and %s possible plagiaries have been found."
+msgstr ""
+
+#: plagiary-search.php:666
+#@ plagiary_search
+msgid "The last time a check has been performed is %s."
+msgstr ""
+
+#: plagiary-search.php:668
+#@ plagiary_search
+msgid "Article and website page"
+msgstr ""
+
+#: plagiary-search.php:674
+#@ plagiary_search
+msgid "Selected article: %s (%s characters)"
+msgstr ""
+
+#: plagiary-search.php:676
+#@ plagiary_search
+msgid "Selected article: %s"
+msgstr ""
+
+#: plagiary-search.php:676
+#@ plagiary_search
+msgid "No article is being analyzed"
+msgstr ""
+
+#: plagiary-search.php:685
+#: plagiary-search.php:687
+#@ plagiary_search
+msgid "Sentence in the article searched on Search Engine: %s"
+msgstr ""
+
+#: plagiary-search.php:687
+#: plagiary-search.php:691
+#@ plagiary_search
+msgid "None for now"
+msgstr ""
+
+#: plagiary-search.php:701
+#@ plagiary_search
+msgid "(%s characters)"
+msgstr ""
+
+#: plagiary-search.php:704
+#@ plagiary_search
+msgid "Website to compare with: %s"
+msgstr ""
+
+#: plagiary-search.php:706
+#@ plagiary_search
+msgid "Current Status"
+msgstr ""
+
+#: plagiary-search.php:712
+#@ plagiary_search
+msgid "Select a new article"
+msgstr ""
+
+#: plagiary-search.php:713
+#@ plagiary_search
+msgid "Init"
+msgstr ""
+
+#: plagiary-search.php:722
+#@ plagiary_search
+msgid "(End)"
+msgstr ""
+
+#: plagiary-search.php:729
+#@ plagiary_search
+msgid "Search a sentence on the Search Engines (%s): %s"
+msgstr ""
+
+#: plagiary-search.php:730
+#@ plagiary_search
+msgid "Search %s"
+msgstr ""
+
+#: plagiary-search.php:733
+#@ plagiary_search
+msgid "Get the content of the website"
+msgstr ""
+
+#: plagiary-search.php:744
+#@ plagiary_search
+msgid "Compare article and website (%s)"
+msgstr ""
+
+#: plagiary-search.php:755
+#@ plagiary_search
+msgid "Filter results (%s)"
+msgstr ""
+
+#: plagiary-search.php:766
+#@ plagiary_search
+msgid "Create the proximity image (%s)"
+msgstr ""
+
+#: plagiary-search.php:777
+#@ plagiary_search
+msgid "Format the texts to be correctly displayed (%s)"
+msgstr ""
+
+#: plagiary-search.php:781
+#@ plagiary_search
+msgid "Store results in the database"
+msgstr ""
+
+#: plagiary-search.php:785
+#@ plagiary_search
+msgid "End of the current plagiarism check"
+msgstr ""
+
+#: plagiary-search.php:790
+#: plagiary-search.php:791
+#: plagiary-search.php:793
+#@ plagiary_search
+msgid "Error"
+msgstr ""
+
+#: plagiary-search.php:794
+#@ plagiary_search
+msgid "Waiting for %s minutes"
+msgstr ""
+
+#: plagiary-search.php:796
+#: plagiary-search.php:797
+#@ plagiary_search
+msgid "??"
+msgstr ""
+
+#: plagiary-search.php:801
+#@ plagiary_search
+msgid "Status: %s"
+msgstr ""
+
+#: plagiary-search.php:808
+#: plagiary-search.php:810
+#@ plagiary_search
+msgid "Information: %s"
+msgstr ""
+
+#: plagiary-search.php:808
+#: plagiary-search.php:814
+#: plagiary-search.php:820
+#@ plagiary_search
+msgid "None"
+msgstr ""
+
+#: plagiary-search.php:814
+#: plagiary-search.php:816
+#@ plagiary_search
+msgid "Warning: %s"
+msgstr ""
+
+#: plagiary-search.php:820
+#: plagiary-search.php:822
+#@ plagiary_search
+msgid "Error: %s"
+msgstr ""
+
+#: plagiary-search.php:826
+#@ plagiary_search
+msgid "Search buffer"
+msgstr ""
+
+#: plagiary-search.php:829
+#@ plagiary_search
+msgid "The next couple of [article-website] to be compared are:"
+msgstr ""
+
+#: plagiary-search.php:853
+#@ plagiary_search
+msgid "%s more couple of [article-website] are present in the search buffer but are not listed here."
+msgstr ""
+
+#: plagiary-search.php:856
+#@ plagiary_search
+msgid "No url present in the buffer..."
+msgstr ""
+
+#: plagiary-search.php:859
+#@ plagiary_search
+msgid "Status of the search engines"
+msgstr ""
+
+#: plagiary-search.php:868
+#: plagiary-search.php:1139
+#@ plagiary_search
+msgid "Wait for %s seconds"
+msgstr ""
+
+#: plagiary-search.php:871
+#@ plagiary_search
+msgid "OK"
+msgstr ""
+
+#: plagiary-search.php:885
+#@ plagiary_search
+msgid "Reset of the search"
+msgstr ""
+
+#: plagiary-search.php:908
+#@ plagiary_search
+msgid "Possible Plagiary"
+msgstr ""
+
+#: plagiary-search.php:908
+#@ plagiary_search
+msgid "Article Plagiarized"
+msgstr ""
+
+#: plagiary-search.php:908
+#@ plagiary_search
+msgid "Proximity Image"
+msgstr ""
+
+#: plagiary-search.php:908
+#@ plagiary_search
+msgid "Proximity Score"
+msgstr ""
+
+#: plagiary-search.php:908
+#@ plagiary_search
+msgid "Date of detection"
+msgstr ""
+
+#: plagiary-search.php:918
+#@ plagiary_search
+msgid "Not plagiary"
+msgstr ""
+
+#: plagiary-search.php:918
+#@ plagiary_search
+msgid "Do you confirm that this entry is not a plagiary?"
+msgstr ""
+
+#: plagiary-search.php:919
+#@ plagiary_search
+msgid "View the texts"
+msgstr ""
+
+#: plagiary-search.php:932
+#@ plagiary_search
+msgid "(For now, there is no plagiary found... You should wait until something is found)"
+msgstr ""
+
+#: plagiary-search.php:969
+#@ plagiary_search
+msgid "Only %s seconds since the last computation: please wait!"
+msgstr ""
+
+#: plagiary-search.php:1089
+#@ plagiary_search
+msgid "No search engine has been configured. Please configure at least one in the configuration tab."
+msgstr ""
+
+#: plagiary-search.php:1101
+#@ plagiary_search
+msgid "Search engines have not returned any acceptable result."
+msgstr ""
+
+#: plagiary-search.php:1238
+#@ plagiary_search
+msgid "Unexpected error when accessing the Google API"
+msgstr ""
+
+#: plagiary-search.php:1244
+#@ plagiary_search
+msgid "Your search quota has been exceeded. Please wait until Google authorize a new request"
+msgstr ""
+
+#: plagiary-search.php:1246
+#@ plagiary_search
+msgid "Google has blocked your search request: %s"
+msgstr ""
+
+#: plagiary-search.php:1256
+#@ plagiary_search
+msgid "Unexpected error when accessing the Google API (not 200)"
+msgstr ""
+
+#: plagiary-search.php:1275
+#@ plagiary_search
+msgid "Cannot perform search on Bing without Account key"
+msgstr ""
+
+#: plagiary-search.php:1283
+#@ plagiary_search
+msgid "Unexpected error when accessing the Bing API"
+msgstr ""
+
+#: plagiary-search.php:1299
+#@ plagiary_search
+msgid "Unexpected error when accessing the Bing API (not 200)"
+msgstr ""
+
+#: plagiary-search.php:1357
+#@ plagiary_search
+msgid "Error retrieving the url with the function %s"
+msgstr ""
+
+#: plagiary-search.php:1362
+#@ plagiary_search
+msgid "The retrieved content have no character (%s)."
+msgstr ""
+
+#: plagiary-search.php:1365
+#: plagiary-search.php:1399
+#@ plagiary_search
+msgid "Success retrieving the website (by using %s): %s characters have been retrieved"
+msgstr ""
+
+#: plagiary-search.php:1372
+#@ plagiary_search
+msgid "Error retrieving the url. The retrieval returns: %s)"
+msgstr ""
+
+#: plagiary-search.php:1395
+#@ plagiary_search
+msgid "Error retrieving the url (%s)"
+msgstr ""
+
+#: plagiary-search.php:1403
+#@ plagiary_search
+msgid "Size of the data is too big to be compared"
+msgstr ""
+
+#: plagiary-search.php:1408
+#@ plagiary_search
+msgid "The function %s does not seems to works."
+msgstr ""
+
+#: plagiary-search.php:1561
+#@ plagiary_search
+msgid "The proximity score is only %s and then the website is not considered as a plagiary"
+msgstr ""
+
+#: plagiary-search.php:1834
+#@ plagiary_search
+msgid "The text of your article"
+msgstr ""
+
+#: plagiary-search.php:1836
+#@ plagiary_search
+msgid "The text of the external website"
+msgstr ""
+
+#: plagiary-search.php:1839
+#@ plagiary_search
+msgid "Show the proximity between the text"
+msgstr ""
+

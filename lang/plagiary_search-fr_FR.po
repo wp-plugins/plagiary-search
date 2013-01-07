@@ -1,0 +1,277 @@
+msgid ""
+msgstr ""
+"Generated: SL Framework (http://www.sedlex.fr)\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2012-11-20T14:49:02+00:00\n"
+"Last-Translator: SedLex <http://www.sedlex.fr>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: France\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes\n"
+
+msgid "title"
+msgstr ""
+
+msgid "This is the configuration page of the plugin"
+msgstr ""
+
+msgid "Summary"
+msgstr "Résumé"
+
+msgid "Select your content to be searched"
+msgstr ""
+
+msgid "What type of articles do you want to search?"
+msgstr ""
+
+msgid "The default value is:"
+msgstr ""
+
+msgid "The minimum number of words that the article contains:"
+msgstr ""
+
+msgid "Search your content"
+msgstr ""
+
+msgid "Exclude from the search sentences shorter than (nb words):"
+msgstr ""
+
+msgid "Use the Google Search:"
+msgstr ""
+
+msgid "Google API key:"
+msgstr ""
+
+msgid "If you do not set any key, you might not be able to search with Google."
+msgstr ""
+
+msgid "If you set a key, only 100 searches are allowed per day (according to Google terms)."
+msgstr ""
+
+msgid "Filter the found results"
+msgstr ""
+
+msgid "Consider that a sentence is a plagiary if it contains more than (% of identical letters) :"
+msgstr ""
+
+msgid "This value should be between 10 and 90."
+msgstr ""
+
+msgid "Exclude results that plagiarize less than (% of your content):"
+msgstr ""
+
+msgid "The higher this value is, the less results you will have."
+msgstr ""
+
+msgid "Exclude results with this pattern:"
+msgstr ""
+
+msgid "Please enter one entry per line"
+msgstr ""
+
+msgid "Display results"
+msgstr ""
+
+msgid "Height of the proximity image:"
+msgstr ""
+
+msgid "Width of the proximity image:"
+msgstr ""
+
+msgid "Avanced options"
+msgstr ""
+
+msgid "Number of characters to compare per iteration:"
+msgstr ""
+
+msgid "Max number of iterations per turn:"
+msgstr ""
+
+msgid "Max number of line per turn:"
+msgstr ""
+
+msgid "Number of minutes between two background processing:"
+msgstr ""
+
+msgid "Number of characters for the mini delta:"
+msgstr ""
+
+msgid "Parameters"
+msgstr ""
+
+msgid "Manage translations"
+msgstr ""
+
+msgid "Give feedback"
+msgstr ""
+
+msgid "Other plugins"
+msgstr ""
+
+msgid "Force a search for plagiarism"
+msgstr ""
+
+msgid "Stop the forced search"
+msgstr ""
+
+msgid "Stop all searches and empty buffer search"
+msgstr ""
+
+msgid "Status of the current search"
+msgstr ""
+
+msgid "Current Search"
+msgstr ""
+
+msgid "Your article that have been selected: %s"
+msgstr ""
+
+msgid "The web page to be compared with: %s"
+msgstr ""
+
+msgid "No article is being analyzed"
+msgstr ""
+
+msgid "Select a new article"
+msgstr ""
+
+msgid "Init"
+msgstr ""
+
+msgid "Search a sentence on Google"
+msgstr ""
+
+msgid "Get the content of the website"
+msgstr ""
+
+msgid "Compare article and website (%s)"
+msgstr ""
+
+msgid "Filter results"
+msgstr ""
+
+msgid "Create the proximity image (%s)"
+msgstr ""
+
+msgid "Store results in the database"
+msgstr ""
+
+msgid "End of the current plagiarism check"
+msgstr ""
+
+msgid "End of the current plagiarism check / %s"
+msgstr ""
+
+msgid "Error %s"
+msgstr ""
+
+msgid "Error"
+msgstr ""
+
+msgid "??"
+msgstr ""
+
+msgid "Status of the search: %s"
+msgstr ""
+
+msgid "Search buffer"
+msgstr ""
+
+msgid "The next couple of texts to be compared are:"
+msgstr ""
+
+msgid "%s more couple of texts are present in the buffer but not listed here."
+msgstr ""
+
+msgid "No url present in the buffer..."
+msgstr ""
+
+msgid "Information"
+msgstr ""
+
+msgid "Please note that, without doing anything, a background ckeck is performed."
+msgstr ""
+
+msgid "This background ckeck is triggered when users visits your site: thus, if you have very little traffic on your website, it could take hours to compare two texts. Just be patient :)"
+msgstr ""
+
+msgid "If you want to accelerate the process, you may click on the force button (see below). Please note that it may quickly consume all your search quota (Google, etc.)"
+msgstr ""
+
+msgid "When forcing the process, errors may occur. If too many errors are raised, please reduce parameters."
+msgstr ""
+
+msgid "Reset of the search"
+msgstr ""
+
+msgid "For now, %s URL have been checked for plagiarism."
+msgstr ""
+
+msgid "The last time a check has been performed is %s."
+msgstr ""
+
+msgid "Synthesis of the searches"
+msgstr ""
+
+msgid "Possible Plagiary"
+msgstr ""
+
+msgid "Article Plagiarized"
+msgstr ""
+
+msgid "Proximity Image"
+msgstr ""
+
+msgid "Proximity Score"
+msgstr ""
+
+msgid "Date of detection"
+msgstr ""
+
+msgid "Not plagiary"
+msgstr ""
+
+msgid "ReCheck"
+msgstr ""
+
+msgid "(For now, there is no plagiary found... You should wait until something is found)"
+msgstr ""
+
+msgid "Only %s seconds since the last computation: please wait!"
+msgstr ""
+
+msgid "Google does not provide any results"
+msgstr ""
+
+msgid "Unexpected error when accessing the Google API"
+msgstr ""
+
+msgid "Your search quota has been exceeded. Please wait until Google authorize a new request"
+msgstr ""
+
+msgid "Google has blocked your search request: %s"
+msgstr ""
+
+msgid "URL Buffer empty"
+msgstr ""
+
+msgid "Error retrieving the url (%s)"
+msgstr ""
+
+msgid "Size of the data is too big to be compared"
+msgstr ""
+
+msgid "The proximity score is only %s"
+msgstr ""
+
