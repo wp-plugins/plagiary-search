@@ -7,12 +7,12 @@ VersionTabsCss : 1.0
 }
 
 /* Tab navigation */
-ul.ui-tabs-nav {
+.tabsSL > ul {
 	margin-bottom: -1px;
 	padding-left: 1.5em;
 }
 
-ul.ui-tabs-nav li {
+.tabsSL > ul li {
 	display: inline-block;
 	margin: 0 0.5em 0 0;
 	
@@ -33,26 +33,26 @@ ul.ui-tabs-nav li {
 	text-shadow: 0 1px 0 #FFFFFF;
 }
 
-ul.ui-tabs-nav li.ui-tabs-selected {
+.tabsSL > ul li.ui-tabs-active {
 	background: white;
 	color: black;
 	border-bottom-color: white;
 }
 
-ul.ui-tabs-nav li a {
+.tabsSL > ul li a {
 	display: inline-block;
 	padding: 0.5em 1em 0.6em 1em;
 	text-decoration: none;
 	color: #C1C1C1;
 }
 
-ul.ui-tabs-nav li.ui-tabs-selected a {
+.tabsSL > ul li.ui-tabs-active a {
 	color: black;
 } 
 
 /* Tab panels */
 
-.ui-tabs .blc-section {
+.tabsSL div.blc-section {
 	border: 1px solid #DFDFDF;
 	border-top-width: 1px;
 	padding: 1em;

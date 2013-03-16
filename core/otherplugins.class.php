@@ -189,14 +189,15 @@ if (!class_exists("otherPlugins")) {
 				$content = explode("<h", $res->sections['description']) ; 
 				echo $content[0] ; 
 				echo "</div>" ; 
-				
-				$screen = $res->sections['screenshots'] ; 
-				$screen = str_replace("</ol>", "", $screen) ; 
-				$screen = str_replace("<ol>", "", $screen) ; 
-				$screen = str_replace("<li>", "<div class='screenshot_wordpress'>", $screen) ; 
-				$screen = str_replace("</li>", "</div>", $screen) ; 
-				$screen = preg_replace('#<img([^>]*)src=\'([^\']*?)\'([^>]*)>#isU', '<a href="$2" target="blank"><img$1src="$2"$3></a>', $screen) ; 				
-				echo "<div style='padding-left:10px ; '>".$screen."<div style='clear:both;'></div></div>" ; 
+				if (isset($res->sections['screenshots'])){
+					$screen = $res->sections['screenshots'] ; 
+					$screen = str_replace("</ol>", "", $screen) ; 
+					$screen = str_replace("<ol>", "", $screen) ; 
+					$screen = str_replace("<li>", "<div class='screenshot_wordpress'>", $screen) ; 
+					$screen = str_replace("</li>", "</div>", $screen) ; 
+					$screen = preg_replace('#<img([^>]*)src=\'([^\']*?)\'([^>]*)>#isU', '<a href="$2" target="blank"><img$1src="$2"$3></a>', $screen) ; 				
+					echo "<div style='padding-left:10px ; '>".$screen."<div style='clear:both;'></div></div>" ; 
+				}
 				$cell2 = ob_get_clean() ; 
 				return array($cell1, $cell2) ; 
 			}

@@ -40,22 +40,16 @@ if (!class_exists('pluginSedLex')) {
 	$files[] = $url.'core/tabs.class.php' ; 
 	$files[] = $url.'core/box.class.php' ; 
 	$files[] = $url.'core/browser.class.php' ; 
-	$files[] = $url.'core/database.class.php' ; 
 	$files[] = $url.'core/debug.class.php' ; 
-	$files[] = $url.'core/deprecated.class.php' ; 
 	$files[] = $url.'core/feedback.class.php' ; 
-	$files[] = $url.'core/folder_diff.class.php' ; 
 	$files[] = $url.'core/otherplugins.class.php' ; 
 	$files[] = $url.'core/parameters.class.php' ; 
-	$files[] = $url.'core/phpdoc.class.php' ; 
 	$files[] = $url.'core/popup.class.php' ; 
 	$files[] = $url.'core/progress_bar.class.php'; 
 	$files[] = $url.'core/translation.class.php'; 
 	$files[] = $url.'core/text_diff.class.php' ; 
 	$files[] = $url.'core/tree.class.php'; 
-	$files[] = $url.'core/svn.class.php' ; 
 	$files[] = $url.'core/utils.class.php' ; 
-	$files[] = $url.'core/zip.class.php' ; 
 	
 	foreach ($files as $f) {
 		if (file_exists($f)) {

@@ -110,7 +110,7 @@ if (!class_exists("adminTabs")) {
 				}) ; 
 			</script>		
 			
-			<div id="tabs<?php echo $rnd ; ?>">
+			<div class="tabsSL" id="tabs<?php echo $rnd ; ?>">
 				<ul class="hide-if-no-js">
 <?php
 			$all = implode("", $this->title) ; 

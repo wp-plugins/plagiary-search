@@ -60,14 +60,3 @@
 .adminPost .tableofcontent-end {
 	clear: both;
 }
-
-
-.wrap ul  { margin-bottom: 0.4em; padding: 0 0 0 30px; }
-.wrap ul ul  { margin: 0; }
-.wrap ul li  {	list-style-type: disc; }
-.wrap ul ul li  { list-style-type: circle; }
-
-.wrap ol  { margin-bottom: 0.4em; padding: 0 0 0 30px; }
-.wrap ol ol  { margin: 0; }
-.wrap ol li  { list-style-type: decimal; }
-.wrap ol li ol li  { list-style-type: lower-latin; }
