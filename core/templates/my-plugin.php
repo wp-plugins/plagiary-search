@@ -9,7 +9,7 @@ Author: The name of the author
 Author URI: http://www.yourdomain.com/
 Author Email: youremail@yourdomain.com
 Framework Email: sedlex@sedlex.fr
-Plugin URI: http://wordpress.org/extend/plugins/my-plugin/
+Plugin URI: http://wordpress.org/plugins/my-plugin/
 License: GPL3
 */
 

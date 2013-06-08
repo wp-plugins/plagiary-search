@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-03-03T19:23:45+00:00\n"
+"PO-Revision-Date: 2013-04-07T14:00:33+00:00\n"
 "Last-Translator: pablo <http://epablo.pl>\n"
 "Last-Translator: vyachek <vyachek@op.pl>\n"
 "Last-Translator: MarekMackiewicz <ickam89.com>\n"
@@ -22,158 +22,11 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Textdomain-Support: yes\n"
 
-msgid "Settings"
-msgstr "Ustawienia"
-
-msgid "Advanced options"
-msgstr "Ustawienia Zaawansowane"
-
-msgid "Show the advanced options:"
-msgstr "Pokaż zaawansowane opcje"
-
-msgid "What is your SVN Login:"
-msgstr "Login SVN:"
-
-msgid "What is your SVN Password:"
-msgstr "Hasło SVN:"
-
-msgid "Plugin name"
-msgstr "Nazwa wtyczki"
-
-msgid "Description"
-msgstr "Opis"
-
-msgid "Version: %s by %s"
-msgstr "Wersja: % od %"
-
-msgid "List of SL plugins"
-msgstr "Lista wtyczek SL"
-
-msgid "Installed plugins"
-msgstr "Zainstalowane wtyczki"
-
-msgid "Plugin already installed"
-msgstr "Wtyczka zainstalowana"
-
 msgid "About..."
 msgstr "O ..."
 
-msgid "IMAP Login:"
-msgstr "Login IMAP:"
-
-msgid "IMAP Password:"
-msgstr "Hasło IMAP:"
-
-msgid "IMAP Server:"
-msgstr "Serwer IMAP:"
-
-msgid "Parameters"
-msgstr "Parametry"
-
-msgid "Error: %s file already exists"
-msgstr "Błąd: plik % już istnieje"
-
-msgid "Update"
-msgstr "Zastosuj"
-
-msgid "Your name:"
-msgstr "Twoje imię:"
-
-msgid "Your email or your website:"
-msgstr "Twój e-mal lub strona www:"
-
-msgid "Create the translation files"
-msgstr "Wykonaj pliki tłumaczenia"
-
-msgid "Plugin"
-msgstr "Wtyczka"
-
-msgid "Language"
-msgstr "Język"
-
-msgid "Information"
-msgstr "Informacje"
-
-msgid "Delete"
-msgstr "Usuń"
-
-msgid "Import"
-msgstr "Import"
-
-msgid "Merge"
-msgstr "Scal"
-
-msgid "Re-download"
-msgstr "Ściągnij ponownie"
-
-msgid "Download a new translation"
-msgstr "Ściągnij nowe tłumaczenie"
-
-msgid "Download"
-msgstr "Ściągnij"
-
-msgid "Set the language"
-msgstr "Ustaw język"
-
-msgid "This plugin is available in %d languages."
-msgstr "Wtyczka ma %d tłumaczeń"
-
-msgid "Translators"
-msgstr "Tłumacz"
-
-msgid "Modify"
-msgstr "Modyfikuj"
-
-msgid "Add a new translation"
-msgstr "Dodaj nowe tłumaczenie"
-
-msgid "Add"
-msgstr "Dodaj"
-
-msgid "Select all"
-msgstr "Zaznacz wszystko"
-
-msgid "Un-select all"
-msgstr "Odznacz wszystko"
-
-msgid "Saved on %s"
-msgstr "Zapisane w %"
-
-msgid "Methods"
-msgstr "Metoda"
-
-msgid "Parameters:"
-msgstr "Parametry:"
-
-msgid "[optional]"
-msgstr "[opcjonalnie]"
-
-msgid "See also:"
-msgstr "Patrz również:"
-
-msgid "Contact the author"
-msgstr "Kontakt z autorem"
-
-msgid "Your email:"
-msgstr "Twój email:"
-
-msgid "Your comments:"
-msgstr "Twój komentarz:"
-
-msgid "Send feedback"
-msgstr "Wyślij"
-
-msgid "The feedback has been sent"
-msgstr "Wysłano"
-
-msgid "Plugin not yet installed"
-msgstr "Wtyczka nie zainstalowana"
-
-msgid "Description and Screenshots"
-msgstr "Opis i screeny"
-
-msgid "You have already installed the following author's plugins:"
-msgstr "Masz już zainstalowane następujące wtyczki autora"
+msgid "Settings"
+msgstr "Ustawienia"
 
 msgid "Log options"
 msgstr "Opcje dziennika zdarzeń"
@@ -214,8 +67,20 @@ msgstr "Wtyczki z rodziny SL"
 msgid "For now, you have installed %d  plugins including %d plugins developped with the 'SL framework':"
 msgstr "Jak dotąd zainstalowano %d wtyczek, w tym %d wtyczek z rodziny SL"
 
+msgid "Plugin name"
+msgstr "Nazwa wtyczki"
+
+msgid "Description"
+msgstr "Opis"
+
 msgid "There is a SQL database for this plugin"
 msgstr "Ta wtyczka używa bazy SQL"
+
+msgid "Version: %s by %s"
+msgstr "Wersja: %s od %s"
+
+msgid "List of SL plugins"
+msgstr "Lista wtyczek SL"
 
 msgid "Parameters of the framework"
 msgstr "Ustawienia rdzenia SL"
@@ -262,6 +127,9 @@ msgstr "Błąd: Ten plik nie może być wysłany"
 msgid "Error: security issue!"
 msgstr "Naruszenie bezpieczeństwa!"
 
+msgid "Parameters"
+msgstr "Parametry"
+
 msgid "Here are the parameters of the plugin. Modify them at will to fit your needs."
 msgstr "Poniżej znajdują się parametry wtyczki. Edytuj je wedle potrzeb."
 
@@ -278,7 +146,10 @@ msgid "(integer)"
 msgstr "(liczba całkowita)"
 
 msgid "(If you want to delete this file, please check this box %s)"
-msgstr "(Aby usunąć plik, zaznacz to pole)"
+msgstr "(Aby usunąć plik, zaznacz to pole %s)"
+
+msgid "Update"
+msgstr "Zastosuj"
 
 msgid "Reset to default values"
 msgstr "Przywróć ustawienia domyślne"
@@ -319,8 +190,17 @@ msgstr "Pole do przetłumaczenia"
 msgid "Translation"
 msgstr "Tłumaczenie"
 
+msgid "Your name:"
+msgstr "Twoje imię:"
+
 msgid "(if your name/pseudo is already in the list, there is no need to fill this input)"
 msgstr "(Jeśli Twoje imię / pseudo znajduje się już na liście, nie musisz tego wypełniać)"
+
+msgid "Your email or your website:"
+msgstr "Twój e-mal lub strona www:"
+
+msgid "Create the translation files"
+msgstr "Wykonaj pliki tłumaczenia"
 
 msgid "Modifying the translation for this language: %s"
 msgstr "Edytujesz tłumaczenie na język %s"
@@ -337,14 +217,26 @@ msgstr "Plik %s nie może być zapisany w folderze %s"
 msgid "The file %s has been imported in the %s folder"
 msgstr "Zaimportowano plik %s do folderu %s"
 
+msgid "Plugin"
+msgstr "Wtyczka"
+
+msgid "Language"
+msgstr "Język"
+
+msgid "Information"
+msgstr "Informacje"
+
 msgid "%s sentences have been translated (i.e. %s)."
 msgstr "Przetłumaczono %s pól (czyli %s)"
+
+msgid "Delete"
+msgstr "Usuń"
 
 msgid "See the new translation file and merge"
 msgstr "Otwórz nowe tłumaczenie i połącz"
 
 msgid "%s sentences have been newly translated and %s sentences have been modified (the old file has %s translated sentences)."
-msgstr "%s pól zostało właśnie przetłumaczonych i %s pól zostało zmodyfikowanych (poprzednie tłumaczenie miało %s przetłumaczonych %s pól)"
+msgstr "%s pól zostało właśnie przetłumaczonych i %s pól zostało zmodyfikowanych (poprzednie tłumaczenie miało przetłumaczonych %s pól)"
 
 msgid "See the modifications/new translations and Merge"
 msgstr "Zobacz nowo przetłumaczone i zmodyfikowane pola i scal"
@@ -369,6 +261,9 @@ msgstr "Nowe pole"
 
 msgid "To replace?"
 msgstr "Zastąpić?"
+
+msgid "Merge"
+msgstr "Scal"
 
 msgid "%s sentences have been translated (i.e. %s) %s %s sentences have to be checked because they are close (but not identical) to those to translate.%s"
 msgstr "Przetłumaczono %s pól (czyli %s) Należy sprawdzić %s %s pól, ponieważ są zbliżone do pól źródłowych.%s"
@@ -403,8 +298,14 @@ msgstr "Jeśli nie chcesz stracić tłumaczeń przy aktualizacji wtyczki, wyśli
 msgid "If you do not want to loose your translations on the next upgrading of this plugin, please save them on your hard disk before upgrading and then restore them after the upgrade !"
 msgstr "Jeśli nie chcesz stracić tłumaczeń przy aktualizacji wtyczki, zapisz je na dysku i przywróć po aktualizacji"
 
+msgid "Summary cached %s"
+msgstr ""
+
 msgid "The sentences used in this plugin are in English. Help the others users using the same language as you by translating this plugin."
 msgstr "Wtyczka jest w języku angielskim. Przetłumacz ją na swój język."
+
+msgid "This plugin is available in %d languages."
+msgstr "Wtyczka ma %d tłumaczeń"
 
 msgid "There are %d sentences to be translated in this plugin."
 msgstr "W tej wtyczce jest %d pól"
@@ -412,14 +313,26 @@ msgstr "W tej wtyczce jest %d pól"
 msgid "Ratio %"
 msgstr "% przetłumaczonych pól"
 
+msgid "Translators"
+msgstr "Tłumacz"
+
 msgid "This is the default language of the plugin. It cannot be modified."
 msgstr "To jest domyślny język wtyczki. Nie podlega tłumaczeniu"
+
+msgid "Modify"
+msgstr "Modyfikuj"
 
 msgid "Send to the author of the plugin"
 msgstr "Wyślij autorowi wtyczki"
 
+msgid "Add a new translation"
+msgstr "Dodaj nowe tłumaczenie"
+
 msgid "You may add a new translation hereafter (Please note that it is recommended to send your translation to the author so that he would be able to add your translation to the future release of the plugin !)"
 msgstr "Tutaj możesz dodać nowe tłumaczenie (zaleca się wysłanie tłumaczenia autorowi wtyczki, aby mógł on je dołączyć do następnego wydania wtyczki!)"
+
+msgid "Add"
+msgstr "Dodaj"
 
 msgid "The 'SL framework' is a framework used for developping many plugins like this one. Thus, if you participate translating the framework, it will be very helpful for a bunch of plugins."
 msgstr "Platforma SL służy do rozwoju wielu  wtyczek podobnych do tej. Jeśli przetłumaczysz rdzeń SL wspomoże to rozwój tłumaczeń dla innych wtyczek z rodziny SL."
@@ -448,14 +361,29 @@ msgstr "Daj mi znać"
 msgid "This form is an easy way to contact the author and to discuss issues/incompatibilities/etc. with him"
 msgstr "Ten formularz pozwala skontaktować się z autorem w sprawie błędów / kompatybilności etc."
 
+msgid "Contact the author"
+msgstr "Kontakt z autorem"
+
+msgid "Your email:"
+msgstr "Twój email:"
+
 msgid "Useful... so that the author will be able to anwser you."
 msgstr "Wymagane aby autor mógł Ci odpowiedzieć"
+
+msgid "Your comments:"
+msgstr "Twój komentarz:"
 
 msgid "Please note that additional information on your wordpress installation will be sent to the author in order to help the debugging if needed (such as : the wordpress version, the installed plugins, etc.)"
 msgstr "Uwaga: Aby ułatwić debugowanie, do formularza zostaną dołączone informacje dotyczące Twojej instalacji Wordpressa (wersja wordpressa, zainstalowane wtyczki etc.)"
 
+msgid "Send feedback"
+msgstr "Wyślij"
+
 msgid "No email have been provided for the author of this plugin. Therefore, the feedback is impossible"
 msgstr "Nie podano adresu e-mail nadawcy. Wiadomość nie została wysłana!"
+
+msgid "The feedback has been sent"
+msgstr "Wysłano"
 
 msgid "Plugins that you may install"
 msgstr "Inne wtyczki autora"
@@ -463,11 +391,26 @@ msgstr "Inne wtyczki autora"
 msgid "The following plugins have been developed by the author and are not yet installed:"
 msgstr "Następujące wtyczki autora nie zostały jeszcze zainstalowane."
 
+msgid "Plugin not yet installed"
+msgstr "Wtyczka nie zainstalowana"
+
+msgid "Description and Screenshots"
+msgstr "Opis i screeny"
+
 msgid "All author's plugins have been installed. Thank you!"
 msgstr "Zainstalowano wszystkie wtyczki tego autora! Dziękujemy!"
 
+msgid "Installed plugins"
+msgstr "Zainstalowane wtyczki"
+
+msgid "You have already installed the following author's plugins:"
+msgstr "Masz już zainstalowane następujące wtyczki autora"
+
+msgid "Plugin already installed"
+msgstr "Wtyczka zainstalowana"
+
 msgid "The Wordpress page: %s"
-msgstr "Strona Wordpressa"
+msgstr "Strona Wordpressa: %s"
 
 msgid "An Unexpected HTTP Error occurred during the API request."
 msgstr "Wystąpił nieoczekiwany błąd HTTP podczas próby uzyskania numeru API."

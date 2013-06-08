@@ -171,47 +171,59 @@ if (!class_exists("translationSL")) {
 		*/
 
 		static function translate_add () {
-			echo "<hr/>" ;
-			require('translation.inc.php') ;
-			// We sanitize the language
-			$code = preg_replace("/[^a-zA-Z_]/","",$_POST['idLink']) ; 
-			$domain = preg_replace("/[^a-zA-Z0-9_-]/","",$_POST['domain']) ; 
-			$plugin = preg_replace("/[^a-zA-Z0-9_-]/","",$_POST['plugin']) ; 
-			$isFramework = $_POST['isFramework'] ; 
-			$native = $code_locales[$code]['lang-native'] ; 
+			ob_start() ; 	
+				require('translation.inc.php') ;
+				// We sanitize the language
+				$code = preg_replace("/[^a-zA-Z_]/","",$_POST['idLink']) ; 
+				$domain = preg_replace("/[^a-zA-Z0-9_-]/","",$_POST['domain']) ; 
+				$plugin = preg_replace("/[^a-zA-Z0-9_-]/","",$_POST['plugin']) ; 
+				$isFramework = $_POST['isFramework'] ; 
+				$native = $code_locales[$code]['lang-native'] ; 
 			
-			$plugin_lien = $plugin ; 
+				$plugin_lien = $plugin ; 
 
-			echo "<h3>".sprintf(__('Adding a new translation for this language: %s','SL_framework'),"$native ($code)")."</h3>" ; 
+				echo "<h3>".sprintf(__('Adding a new translation for this language: %s','SL_framework'),"$native ($code)")."</h3>" ; 
 			
-			// Create the table
-			$table = new adminTable() ;
-			$table->title (array(__('Sentence to translate','SL_framework'), __('Translation','SL_framework'))) ; 
-			$table->removeFooter() ;
-			if ($isFramework!='false') {
-				$content_pot = file(WP_PLUGIN_DIR."/".$isFramework."/core/lang/SL_framework.pot") ;
-			} else {
-				$content_pot = file(WP_PLUGIN_DIR."/".$plugin."/lang/".$domain .".pot") ;
-			}
-			$i=0 ; 
-			foreach ($content_pot as $ligne) {
-				if (preg_match("/^msgid \\\"(.*)\\\"$/", trim($ligne), $match)) {
-					$cel1 = new adminCell(htmlentities($match[1])) ;
-					$cel2 = new adminCell("<input id='trad".$i."' type='text' name='trad".$i."' value='' style='width:100%' />") ;
-					$table->add_line(array($cel1, $cel2), '1') ;
-					$i++ ; 
+				// Create the table
+				$table = new adminTable() ;
+				$table->title (array(__('Sentence to translate','SL_framework'), __('Translation','SL_framework'))) ; 
+				$table->removeFooter() ;
+				if ($isFramework!='false') {
+					if (is_file(WP_PLUGIN_DIR."/".$isFramework."/core/lang/SL_framework.pot")) {
+						$content_pot = file(WP_PLUGIN_DIR."/".$isFramework."/core/lang/SL_framework.pot") ;
+					} else {
+						$content_pot = array() ; 
+					}
+				} else {
+					if (is_file(WP_PLUGIN_DIR."/".$plugin."/lang/".$domain .".pot")) {
+						$content_pot = file(WP_PLUGIN_DIR."/".$plugin."/lang/".$domain .".pot") ;
+					} else {
+						$content_pot = array() ; 
+					}
 				}
-			}
-			echo $table->flush() ;
+				$i=0 ; 
+				foreach ($content_pot as $ligne) {
+					if (preg_match("/^msgid \\\"(.*)\\\"$/", trim($ligne), $match)) {
+						$cel1 = new adminCell("<p>".($i+1).") <i>".htmlentities($match[1])."</i></p>") ;
+						$cel2 = new adminCell("<input id='trad".$i."' type='text' name='trad".$i."' value='' style='width:100%' />") ;
+						$table->add_line(array($cel1, $cel2), '1') ;
+						$i++ ; 
+					}
+				}
+				echo $table->flush() ;
 			
-			$options = get_option('SL_framework_options');
-			echo "<p>".__('Your name:','SL_framework')." <input id='nameAuthor' type='text' name='nameAuthor' value='".$options['nameTranslator']."'/> ".__('(if your name/pseudo is already in the list, there is no need to fill this input)','SL_framework')."</p>" ; 
-			echo "<p>".__('Your email or your website:','SL_framework')." <input id='emailAuthor' type='text' name='emailAuthor' value='".$options['emailTranslator']."'/></p>" ; 
+				$options = get_option('SL_framework_options');
+				echo "<p>".__('Your name:','SL_framework')." <input id='nameAuthor' type='text' name='nameAuthor' value='".$options['nameTranslator']."'/> ".__('(if your name/pseudo is already in the list, there is no need to fill this input)','SL_framework')."</p>" ; 
+				echo "<p>".__('Your email or your website:','SL_framework')." <input id='emailAuthor' type='text' name='emailAuthor' value='".$options['emailTranslator']."'/></p>" ; 
 			
-			echo "<input type='submit' name='create' class='button-primary validButton' onclick='translate_create(\"".$plugin_lien."\",\"".$domain."\", \"".$isFramework."\", \"".$code."\", $i);return false;' value='".__('Create the translation files','SL_framework')."' />" ; 
-			$x = WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)) ; 
-			echo "<img id='wait_translation_create' src='".$x."/img/ajax-loader.gif' style='display:none;'>" ; 
-
+				echo "<input type='submit' name='create' class='button-primary validButton' onclick='translate_create(\"".$plugin_lien."\",\"".$domain."\", \"".$isFramework."\", \"".$code."\", $i);return false;' value='".__('Create the translation files','SL_framework')."' />" ; 
+				$x = WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)) ; 
+				echo "<img id='wait_translation_create' src='".$x."/img/ajax-loader.gif' style='display:none;'>" ; 
+			
+			$content = ob_get_clean() ; 
+			$popup = new popupAdmin (__("Add a new translation", 'SL_framework'), $content) ; 
+			echo $popup->render() ;
+			
 			//Die in order to avoid the 0 character to be printed at the end
 			die() ; 
 		}
@@ -224,104 +236,120 @@ if (!class_exists("translationSL")) {
 		*/
 
 		static function translate_modify () {
-			echo "<hr/>" ;
-			require('translation.inc.php') ;
-			// We sanitize the language
-			$lang = preg_replace("/[^a-zA-Z_]/","",$_POST['lang']) ; 
-			$domain = preg_replace("/[^a-zA-Z0-9_-]/","",$_POST['domain']) ; 
-			$plugin = preg_replace("/[^a-zA-Z0-9_-]/","",$_POST['plugin']) ; 
-			$native = $code_locales[$lang]['lang-native'] ; 
-			$isFramework = $_POST['isFramework'] ; 
 			
-			$plugin_lien = $plugin ; 
+			ob_start() ; 
+				require('translation.inc.php') ;
+				// We sanitize the language
+				$lang = preg_replace("/[^a-zA-Z_]/","",$_POST['lang']) ; 
+				$domain = preg_replace("/[^a-zA-Z0-9_-]/","",$_POST['domain']) ; 
+				$plugin = preg_replace("/[^a-zA-Z0-9_-]/","",$_POST['plugin']) ; 
+				$actionOnClose = preg_replace("/[^a-zA-Z0-9_-]/","",$_POST['actionOnClose']) ; 
+				$native = $code_locales[$lang]['lang-native'] ; 
+				$isFramework = $_POST['isFramework'] ; 
 			
-			echo "<h3>".sprintf(__('Modifying the translation for this language: %s','SL_framework'), "$native ($lang)")."</h3>" ; 
+				$plugin_lien = $plugin ; 
 			
-			// Create the table
-			$table = new adminTable() ;
-			$table->title (array(__('Sentence to translate','SL_framework'), __('Translation','SL_framework'))) ; 
-			$table->removeFooter() ;
-			if ($isFramework!='false') {
-				$content_pot = file(WP_PLUGIN_DIR."/".$isFramework."/core/lang/SL_framework.pot") ;
-				$content_po = file(WP_PLUGIN_DIR."/".$isFramework."/core/lang/SL_framework-".$lang.".po") ;
-			} else {
-				$content_pot = file(WP_PLUGIN_DIR."/".$plugin."/lang/".$domain .".pot") ;
-				$content_po = file(WP_PLUGIN_DIR."/".$plugin."/lang/".$domain ."-".$lang.".po") ;			
-			}
+				echo "<h3>".sprintf(__('Modifying the translation for this language: %s','SL_framework'), "$native ($lang)")."</h3>" ; 
 			
-			$i=0 ; 
-			
-			// We build an array with all the sentences for pot
-			$pot_array = array() ; 
-			foreach ($content_pot as $ligne_pot) {
-				if (preg_match("/^msgid \\\"(.*)\\\"$/", trim($ligne_pot), $match)) {
-					$pot_array[md5(trim($match[1]))] = trim($match[1]) ; 			
-				}
-			}	
-
-			// We build an array with all the sentences for po
-			$po_array = array() ; 
-			$msgid = "" ; 
-			foreach ($content_po as $ligne_po) {
-				if (preg_match("/^msgid \\\"(.*)\\\"$/", trim($ligne_po), $match)) {
-					$msgid = $match[1] ; 			
-				} else if (preg_match("/^msgstr \\\"(.*)\\\"$/", trim($ligne_po), $match)) {
-					if (trim($match[1])!="") {
-						$po_array[md5(trim($msgid))] = array(trim($msgid),trim($match[1])) ; 	
-					}
-				}
-			}		
-			
-			$i=0 ;  
-			
-			// We display text translation
-			foreach ($pot_array as $md5 => $ligne) {
-				if (!isset($po_array[$md5])) {
-					$cel1 = new adminCell(($i+1)." => <b>".htmlentities($ligne)."</b>") ;
-					// We search for the levenstein match between the pot and the po file
-					$close = "" ; 
-					foreach ($po_array as $ligne_po) {
-						//if ($ligne!=$ligne_po[0]) {
-							$cl = levenshtein ($ligne, $ligne_po[0]) ; 
-							if ($cl/strlen($ligne)*100 < 10) {
-								if ($close=="")
-									$close .= $ligne_po[1] ; 
-								else 
-									$close .= " / ". $ligne_po[1] ; 
-							}
-						//}
-					}
-					if ($close=="")
-						$cel2 = new adminCell("<input id='trad".$i."' type='text' name='trad".$i."' value='' style='width:100%' />") ;
-					else 
-						$cel2 = new adminCell("<input id='trad".$i."' type='text' name='trad".$i."' value='' style='width:100%' /><br/><p style='color:#BBBBBB'>".$close."</p>") ;
-					$table->add_line(array($cel1, $cel2), '1') ;
-					$i++ ; 
+				// Create the table
+				$table = new adminTable() ;
+				$table->title (array(__('Sentence to translate','SL_framework'), __('Translation','SL_framework'))) ; 
+				$table->removeFooter() ;
+				if ($isFramework!='false') {
+					$content_pot = file(WP_PLUGIN_DIR."/".$isFramework."/core/lang/SL_framework.pot") ;
+					$content_po = file(WP_PLUGIN_DIR."/".$isFramework."/core/lang/SL_framework-".$lang.".po") ;
 				} else {
-					list($text,$value) = $po_array[$md5] ; 
-					// Convert the value in UTF8 if needed
-					if (!seems_utf8($value)) {
-						$value = utf8_encode($value) ; 
+					$content_pot = file(WP_PLUGIN_DIR."/".$plugin."/lang/".$domain .".pot") ;
+					$content_po = file(WP_PLUGIN_DIR."/".$plugin."/lang/".$domain ."-".$lang.".po") ;			
+				}
+			
+				$i=0 ; 
+			
+				// We build an array with all the sentences for pot
+				$pot_array = array() ; 
+				foreach ($content_pot as $ligne_pot) {
+					if (preg_match("/^msgid \\\"(.*)\\\"$/", trim($ligne_pot), $match)) {
+						$pot_array[md5(trim($match[1]))] = trim($match[1]) ; 			
 					}
-					$cel1 = new adminCell(($i+1)." => ".htmlentities($ligne)) ;
-					$cel2 = new adminCell("<input id='trad".$i."' type='text' name='trad".$i."' value='".$value."' style='width:100%' />") ;
-					$table->add_line(array($cel1, $cel2), '1') ;
-					$i++ ; 
+				}	
+
+				// We build an array with all the sentences for po
+				$po_array = array() ; 
+				$msgid = "" ; 
+				foreach ($content_po as $ligne_po) {
+					if (preg_match("/^msgid \\\"(.*)\\\"$/", trim($ligne_po), $match)) {
+						$msgid = $match[1] ; 			
+					} else if (preg_match("/^msgstr \\\"(.*)\\\"$/", trim($ligne_po), $match)) {
+						if (trim($match[1])!="") {
+							$po_array[md5(trim($msgid))] = array(trim($msgid),trim($match[1])) ; 	
+						}
+					}
+				}		
+			
+				$i=0 ;  
+			
+				// We display text translation
+				foreach ($pot_array as $md5 => $ligne) {
+					if (!isset($po_array[$md5])) {
+						$cel1 = new adminCell("<p>".($i+1).") <b style='color:#000099'>".htmlentities($ligne)."</b></p>") ;
+						// We search for the levenstein match between the pot and the po file
+						$close = "" ; 
+						foreach ($po_array as $ligne_po) {
+							//if ($ligne!=$ligne_po[0]) {
+								$cl = levenshtein ($ligne, $ligne_po[0]) ; 
+								if ($cl/strlen($ligne)*100 < 10) {
+									if ($close=="")
+										$close .= $ligne_po[1] ; 
+									else 
+										$close .= " / ". $ligne_po[1] ; 
+								}
+							//}
+						}
+						if ($close=="")
+							$cel2 = new adminCell("<input id='trad".$i."' type='text' name='trad".$i."' value='' style='width:100%' />") ;
+						else 
+							$cel2 = new adminCell("<input id='trad".$i."' type='text' name='trad".$i."' value='' style='width:100%' /><br/><p style='color:#BBBBBB'>".$close."</p>") ;
+						$table->add_line(array($cel1, $cel2), '1') ;
+						$i++ ; 
+					} else {
+						list($text,$value) = $po_array[$md5] ; 
+						// Convert the value in UTF8 if needed
+						if (!seems_utf8($value)) {
+							$value = utf8_encode($value) ; 
+						}
+						// Count %s
+						$count1 = substr_count($text, "%s") ; 
+						$count2 = substr_count($value, "%s") ;
+					
+						if (($count1==$count2)||(trim($value)=="")) {
+							$cel1 = new adminCell("<p>".($i+1).") <i>".htmlentities($ligne)."</i></p>") ;
+						} else {
+							$cel1 = new adminCell("<p>".($i+1).") <i>".htmlentities($ligne)."</i></p><p style='color:#AA0000'><b>".__('The number of occurrence of %s does not match in both string. Please note that the string %s will be replaced with a contextual string.','SL_framework')."</b></p>") ;
+						}
+						$cel2 = new adminCell("<input id='trad".$i."' type='text' name='trad".$i."' value='".$value."' style='width:100%' />") ;
+						$table->add_line(array($cel1, $cel2), '1') ;
+						$i++ ; 
+					}
 				}
 
-			}
-
 			
-			echo $table->flush() ;
+				echo $table->flush() ;
 			
-			$options = get_option('SL_framework_options');
-			echo "<p>".__('Your name:','SL_framework')." <input id='nameAuthor' type='text' name='nameAuthor' value='".$options['nameTranslator']."'/></p>" ; 
-			echo "<p>".__('Your email or your website:','SL_framework')." <input id='emailAuthor' type='text' name='emailAuthor' value='".$options['emailTranslator']."'/></p>" ; 
+				$options = get_option('SL_framework_options');
+				echo "<p>".__('Your name:','SL_framework')." <input id='nameAuthor' type='text' name='nameAuthor' value='".$options['nameTranslator']."'/></p>" ; 
+				echo "<p>".__('Your email or your website:','SL_framework')." <input id='emailAuthor' type='text' name='emailAuthor' value='".$options['emailTranslator']."'/></p>" ; 
 			
-			echo "<input type='submit' name='create' class='button-primary validButton' onclick='translate_save_after_modification(\"".$plugin_lien."\",\"".$domain."\",\"".$isFramework."\",\"".$lang."\", $i);return false;' value='".__('Modify the translation files','SL_framework')."' />" ; 
-			$x = WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)) ; 
-			echo "<img id='wait_translation_modify' src='".$x."/img/ajax-loader.gif' style='display:none;'>" ; 
-
+				if ($actionOnClose == "") {
+					echo "<input type='submit' name='create' class='button-primary validButton' onclick='translate_save_after_modification(\"".$plugin_lien."\",\"".$domain."\",\"".$isFramework."\",\"".$lang."\", $i);return false;' value='".__('Modify the translation files','SL_framework')."' />" ; 
+				} else {
+					echo "<input type='submit' name='create' class='button-primary validButton' onclick='".$actionOnClose."(\"".$plugin_lien."\",\"".$domain."\",\"".$isFramework."\",\"".$lang."\", $i);return false;' value='".__('Modify the translation files','SL_framework')."' />" ; 
+				}
+				$x = WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)) ; 
+				echo "<img id='wait_translation_modify' src='".$x."/img/ajax-loader.gif' style='display:none;'>" ; 
+			
+			$content = ob_get_clean() ; 
+			$popup = new popupAdmin (__("Modify translations", 'SL_framework'), $content) ; 
+			echo $popup->render() ; 
 			//Die in order to avoid the 0 character to be printed at the end
 			die() ; 
 		}
@@ -485,75 +513,80 @@ if (!class_exists("translationSL")) {
 		* @return void
 		*/
 		static function send_translation() {
-			require('translation.inc.php') ;
-			// We sanitize the language
-			$lang = preg_replace("/[^a-zA-Z_]/","",$_POST['lang']) ; 
-			$domain = preg_replace("/[^a-zA-Z0-9_-]/","",$_POST['domain']) ; 
-			$isFramework = $_POST['isFramework'] ; 
-			$plugin = preg_replace("/[^a-zA-Z0-9_-]/","",$_POST['plugin']) ; 
-			$native = $code_locales[$lang]['lang-native'] ; 
+			ob_start() ; 
+				require('translation.inc.php') ;
+				// We sanitize the language
+				$lang = preg_replace("/[^a-zA-Z_]/","",$_POST['lang']) ; 
+				$domain = preg_replace("/[^a-zA-Z0-9_-]/","",$_POST['domain']) ; 
+				$isFramework = $_POST['isFramework'] ; 
+				$plugin = preg_replace("/[^a-zA-Z0-9_-]/","",$_POST['plugin']) ; 
+				$native = $code_locales[$lang]['lang-native'] ; 
 			
-			$plugin_lien = $plugin ; 
+				$plugin_lien = $plugin ; 
 			
-			$info_file = pluginSedLex::get_plugins_data(WP_PLUGIN_DIR."/".$plugin."/".$plugin.".php") ; 
-			if ($isFramework!='false') {
-				$to = $info_file['Framework_Email'] ; 
-			} else {
-				$to = $info_file['Email'] ; 
-			}
-			if ($isFramework!='false') {
-				$subject = "[Framework] New translation (".$lang.")" ; 
-				$info = translationSL::get_info(file(WP_PLUGIN_DIR."/".$isFramework."/core/lang/SL_framework-".$lang.".po"), file(WP_PLUGIN_DIR."/".$isFramework."/core/lang/SL_framework.pot")) ; 
-			} else {
-				$subject = "[".ucfirst($plugin)."] New translation (".$lang.")" ; 
-				$info = translationSL::get_info(file(WP_PLUGIN_DIR."/".$plugin."/lang/".$domain ."-".$lang.".po"), file(WP_PLUGIN_DIR."/".$plugin."/lang/".$domain.".pot")) ; 
-			}
+				$info_file = pluginSedLex::get_plugins_data(WP_PLUGIN_DIR."/".$plugin."/".$plugin.".php") ; 
+				if ($isFramework!='false') {
+					$to = $info_file['Framework_Email'] ; 
+				} else {
+					$to = $info_file['Email'] ; 
+				}
+				if ($isFramework!='false') {
+					$subject = "[Framework] New translation (".$lang.")" ; 
+					$info = translationSL::get_info(file(WP_PLUGIN_DIR."/".$isFramework."/core/lang/SL_framework-".$lang.".po"), file(WP_PLUGIN_DIR."/".$isFramework."/core/lang/SL_framework.pot")) ; 
+				} else {
+					$subject = "[".ucfirst($plugin)."] New translation (".$lang.")" ; 
+					$info = translationSL::get_info(file(WP_PLUGIN_DIR."/".$plugin."/lang/".$domain ."-".$lang.".po"), file(WP_PLUGIN_DIR."/".$plugin."/lang/".$domain.".pot")) ; 
+				}
 						
-			$message = "" ; 
-			$message .= "<p>"."Dear sirs,"."</p><p>&nbsp;</p>" ; 
-			$message .= "<p>"."Here is attached a new translation ($native)"."</p><p>&nbsp;</p>" ; 
-			if ($info['close']==0) {
-				$message .= "<p>".(sprintf(__("%s sentences have been translated (i.e. %s).",'SL_framework'), "<b>".$info['translated']."/".$info['total']."</b>", "<b>".(floor($info['translated']/$info['total']*1000)/10)."%</b>"))."</p>" ;  
-			} else { 
-				$message .= "<p>".(sprintf(__("%s sentences have been translated (i.e. %s) %s %s sentences have to be checked because they are close (but not identical) to those to translate.%s",'SL_framework'), "<b>".$info['translated']."/".$info['total']."</b>", "<b>".(floor($info['translated']/$info['total']*1000)/10)."%</b>", "<span style='color:#CCCCCC'>", $info['close'], "</span>"))."</p>" ;  
-			}
-			$message .= "<p>"."Translators: ".$info['translators']."</p><p>&nbsp;</p>" ; 
-			$message .= "<p>"."Best regards,"."</p><p>&nbsp;</p>" ; 
+				$message = "" ; 
+				$message .= "<p>"."Dear sirs,"."</p><p>&nbsp;</p>" ; 
+				$message .= "<p>"."Here is attached a new translation ($native)"."</p><p>&nbsp;</p>" ; 
+				if ($info['close']==0) {
+					$message .= "<p>".(sprintf(__("%s sentences have been translated (i.e. %s).",'SL_framework'), "<b>".$info['translated']."/".$info['total']."</b>", "<b>".(floor($info['translated']/$info['total']*1000)/10)."%</b>"))."</p>" ;  
+				} else { 
+					$message .= "<p>".(sprintf(__("%s sentences have been translated (i.e. %s) %s %s sentences have to be checked because they are close (but not identical) to those to translate.%s",'SL_framework'), "<b>".$info['translated']."/".$info['total']."</b>", "<b>".(floor($info['translated']/$info['total']*1000)/10)."%</b>", "<span style='color:#CCCCCC'>", $info['close'], "</span>"))."</p>" ;  
+				}
+				$message .= "<p>"."Translators: ".$info['translators']."</p><p>&nbsp;</p>" ; 
+				$message .= "<p>"."Best regards,"."</p><p>&nbsp;</p>" ; 
 			
 			
-			$message .= "<p>"."* Accounts *</p>" ; 
-			$message .= "<p>"."**************************************** </p>" ; 
-			$admin = get_userdata(1);
-			$message .= "<p>"."Admin User Name: " . $admin->display_name ."</p>" ;
-			$message .= "<p>"."Admin User Login: " . $admin->user_login."</p>" ;
-			$message .= "<p>"."Admin User Mail: " . $admin->user_email."</p>" ;
-			$current_user = wp_get_current_user();
-			$message .= "<p>"."Logged User Name: " . $current_user->display_name ."</p>" ;
-			$message .= "<p>"."Logged User Login: " . $current_user->user_login."</p>" ;
-			$message .= "<p>"."Logged User Mail: " . $current_user->user_email."</p>" ;
+				$message .= "<p>"."* Accounts *</p>" ; 
+				$message .= "<p>"."**************************************** </p>" ; 
+				$admin = get_userdata(1);
+				$message .= "<p>"."Admin User Name: " . $admin->display_name ."</p>" ;
+				$message .= "<p>"."Admin User Login: " . $admin->user_login."</p>" ;
+				$message .= "<p>"."Admin User Mail: " . $admin->user_email."</p>" ;
+				$current_user = wp_get_current_user();
+				$message .= "<p>"."Logged User Name: " . $current_user->display_name ."</p>" ;
+				$message .= "<p>"."Logged User Login: " . $current_user->user_login."</p>" ;
+				$message .= "<p>"."Logged User Mail: " . $current_user->user_email."</p>" ;
 			
 			
-			$headers= "MIME-Version: 1.0\n" .
-					"Content-Type: text/html; charset=\"" .
-					get_option('blog_charset') . "\"\n";
+				$headers= "MIME-Version: 1.0\n" .
+						"Content-Type: text/html; charset=\"" .
+						get_option('blog_charset') . "\"\n";
 					
-			if ($isFramework!='false') {
-				$attachments = array(WP_PLUGIN_DIR."/".$isFramework."/core/lang/SL_framework-".$lang.".po",WP_PLUGIN_DIR."/".$isFramework."/core/lang/SL_framework-".$lang.".mo");
-			} else {
-				$attachments = array(WP_PLUGIN_DIR."/".$plugin."/lang/".$domain ."-".$lang.".po",WP_PLUGIN_DIR."/".$plugin."/lang/".$domain ."-".$lang.".mo");
-			}
-			// send the email
-			if (wp_mail( $to, $subject, $message, $headers, $attachments )) {
-				SL_Debug::log(get_class(), "Send the translation ".$attachments[0]." to ".$to, 4) ; 
-				echo "<div class='updated  fade'>" ; 
-				echo "<p>".sprintf(__("The translation %s have been sent", 'SL_framework'), "$lang ($native)")."</p>" ; 
-				echo "</div>" ; 
-			} else {
-				SL_Debug::log(get_class(), "The translation ".$attachments[0]." cannot be send to ".$to, 2) ; 
-				echo "<div class='error  fade'>" ; 
-				echo "<p>".__("An error occured sending the email.", 'SL_framework')."</p><p>".__("Make sure that your wordpress is able to send email.", 'SL_framework')."</p>" ; 
-				echo "</div>" ; 			
-			}
+				if ($isFramework!='false') {
+					$attachments = array(WP_PLUGIN_DIR."/".$isFramework."/core/lang/SL_framework-".$lang.".po",WP_PLUGIN_DIR."/".$isFramework."/core/lang/SL_framework-".$lang.".mo");
+				} else {
+					$attachments = array(WP_PLUGIN_DIR."/".$plugin."/lang/".$domain ."-".$lang.".po",WP_PLUGIN_DIR."/".$plugin."/lang/".$domain ."-".$lang.".mo");
+				}
+				// send the email
+				if (wp_mail( $to, $subject, $message, $headers, $attachments )) {
+					SL_Debug::log(get_class(), "Send the translation ".$attachments[0]." to ".$to, 4) ; 
+					echo "<div class='updated  fade'>" ; 
+					echo "<p>".sprintf(__("The translation %s have been sent", 'SL_framework'), "$lang ($native)")."</p>" ; 
+					echo "</div>" ; 
+				} else {
+					SL_Debug::log(get_class(), "The translation ".$attachments[0]." cannot be send to ".$to, 2) ; 
+					echo "<div class='error  fade'>" ; 
+					echo "<p>".__("An error occured sending the email.", 'SL_framework')."</p><p>".__("Make sure that your wordpress is able to send email.", 'SL_framework')."</p>" ; 
+					echo "</div>" ; 			
+				}
+			
+			$content = ob_get_clean() ; 
+			$popup = new popupAdmin (__("Send translation", 'SL_framework'), $content) ; 
+			echo $popup->render() ;
 
 			//Die in order to avoid the 0 character to be printed at the end
 			die() ;
@@ -575,22 +608,22 @@ if (!class_exists("translationSL")) {
 			$name = preg_replace("/[^a-zA-Z0-9_.-]/","",$_POST['name']) ; 
 			$email = preg_replace("/[^:\/a-z0-9@A-Z_.-=&?!-]/","",$_POST['email']) ; 
 			$isFramework = $_POST['isFramework'] ; 
-			
+		
 			$plugin_lien = $plugin ; 
-			
+		
 			if ($isFramework!='false') {
 				$plugin = explode("/",str_replace(basename( __FILE__),"",plugin_basename(__FILE__))); 
 				$plugin = $plugin[0] ; 
 				$path = WP_PLUGIN_DIR."/".$plugin ; 
 			}
-			
+		
 			$trad = $_POST['idLink']; 
-			
+		
 			$options = get_option('SL_framework_options');
 			$options['nameTranslator'] = $name ; 
 			$options['emailTranslator'] = $email ; 
 			update_option('SL_framework_options', $options);
-			
+		
 			// We generate a new PO file
 			$old_po = array() ; 
 			$delete = false ; 
@@ -609,7 +642,7 @@ if (!class_exists("translationSL")) {
 					$delete = true ; 
 				}
 			}
-			
+		
 			if ($isFramework!='false') {
 				$handle = @fopen(WP_PLUGIN_DIR."/".$isFramework."/core/lang/SL_framework-".$lang.".po", "wb");
 			} else {
@@ -661,14 +694,22 @@ if (!class_exists("translationSL")) {
 			$content .= "\"X-Textdomain-Support: yes\\n\"\n\n" ; 
 			fwrite($handle, $content);
 			if ($isFramework!='false') {
-				$content_pot = file(WP_PLUGIN_DIR."/".$isFramework."/core/lang/SL_framework.pot") ;
+				if (is_file(WP_PLUGIN_DIR."/".$isFramework."/core/lang/SL_framework.pot")) {
+					$content_pot = file(WP_PLUGIN_DIR."/".$isFramework."/core/lang/SL_framework.pot") ;
+				} else {
+					$content_pot=array() ; 
+				}
 			} else {
-				$content_pot = file(WP_PLUGIN_DIR."/".$plugin."/lang/".$domain .".pot") ;
+				if (is_file(WP_PLUGIN_DIR."/".$plugin."/lang/".$domain .".pot")) {
+					$content_pot = file(WP_PLUGIN_DIR."/".$plugin."/lang/".$domain .".pot") ;
+				} else {
+					$content_pot=array() ; 
+				}
 			}
 			$i=0 ; 
-			
+		
 			$hash = array() ; 
-			
+		
 			$nb_real_entries = 0 ; 
 			foreach ($content_pot as $ligne) {
 				if (preg_match("/^#(.*)$/", trim($ligne), $match)) {
@@ -676,7 +717,7 @@ if (!class_exists("translationSL")) {
 				}
 				if (preg_match("/^msgid \\\"(.*)\\\"$/", trim($ligne), $match)) {
 					fwrite($handle,'msgid "'.$match[1].'"'."\n" ); 
-					
+				
 					$trad[$i] = stripslashes($trad[$i]) ; 
 					$to_store = htmlspecialchars(htmlspecialchars_decode($trad[$i], ENT_QUOTES), ENT_QUOTES) ; 
 					$to_store = str_replace("&gt;", ">", $to_store) ; 
@@ -690,10 +731,10 @@ if (!class_exists("translationSL")) {
 				}
 			}
 			fclose($handle);	
-			
+		
 			if ($nb_real_entries==0) {
 				translationSL::summary_translations() ; 
-				
+			
 				echo "<div class='updated  fade'>" ; 
 				echo "<p>".sprintf(__("%s file cannot be created for %s as there is no translated sentence. Please, translate at least one sentence to create a file", 'SL_framework'), "<code>SL_framework-".$lang.".po</code>", $code_locales[$lang]['lang-native'])."</p>" ; 
 				echo "</div>" ; 
@@ -704,9 +745,11 @@ if (!class_exists("translationSL")) {
 				} else {
 					translationSL::phpmo_write_mo_file($hash,WP_PLUGIN_DIR."/".$plugin."/lang/".$domain ."-".$lang.".mo") ; 
 				}
-				
+			
 				translationSL::summary_translations() ; 
-				
+			}
+			
+			ob_start() ;	
 				echo "<div class='updated  fade'>" ; 
 				if ($delete==true) {
 					if ($isFramework!='false') {
@@ -725,9 +768,9 @@ if (!class_exists("translationSL")) {
 						echo "<p>".sprintf(__("%s file has been created from this file", 'SL_framework'), "<code>".$domain ."-".$lang.".mo</code>")."</p>" ; 								
 					}
 				}
-				
+		
 				// We propose to send the translation
-				
+		
 				$info_file = pluginSedLex::get_plugins_data(WP_PLUGIN_DIR."/".$plugin."/".$plugin.".php") ; 
 				$isEmailAuthor = false ; 
 				if ($isFramework!='false') {
@@ -746,9 +789,13 @@ if (!class_exists("translationSL")) {
 				} else {
 					echo "<p><img src='".WP_PLUGIN_URL."/".$plugin."/core/img/warning.png'/>".__("If you do not want to loose your translations on the next upgrading of this plugin, please save them on your hard disk before upgrading and then restore them after the upgrade !", 'SL_framework')."</p>";
 				}
-				
+		
 				echo "</div>" ; 
-			}
+				
+			$content = ob_get_clean() ; 
+			$popup = new popupAdmin (__("Confirmation", 'SL_framework'), $content) ; 
+			echo $popup->render() ;
+						
 			//Die in order to avoid the 0 character to be printed at the end
 			die() ;
 		}
@@ -977,30 +1024,36 @@ if (!class_exists("translationSL")) {
 			
 			// We delete all cache file
 			$dir = @opendir(WP_CONTENT_DIR."/sedlex/translations/"); 
-			while(false !== ($item = readdir($dir))) {
-				if ('.' == $item || '..' == $item)
-					continue;
-				if (preg_match("/".$domain.".*\.html$/", $item, $h)) {
-					unlink (WP_CONTENT_DIR."/sedlex/translations/".$item);
+			if ($dir !== false) {
+				while(false !== ($item = readdir($dir))) {
+					if ('.' == $item || '..' == $item)
+						continue;
+					if (preg_match("/".$domain.".*\.html$/", $item, $h)) {
+						unlink (WP_CONTENT_DIR."/sedlex/translations/".$item);
+					}
 				}
+				closedir($dir);
 			}
-			closedir($dir);
-			
+				
 			// we reconstruct the cache file
 			$signature_files = get_locale() ; 
 			ob_start() ; 
 				echo "<p>".__("The sentences used in this plugin are in English. Help the others users using the same language as you by translating this plugin.",'SL_framework')."</p>" ; 	
-				echo "<p>".sprintf(__("This plugin is available in %d languages.",'SL_framework'),$nb)."</p>" ; 
+				echo "<p>".sprintf(__("This plugin is available in %s languages.",'SL_framework'),$nb)."</p>" ; 
 				
 				// We count the number of sentences to be translated
-				$content_pot = file($path."/lang/".$domain.".pot") ;
+				if (is_file($path."/lang/".$domain.".pot")) {
+					$content_pot = file($path."/lang/".$domain.".pot") ;
+				} else {
+					$content_pot = array() ; 
+				}
 				$all_count_pot = 0 ; 
 				foreach ($content_pot as $ligne_pot) {
 					if (preg_match("/^msgid \\\"(.*)\\\"$/", trim($ligne_pot))) {
 						$all_count_pot ++ ; 
 					}
 				}
-				echo "<p>".sprintf(__("There are %d sentences to be translated in this plugin.",'SL_framework'),$all_count_pot)."</p>" ; 	
+				echo "<p>".sprintf(__("There are %s sentences to be translated in this plugin.",'SL_framework'),$all_count_pot)."</p>" ; 	
 
 				$i = 1 ; 
 				
@@ -1174,7 +1227,7 @@ if (!class_exists("translationSL")) {
 		* @return void
 		*/
 		
-		static function update_languages_framework($domain, $plugin) {
+		static function update_languages_framework() {
 			// The plugin_frame is the plugin that store the framework file
 			$plugin_frame = explode("/",plugin_basename(__FILE__)); 
 			$plugin_frame = $plugin_frame[0]; 
@@ -1300,7 +1353,7 @@ if (!class_exists("translationSL")) {
 			ob_start() ; 
 
 				echo "<p>".__("The 'SL framework' is a framework used for developping many plugins like this one. Thus, if you participate translating the framework, it will be very helpful for a bunch of plugins.",'SL_framework')."</p>" ; 	
-				echo "<p>".sprintf(__("There is %d languages supported for the 'SL framework'.",'SL_framework'),$nb)."</p>" ; 	
+				echo "<p>".sprintf(__("There is %s languages supported for the 'SL framework'.",'SL_framework'),$nb)."</p>" ; 	
 					
 				// We count the number of sentences to be translated
 				$content_pot = file($path."/core/lang/SL_framework.pot") ;
@@ -1310,7 +1363,7 @@ if (!class_exists("translationSL")) {
 						$all_count_pot ++ ; 
 					}
 				}
-				echo "<p>".sprintf(__("There is %d sentence to be translated in the framework.",'SL_framework'),$all_count_pot)."</p>" ; 	
+				echo "<p>".sprintf(__("There is %s sentence to be translated in the framework.",'SL_framework'),$all_count_pot)."</p>" ; 	
 			
 				$i = 1 ; 
 				
@@ -1379,7 +1432,7 @@ if (!class_exists("translationSL")) {
 							}
 							$cel_tran = new adminCell($info['translators']) ;
 						} else {
-							$cel_pour = new adminCell("<p style='color:#CCCCCC'>".$info."</p>") ;
+							$cel_pour = new adminCell("<p style='color:#CCCCCC'>".$info['translated']."</p>") ;
 							$cel_tran = new adminCell("") ;				
 						}
 						$table->add_line(array($cel_lang, $cel_pour, $cel_tran), $f) ; 

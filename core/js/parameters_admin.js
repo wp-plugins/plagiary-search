@@ -5,9 +5,7 @@
 */
 
 function activateDeactivate_Params(param, toChange) {
-	
 	isChecked = jQuery("#"+param).is(':checked');
-	
 	for (i=0; i<toChange.length; i++) {
 		if (!isChecked) {
 			if (toChange[i].substring(0, 1)!="!") {
@@ -34,3 +32,62 @@ function activateDeactivate_Params(param, toChange) {
 	return isChecked ; 
 }
 
+/* =====================================================================================
+*
+*  Remove param
+*
+*/
+
+function del_param(param, md5, pluginID) {
+
+	jQuery("#wait_"+md5).show();
+		
+	var arguments = {
+		action: 'del_param', 
+		pluginID: pluginID, 
+		param : param
+	} 
+	
+	//POST the data and append the results to the results div
+	jQuery.post(ajaxurl, arguments, function(response) {
+		if (response=="ok") {
+			document.location = document.location ; 
+		}
+	}).error(function(x,e) { 
+		if (x.status==0){
+			//Offline
+		} else if (x.status==500){
+			remove_param(param) ; 
+		} 
+	});    
+}
+
+/* =====================================================================================
+*
+*  Add param
+*
+*/
+
+function add_param(param, md5, pluginID) {
+
+	jQuery("#wait_"+md5).show();
+		
+	var arguments = {
+		action: 'add_param', 
+		pluginID: pluginID, 
+		param : param
+	} 
+	
+	//POST the data and append the results to the results div
+	jQuery.post(ajaxurl, arguments, function(response) {
+		if (response=="ok") {
+			document.location = document.location ; 
+		}
+	}).error(function(x,e) { 
+		if (x.status==0){
+			//Offline
+		} else if (x.status==500){
+			remove_param(param) ; 
+		} 
+	});    
+}

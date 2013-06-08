@@ -25,7 +25,6 @@ function translate_add(plug_param,dom_param,is_framework) {
 		jQuery("#wait_translation_add").fadeOut();
 		jQuery("#wait_translation_add_frame").fadeOut();
 		jQuery("#zone_edit").html(response);
-		window.location = String(window.location).replace(/\#.*$/, "") + "#edit_translation";
 	}).error(function(x,e) { 
 		if (x.status==0){
 			//Offline
@@ -68,7 +67,6 @@ function translate_create(plug_param,dom_param,is_framework, lang_param, nombre)
 		jQuery("#wait_translation_create").fadeOut();
 		jQuery("#zone_edit").html("");
 		jQuery("#summary_of_translations").html(response);
-		window.location = String(window.location).replace(/\#.*$/, "") + "#info";
 	}).error(function(x,e) { 
 		if (x.status==0){
 			//Offline
@@ -101,7 +99,6 @@ function modify_trans(plug_param,dom_param,is_framework,lang_param) {
 	jQuery.post(ajaxurl, arguments, function(response) {
 		jQuery("#wait_translation_create").fadeOut();
 		jQuery("#zone_edit").html(response);
-		window.location = String(window.location).replace(/\#.*$/, "") + "#edit_translation";
 	}).error(function(x,e) { 
 		if (x.status==0){
 			//Offline
@@ -144,7 +141,6 @@ function translate_save_after_modification (plug_param,dom_param,is_framework,la
 		jQuery("#wait_translation_modify").fadeOut();
 		jQuery("#zone_edit").html("");
 		jQuery("#summary_of_translations").html(response);
-		window.location = String(window.location).replace(/\#.*$/, "") + "#info";
 	}).error(function(x,e) { 
 		if (x.status==0){
 			//Offline
@@ -179,7 +175,6 @@ function send_trans(plug_param,dom_param, is_framework, lang_param) {
 	jQuery.post(ajaxurl, arguments, function(response) {
 		jQuery("#wait_translation_modify").fadeOut();
 		jQuery("#zone_edit").html(response);
-		window.location = String(window.location).replace(/\#.*$/, "") + "#edit_translation";
 	}).error(function(x,e) { 
 		if (x.status==0){
 			//Offline

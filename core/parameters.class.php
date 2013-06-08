@@ -41,6 +41,20 @@ if (!class_exists("parametersSedLex")) {
 		function add_title($title)  {
 			$this->buffer[] = array('title', $title) ; 
 		}
+		
+		/** ====================================================================================================================================================
+		* Add title macroblock (i.e. that can be duplicate a plurality of time if the user needs it) in the form
+		* 
+		* @param string $title the title to add
+		* @return void
+		*/
+		function add_title_macroblock($title, $lien="")  {
+			if ($lien=="") {
+				$lien = __("Add new", "SL_framework") ; 
+			}
+			$this->buffer[] = array('title_macro', $title, $lien) ; 
+		}
+
 
 		/** ====================================================================================================================================================
 		* Add a comment in the form
@@ -321,6 +335,7 @@ if (!class_exists("parametersSedLex")) {
 			}
 			$this->buffer = array_values($this->buffer) ; 
 		}
+
 		
 		/** ====================================================================================================================================================
 		* Print the form with parameters
@@ -330,7 +345,9 @@ if (!class_exists("parametersSedLex")) {
 		function flush()  {
 			global $_POST ; 
 			global $_FILES ; 
-			
+
+			$this->buffer[] = array('end', "") ; 
+
 			// We create the beginning of the form
 				
 			$this->output =  "<h3>".__("Parameters",'SL_framework')."</h3>" ; 
@@ -349,20 +366,134 @@ if (!class_exists("parametersSedLex")) {
 			$error = false ; 
 			$warning = false ; 
 			$toExecuteWhenLoaded = "" ; 
+			$macroisdisplayed_count = 0 ;
+			$macroisdisplayed = false ; 
+			$macroisdisplayed_avoidnext = false ; 
 				
 			for($iii=0; $iii<count($this->buffer); $iii++) {
 				$ligne = $this->buffer[$iii] ; 
-				
+								
 				// Is it a title
-				if ($ligne[0]=="title") {	
+				if (($ligne[0]=="end")||($ligne[0]=="title")||($ligne[0]=="title_macro")) {	
 					if ($hastobeclosed) {
 						$this->output .= $currentTable->flush()."<br/>" ; 
+						$hastobeclosed = false ; 
 					} 
+					
+					// On test si on doit recommencer
+					if (($macroisdisplayed) && (!$macroisdisplayed_avoidnext)) {
+						$nnn = 1 ; 
+						// We search for the next parameter
+						$found_param=false ; 
+						while (isset($this->buffer[$macro_lasttitle+$nnn])) {
+							$first_param_after = $this->buffer[$macro_lasttitle+$nnn] ; 
+							if ($first_param_after[0]=='param') {
+								$found_param = true ; 
+								$first_param_after = $first_param_after[1] ; 
+								break ; 
+							} else if ($first_param_after[0]=='comment') {
+								$nnn ++ ; 
+							} else {
+								break ; 
+							}
+						}
+						
+						// if the param has been found
+						if ($found_param) {
+							$all_names = $this->obj->get_name_params() ; 
+							if (in_array($first_param_after."_macro".($macroisdisplayed_count+1), $all_names)) {
+								$iii = $macro_lasttitle-1 ; 
+								$macroisdisplayed_count ++ ; 
+								$macroisdisplayed_avoidnext = true ; 
+								continue ; 
+							} else {
+								$macroisdisplayed_count=0; 
+								$macroisdisplayed = false ; 
+								$macroisdisplayed_avoidnext = false ; 
+							}
+						}
+					}
+					$macroisdisplayed_avoidnext = false ; 
+
 					// We create a new table 
 					$currentTable = new adminTable() ; 
 					$currentTable->removeFooter() ; 
-					$currentTable->title(array($ligne[1], "") ) ; 
 					$hastobeclosed = true ;
+					if ($ligne[0]=="title") {
+						$currentTable->title(array($ligne[1], "") ) ; 
+						$macroisdisplayed = false ;
+						$macroisdisplayed_text = "" ; 
+					} else if ($ligne[0]=="title_macro"){
+						
+						// Add delete button
+						$params = "[" ; 
+						$count_param_temp = 0 ; 
+						$nnn=1 ; 
+						while (isset($this->buffer[$iii+$nnn])) {
+							$first_param_after = $this->buffer[$iii+$nnn] ; 
+							if ($first_param_after[0]=='param') {
+								if ($count_param_temp!=0) {
+									$params .= "," ; 
+								}
+								$params .= "\"".$first_param_after[1]."_macro".$macroisdisplayed_count."\"" ; 
+								$nnn ++ ; 
+								$count_param_temp ++ ; 
+							} else if ($first_param_after[0]=='comment') {
+								$nnn ++ ; 
+							} else {
+								break ; 
+							}
+						}
+						$params .= "]" ; 
+						$md5 = md5($params) ; 
+						$delete = " <a href='#' onclick='del_param(".$params.", \"".$md5."\", \"".$this->obj->pluginID."\");return false ; ' style='font-size:80%'>".__('(Delete)', 'SL_framework')."</a>" ; 
+						$x = WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)) ; 
+						$delete .= "<img id='wait_".$md5."' src='".$x."/img/ajax-loader.gif' style='display:none;'>" ; 
+
+						// Add add button
+						$add = "" ; 
+						$macroisdisplayed_text = $ligne[2] ; 
+						if  ($macroisdisplayed_count==0) {	
+							$params = "[" ; 
+							$count_param_temp = 0 ; 
+							$nnn=1 ; 
+							while (isset($this->buffer[$iii+$nnn])) {
+								$first_param_after = $this->buffer[$iii+$nnn] ; 
+								if ($first_param_after[0]=='param') {
+									if ($count_param_temp!=0) {
+										$params .= "," ; 
+									}
+									$params .= "\"".$first_param_after[1]."_macro\"" ; 
+									$nnn ++ ; 
+									$count_param_temp ++ ; 
+								} else if ($first_param_after[0]=='comment') {
+									$nnn ++ ; 
+								} else {
+									break ; 
+								}
+							}
+							$params .= "]" ; 
+							$md5 = md5($params) ; 
+							$add = " <a href='#' onclick='add_param(".$params.", \"".$md5."\", \"".$this->obj->pluginID."\");return false ; ' style='font-size:80%'>(".$macroisdisplayed_text.")</a>" ; 
+							$x = WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)) ; 
+							$add .= "<img id='wait_".$md5."' src='".$x."/img/ajax-loader.gif' style='display:none;'>" ; 
+						}
+
+						if (strpos($ligne[1],"%s")!==false) {
+							$currentTable->title(array(sprintf($ligne[1], $macroisdisplayed_count+1).$delete.$add, "")) ;
+						} else {
+							$currentTable->title(array($ligne[1].$delete, "")) ;
+						}
+						$macro_lasttitle = $iii ; 
+						$macroisdisplayed_count_elements = 0 ;
+						$macroisdisplayed = true ;
+					} 
+				}
+				// compte le nombre d element dans la macro
+				if ($macroisdisplayed) {
+					$macroisdisplayed_count_elements ++ ; 
+				} else {
+					$macroisdisplayed_count_elements = 0 ; 
 				}
 				
 				// Is it a comment
@@ -390,6 +521,11 @@ if (!class_exists("parametersSedLex")) {
 				// Is it a param
 				if ($ligne[0]=="param") {	
 					$param = $ligne[1] ; 
+					$param_default = $ligne[1] ; 
+					//macro
+					if ($macroisdisplayed) {
+						$param = $param."_macro".$macroisdisplayed_count ; 
+					}
 					$name = $ligne[2] ; 
 					$forbid = $ligne[3] ; 
 					$allow = $ligne[4] ; 
@@ -405,20 +541,20 @@ if (!class_exists("parametersSedLex")) {
 					// What is the type of the parameter ?
 					//---------------------------------------
 					$type = "string" ; 
-					if (is_bool($this->obj->get_default_option($param))) $type = "boolean" ; 
-					if (is_int($this->obj->get_default_option($param))) $type = "int" ; 
-					if (is_array($this->obj->get_default_option($param))) $type = "list" ; 
+					if (is_bool($this->obj->get_default_option($param_default))) $type = "boolean" ; 
+					if (is_int($this->obj->get_default_option($param_default))) $type = "int" ; 
+					if (is_array($this->obj->get_default_option($param_default))) $type = "list" ; 
 					// C'est un text si dans le texte par defaut, il y a une etoile
-					if (is_string($this->obj->get_default_option($param))) {
-						if (strpos($this->obj->get_default_option($param), "*") === 0) $type = "text" ; 
+					if (is_string($this->obj->get_default_option($param_default))) {
+						if (strpos($this->obj->get_default_option($param_default), "*") === 0) $type = "text" ; 
 					}
 					// C'est un file si dans le texte par defaut est egal a [file]
-					if (is_string($this->obj->get_default_option($param))) {
-						if (str_replace("[file]","",$this->obj->get_default_option($param)) != $this->obj->get_default_option($param)) $type = "file" ; 
+					if (is_string($this->obj->get_default_option($param_default))) {
+						if (str_replace("[file]","",$this->obj->get_default_option($param_default)) != $this->obj->get_default_option($param_default)) $type = "file" ; 
 					}
 					// C'est un password si dans le texte par defaut est egal a [password]
-					if (is_string($this->obj->get_default_option($param))) {
-						if (str_replace("[password]","",$this->obj->get_default_option($param)) != $this->obj->get_default_option($param)) $type = "password" ; 
+					if (is_string($this->obj->get_default_option($param_default))) {
+						if (str_replace("[password]","",$this->obj->get_default_option($param_default)) != $this->obj->get_default_option($param_default)) $type = "password" ; 
 					}
 					
 					// We reset the param
@@ -428,7 +564,7 @@ if (!class_exists("parametersSedLex")) {
 					$problem_w = "" ; 
 					if (isset($_POST['resetOptions'])) {
 						$maj = true ; 
-						$new_param = $this->get_new_value($param) ; 
+						$new_param = $this->get_new_value($param_default) ; 
 						$modified = true ; 
 						$this->obj->set_param($param, $new_param) ; 
 					}
@@ -439,6 +575,7 @@ if (!class_exists("parametersSedLex")) {
 					$problem_e = "" ; 
 					$problem_w = "" ; 
 					if (isset($_POST['submitOptions'])) {
+						
 						$maj = true ; 
 
 						$new_param = $this->get_new_value($param) ; 
@@ -450,7 +587,6 @@ if (!class_exists("parametersSedLex")) {
 						} else {
 						
 							// Warning management
-							
 							if (($type=="string")||($type=="text")||($type=="password")) {
 								if (isset($_POST[$param])) {
 									if ($new_param!=stripslashes($_POST[$param])) {
@@ -645,9 +781,9 @@ if (!class_exists("parametersSedLex")) {
 						ob_start() ; 
 							$upload_dir = wp_upload_dir();
 							if (!file_exists($upload_dir["basedir"].$this->obj->get_param($param))) {
-								$this->obj->set_param($param,$this->obj->get_default_option($param)) ; 
+								$this->obj->set_param($param,$this->obj->get_default_option($param_default)) ; 
 							}
-							if ($this->obj->get_default_option($param)==$this->obj->get_param($param)) {
+							if ($this->obj->get_default_option($param_default)==$this->obj->get_param($param)) {
 								?>
 								<p class='paramLine'><input type='file' name='<?php echo $param ; ?>' id='<?php echo $param ; ?>'/></p>
 								<?php 
@@ -687,11 +823,6 @@ if (!class_exists("parametersSedLex")) {
 			
 			// We finish the form output
 			ob_start();
-			if ($hastobeclosed) {
-				// We close the table
-				echo $currentTable->flush() ; 
-			}
-			
 			?>
 					<div class="submit">
 						<input type="submit" name="submitOptions" class='button-primary validButton' value="<?php echo __('Update', 'SL_framework') ?>" />&nbsp;
@@ -732,8 +863,7 @@ if (!class_exists("parametersSedLex")) {
 				}
 			} 
 			
-			$this->output .= ob_get_contents();
-			ob_end_clean();
+			$this->output .= ob_get_clean();
 			echo $this->output ; 
 		}
 	}

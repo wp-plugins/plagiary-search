@@ -54,10 +54,13 @@ Have fun !
 
 == Changelog ==
 
+= 1.0.3 = 
+* Improve the core
+
 = 1.0.1 = 
-*First Release
+* First Release
 
 == Frequently Asked Questions ==
 
  
-InfoVersion:8ac0f5bd4f6e92e801ec2f92083e49f8
+InfoVersion:99dc3fefac9f766507be85b0f7ec505f

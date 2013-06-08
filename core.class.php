@@ -80,6 +80,10 @@ if (!class_exists('pluginSedLex')) {
 			add_action('wp_ajax_send_translation', array('translationSL','send_translation')) ; 
 			add_action('wp_ajax_update_summary', array('translationSL','update_summary')) ; 
 			
+			// We add an ajax call for the parameter class
+			add_action('wp_ajax_del_param', array($this,'del_param_callback')) ; 
+			add_action('wp_ajax_add_param', array($this,'add_param_callback')) ; 
+			
 			// We add an ajax call for the feedback class
 			add_action('wp_ajax_send_feedback', array('feedbackSL','send_feedback')) ; 
 						
@@ -238,28 +242,63 @@ if (!class_exists('pluginSedLex')) {
 		* @param string $option the name of the option
 		* @return mixed  the value of the option requested
 		*/
+		
 		public function get_param($option) {
+		
 			if (is_multisite() && preg_match('/^global_/', $option)) {
 				$options = get_site_option($this->pluginID.'_options');
 			} else {
 				$options = get_option($this->pluginID.'_options');
 			}
-		
+			
 			if (!isset($options[$option])) {
 				if ( (is_string($this->get_default_option($option))) && (substr($this->get_default_option($option), 0, 1)=="*") ) {
 					$options[$option] = substr($this->get_default_option($option), 1) ; 
 				} else {
 					$options[$option] = $this->get_default_option($option) ; 
 				}
-			}
+				// Update with the default value
+				if (is_multisite() && preg_match('/^global_/', $option)) {
+					update_site_option($this->pluginID.'_options', $options);
+				} else {
+					update_option($this->pluginID.'_options', $options);
+				}
+			} 
 			
-			if (is_multisite() && preg_match('/^global_/', $option)) {
-				update_site_option($this->pluginID.'_options', $options);
-			} else {
-				update_option($this->pluginID.'_options', $options);
-			}
 			return $options[$option] ;
 		}
+		
+		/** ====================================================================================================================================================
+		* Get the value of an option of the plugin (macro)
+		* 
+		* For instance: <code> echo $this->get_param_macro('opt1') </code> will return all values of the option 'opt1' stored for this plugin. Please note that two different plugins may have options with the same name without any conflict.
+		*
+		* @see  pluginSedLex::set_param
+		* @see  pluginSedLex::get_name_params
+		* @see  pluginSedLex::del_param
+		* @see parametersSedLex::parametersSedLex
+		* @param string $option the name of the option
+		* @return mixed  the value of the option requested
+		*/
+		
+		public function get_param_macro($option) {
+			$i = 0 ; 
+			$results = array() ; 
+			
+			if (is_multisite() && preg_match('/^global_/', $option)) {
+				$options = get_site_option($this->pluginID.'_options');
+			} else {
+				$options = get_option($this->pluginID.'_options');
+			}
+
+			while (isset($options[$option."_macro".($i)])) {
+				$results[] = $options[$option."_macro".($i)] ; 
+				$i++ ; 
+			}
+			
+			return $results ; 
+		}
+
 		
 		/** ====================================================================================================================================================
 		* Get name of all options
@@ -279,7 +318,6 @@ if (!class_exists('pluginSedLex')) {
 			} else {
 				$options = get_option($this->pluginID.'_options');
 			}
-		
 			
 			if (is_array($options)) {
 				$results = array() ; 
@@ -302,26 +340,122 @@ if (!class_exists('pluginSedLex')) {
 		* @see  pluginSedLex::gel_param
 		* @see parametersSedLex::parametersSedLex
 		* @param string $option the name of the option
+		* @param string $pluginID the plugin ID (or the current plugin ID by default)
 		* @return void
 		*/
 		
-		public function del_param($option) {
-			if (is_multisite()) {
-				$options = get_site_option($this->pluginID.'_options');
-			} else {
-				$options = get_option($this->pluginID.'_options');
-			}
-		
-			if (isset($options[$option])) {
-				unset($options[$option]) ; 
+		public function del_param($option, $pluginID="") {
+			if ($pluginID=="") {
+				$pluginID = $this->pluginID ; 
 			}
 			
 			if (is_multisite()) {
-				update_site_option($this->pluginID.'_options', $options);
+				$options = get_site_option($pluginID.'_options');
 			} else {
-				update_option($this->pluginID.'_options', $options);
+				$options = get_option($pluginID.'_options');
+			}
+		
+			// We handle the case where it is a macro  param
+			if (preg_match("/^(.*)_macro([0-9]*)$/", $option, $match)) {
+				
+				$name_param = $match[1] ; 
+				$from_int = intval($match[2]) ; 
+				$i = $from_int+1 ; 
+				// We shift all the variable name
+				while (isset($options[$name_param."_macro".($i)])) {
+					$options[$name_param."_macro".($i-1)] = $options[$name_param."_macro".($i)] ; 
+					$i++ ; 
+				}
+				if (isset($options[$name_param."_macro".($i-1)])) {
+					unset($options[$name_param."_macro".($i-1)]) ; 
+				}
+				if ($i==1) {
+					$instance_plugin = call_user_func(array($pluginID, 'getInstance'));  ; 
+					$options[$name_param."_macro0"] = $instance_plugin->get_default_option($name_param) ; 
+				}
+			} else {
+				// It is not a macro param, then we just unset it
+				if (isset($options[$option])) {
+					unset($options[$option]) ; 
+				}
+			}
+			
+			if (is_multisite()) {
+				update_site_option($pluginID.'_options', $options);
+			} else {
+				update_option($pluginID.'_options', $options);
 			}
 			return ;
+		}
+		
+		/** ====================================================================================================================================================
+		* Callback to remove a parameter 
+		*
+		* It will also remove any comment for the same
+		*
+		* @access private
+		* @return void
+		*/
+
+		function del_param_callback()  {
+			global $_POST ; 
+			$options = $_POST['param'] ; 
+			$pluginID = $_POST['pluginID'] ; 
+			
+			foreach ($options as $o) {
+				$this->del_param($o, $pluginID) ; 
+			}
+
+			echo "ok" ; 
+			die() ; 
+		}
+		
+		/** ====================================================================================================================================================
+		* Callback to add a parameter 
+		*
+		* It will also remove any comment for the same
+		*
+		* @access private
+		* @return void
+		*/
+
+		function add_param_callback()  {
+			global $_POST ; 
+			$options = $_POST['param'] ; 
+			$pluginID = $_POST['pluginID'] ; 
+			
+			if (is_multisite()) {
+				$options_to_be_updated = get_site_option($pluginID.'_options');
+			} else {
+				$options_to_be_updated = get_option($pluginID.'_options');
+			}
+			
+			foreach ($options as $o) {
+				// We handle the case where it is a macro  param
+				if (preg_match("/^(.*)_macro$/", $o, $match)) {
+					$name_param = $match[1] ; 
+					$i = 1 ; 
+					// We shift all the variable name
+					while (isset($options_to_be_updated[$name_param."_macro".($i)])) {
+						$i++ ; 
+					}
+					$instance_plugin = call_user_func(array($pluginID, 'getInstance'));  ; 
+					$options_to_be_updated[$name_param."_macro".($i)] = $instance_plugin->get_default_option($name_param) ;
+				} else {
+					// It is not a macro param, then we just set it
+					$instance_plugin = call_user_func(array($pluginID, 'getInstance'));  ; 
+					$options_to_be_updated[$name_param] = $instance_plugin->get_default_option($name_param) ;
+				}
+			
+				if (is_multisite()) {
+					update_site_option($pluginID.'_options', $options_to_be_updated);
+				} else {
+					update_option($pluginID.'_options', $options_to_be_updated);
+				}	
+			}
+
+			echo "ok" ; 
+			die() ; 
 		}
 		
 		/** ====================================================================================================================================================
@@ -590,7 +724,7 @@ if (!class_exists('pluginSedLex')) {
 			$path =  WP_CONTENT_DIR."/sedlex/inline_scripts";
 			$path_ok = false ; 
 			if (!is_dir($path)) {
-				if (mkdir("$path", 0755, true)) {
+				if (@mkdir("$path", 0755, true)) {
 					$path_ok = true ; 				
 				} else {
 					SL_Debug::log(get_class(), "The folder ". WP_CONTENT_DIR."/sedlex/inline_scripts"." cannot be created", 2) ; 
@@ -791,7 +925,7 @@ if (!class_exists('pluginSedLex')) {
 			$path =  WP_CONTENT_DIR."/sedlex/inline_styles";
 			$path_ok = false ; 
 			if (!is_dir($path)) {
-				if (mkdir("$path", 0755, true)) {
+				if (@mkdir("$path", 0755, true)) {
 					$path_ok = true ; 				
 				} else {
 					SL_Debug::log(get_class(), "The folder ". WP_CONTENT_DIR."/sedlex/inline_styles"." cannot be created", 2) ; 
@@ -865,10 +999,11 @@ if (!class_exists('pluginSedLex')) {
 							$out .= $content ; 
 						} else if (strpos($file,'/core/css')===false) {
 							list($plugin, $void) = explode('/', str_replace(WP_PLUGIN_DIR."/", "", $file), 2) ; 
-							$out .= str_replace( '../img/', '../../'.$plugin.'/img/', $content );
+							$content = str_replace( '../core/img/', plugins_url()."/".$plugin.'/core/img/', $content );
+							$out .= str_replace( '../img/', plugins_url()."/".$plugin.'/img/', $content );
 						} else {
 							list($plugin, $void) = explode('/', str_replace(WP_PLUGIN_DIR."/", "", $file), 2) ; 
-							$out .= str_replace( '../img/', '../../'.$plugin.'/core/img/', $content );			
+							$out .= str_replace( '../img/', plugins_url()."/".$plugin.'/core/img/', $content );			
 						}
 					} else {
 						$out .=  "\n/*====================================================*/\n";
@@ -1021,7 +1156,7 @@ if (!class_exists('pluginSedLex')) {
 					$sl_count ++ ; 
 				}
 ?>
-				<p><?php printf(__("For now, you have installed %d  plugins including %d plugins developped with the SedLex's framework",'SL_framework'), $all_nb, $sl_count-1)?><p/>
+				<p><?php printf(__("For now, you have installed %s plugins including %s plugins developped with the SedLex's framework",'SL_framework'), $all_nb, $sl_count-1)?><p/>
 				<p><?php printf(__("The core plugin is located at %s",'SL_framework'), "<code>".str_replace(ABSPATH, "", SL_FRAMEWORK_DIR)."</code>")?><p/>
 <?php
 				
