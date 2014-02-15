@@ -8,411 +8,315 @@ msgstr ""
 
 #: core.class.php:554
 #: core.class.php:575
-#: core.class.php:1188
+#: core.class.php:1198
 #@ SL_framework
 msgid "Settings"
 msgstr ""
 
-#: core.class.php:1113
+#: core.class.php:1123
 #@ SL_framework
 msgid "Log options"
 msgstr ""
 
-#: core.class.php:1114
+#: core.class.php:1124
 #@ SL_framework
 msgid "What is the debug level:"
 msgstr ""
 
-#: core.class.php:1115
+#: core.class.php:1125
 #@ SL_framework
 msgid "See the debug logs"
 msgstr ""
 
-#: core.class.php:1116
+#: core.class.php:1126
 #@ SL_framework
 msgid "1=log only the critical errors;"
 msgstr ""
 
-#: core.class.php:1117
+#: core.class.php:1127
 #@ SL_framework
 msgid "2=log only the critical errors and the standard errors;"
 msgstr ""
 
-#: core.class.php:1118
+#: core.class.php:1128
 #@ SL_framework
 msgid "3=log only the critical errors, the standard errors and the warnings;"
 msgstr ""
 
-#: core.class.php:1119
+#: core.class.php:1129
 #@ SL_framework
 msgid "4=log information;"
 msgstr ""
 
-#: core.class.php:1120
+#: core.class.php:1130
 #@ SL_framework
 msgid "5=log verbose;"
 msgstr ""
 
-#: core.class.php:1123
+#: core.class.php:1133
 #@ SL_framework
 msgid "Multisite Management"
 msgstr ""
 
-#: core.class.php:1124
+#: core.class.php:1134
 #@ SL_framework
 msgid "Do you want to allow sub-blogs to modify the translations of the plugins:"
 msgstr ""
 
-#: core.class.php:1125
+#: core.class.php:1135
 #@ SL_framework
 msgid "If this option is unchecked, the translation tab won't be displayed in the blog administration panel."
 msgstr ""
 
-#: core.class.php:1139
+#: core.class.php:1149
 #@ SL_framework
 msgid "Summary page for the plugins developped with the SL framework"
 msgstr ""
 
-#: core.class.php:1159
+#: core.class.php:1169
 #@ SL_framework
 msgid "For now, you have installed %s plugins including %s plugins developped with the SedLex's framework"
 msgstr ""
 
-#: core.class.php:1160
+#: core.class.php:1170
 #@ SL_framework
 msgid "The core plugin is located at %s"
 msgstr ""
 
-#: core.class.php:1171
+#: core.class.php:1181
 #@ SL_framework
 msgid "Plugin name"
 msgstr ""
 
-#: core.class.php:1171
+#: core.class.php:1181
 #@ SL_framework
 msgid "Description"
 msgstr ""
 
-#: core.class.php:1196
+#: core.class.php:1206
 #@ SL_framework
 msgid "There is a SQL database for this plugin"
 msgstr ""
 
-#: core.class.php:1200
+#: core.class.php:1210
 #@ SL_framework
 msgid "Version: %s by %s"
 msgstr ""
 
-#: core.class.php:1208
+#: core.class.php:1218
 #@ SL_framework
 msgid "List of SL plugins"
 msgstr ""
 
-#: core.class.php:1217
+#: core.class.php:1227
 #@ SL_framework
 msgid "Parameters of the framework"
 msgstr ""
 
-#: core.class.php:1231
+#: core.class.php:1241
 #@ SL_framework
 msgid "Manage translation of the framework"
 msgstr ""
 
-#: core.class.php:1368
+#: core.class.php:1378
 #@ SL_framework
 msgid "The folder %s is not %s !"
 msgstr ""
 
-#: core.class.php:1370
+#: core.class.php:1380
 #@ SL_framework
 msgid "The file %s is not %s !"
 msgstr ""
 
-#: core.class.php:1377
-#: core.class.php:1384
+#: core.class.php:1387
+#: core.class.php:1394
 #@ SL_framework
 msgid "The folder %s does not exists and cannot be created !"
 msgstr ""
 
-#: core.class.php:1389
+#: core.class.php:1399
 #@ SL_framework
 msgid "The file %s does not exists and cannot be created !"
 msgstr ""
 
-#: core.class.php:1396
+#: core.class.php:1406
 #@ SL_framework
 msgid "There are some issues with folders rights. Please corret them as soon as possible as they could induce bugs and instabilities."
 msgstr ""
 
-#: core.class.php:1396
+#: core.class.php:1406
 #@ SL_framework
 msgid "Please see below:"
 msgstr ""
 
-#: core/popup.class.php:74
+#: core/admin_table.class.php:191
 #@ SL_framework
-msgid "Close popup"
+msgid "Filter: %s"
 msgstr ""
 
-#: core/translation.class.php:134
+#: core/admin_table.class.php:223
 #@ SL_framework
-msgid "Here, you may configure three levels of translations: at the plugin level, at the framework level, and at the dashboard level."
+msgid "%s of %s"
 msgstr ""
 
-#: core/translation.class.php:146
+#: core/admin_table.class.php:223
 #@ SL_framework
-msgid "Please be informed that your current language is %s. Text will be translated if a translation is available."
+msgid "Current Page"
 msgstr ""
 
-#: core/translation.class.php:147
+#: core/feedback.class.php:39
 #@ SL_framework
-msgid "If you want to modify the language, please go in %s and find %s or %s. The second argument is your language and you may modify it as you want."
+msgid "Donate"
 msgstr ""
 
-#: core/translation.class.php:152
+#: core/feedback.class.php:40
 #@ SL_framework
-msgid "Translations available for this plugin (i.e. %s)"
+msgid "If you like the plugin, do not hesitate to donate. Please note that this plugin is developed in my spare time for free."
 msgstr ""
 
-#: core/translation.class.php:160
+#: core/feedback.class.php:41
 #@ SL_framework
-msgid "Translations available for the SL framework (stored in %s)"
+msgid "This is not mandatory! but it may be a sign that this plugin fits you needs: it makes me happy..."
 msgstr ""
 
-#: core/translation.class.php:185
+#: core/feedback.class.php:54
 #@ SL_framework
-msgid "Adding a new translation for this language: %s"
+msgid "Feedback form"
 msgstr ""
 
-#: core/translation.class.php:189
-#: core/translation.class.php:256
+#: core/feedback.class.php:55
 #@ SL_framework
-msgid "Sentence to translate"
+msgid "This form is an easy way to contact the author and to discuss issues/incompatibilities/etc. with him"
 msgstr ""
 
-#: core/translation.class.php:189
-#: core/translation.class.php:256
+#: core/feedback.class.php:60
 #@ SL_framework
-msgid "Translation"
+msgid "Contact the author"
 msgstr ""
 
+#: core/feedback.class.php:62
 #: core/translation.class.php:216
 #: core/translation.class.php:339
-#: core/feedback.class.php:63
 #@ SL_framework
 msgid "Your name:"
 msgstr ""
 
-#: core/translation.class.php:216
+#: core/feedback.class.php:66
 #@ SL_framework
-msgid "(if your name/pseudo is already in the list, there is no need to fill this input)"
+msgid "Your email:"
 msgstr ""
 
-#: core/translation.class.php:217
-#: core/translation.class.php:340
+#: core/feedback.class.php:66
 #@ SL_framework
-msgid "Your email or your website:"
+msgid "Useful... so that the author will be able to anwser you."
 msgstr ""
 
-#: core/translation.class.php:219
+#: core/feedback.class.php:70
 #@ SL_framework
-msgid "Create the translation files"
+msgid "Your comments:"
 msgstr ""
 
-#: core/translation.class.php:224
-#: core/translation.class.php:1142
-#: core/translation.class.php:1451
+#: core/feedback.class.php:70
 #@ SL_framework
-msgid "Add a new translation"
+msgid "Please note that additional information on your wordpress installation will be sent to the author in order to help the debugging if needed (such as : the wordpress version, the installed plugins, etc.)"
 msgstr ""
 
-#: core/translation.class.php:252
+#: core/feedback.class.php:76
 #@ SL_framework
-msgid "Modifying the translation for this language: %s"
+msgid "Send feedback"
 msgstr ""
 
-#: core/translation.class.php:327
+#: core/feedback.class.php:81
 #@ SL_framework
-msgid "The number of occurrence of %s does not match in both string. Please note that the string %s will be replaced with a contextual string."
+msgid "No email have been provided for the author of this plugin. Therefore, the feedback is impossible"
 msgstr ""
 
-#: core/translation.class.php:343
-#: core/translation.class.php:345
+#: core/feedback.class.php:168
 #@ SL_framework
-msgid "Modify the translation files"
+msgid "The feedback has been sent"
 msgstr ""
 
-#: core/translation.class.php:351
-#@ SL_framework
-msgid "Modify translations"
-msgstr ""
-
-#: core/translation.class.php:545
-#: core/translation.class.php:1120
-#: core/translation.class.php:1429
-#@ SL_framework
-msgid "%s sentences have been translated (i.e. %s)."
-msgstr ""
-
-#: core/translation.class.php:547
-#: core/translation.class.php:1122
-#: core/translation.class.php:1431
-#@ SL_framework
-msgid "%s sentences have been translated (i.e. %s) %s %s sentences have to be checked because they are close (but not identical) to those to translate.%s"
-msgstr ""
-
-#: core/translation.class.php:578
-#@ SL_framework
-msgid "The translation %s have been sent"
-msgstr ""
-
+#: core/feedback.class.php:173
 #: core/translation.class.php:583
-#: core/feedback.class.php:174
 #@ SL_framework
 msgid "An error occured sending the email."
 msgstr ""
 
+#: core/feedback.class.php:173
 #: core/translation.class.php:583
-#: core/feedback.class.php:174
 #@ SL_framework
 msgid "Make sure that your wordpress is able to send email."
 msgstr ""
 
-#: core/translation.class.php:588
+#: core/otherplugins.class.php:52
 #@ SL_framework
-msgid "Send translation"
+msgid "Plugins that you may install"
 msgstr ""
 
-#: core/translation.class.php:739
+#: core/otherplugins.class.php:54
 #@ SL_framework
-msgid "%s file cannot be created for %s as there is no translated sentence. Please, translate at least one sentence to create a file"
+msgid "The following plugins have been developed by the author and are not yet been installed:"
 msgstr ""
 
-#: core/translation.class.php:756
-#: core/translation.class.php:759
+#: core/otherplugins.class.php:56
 #@ SL_framework
-msgid "%s file has been updated for %s"
+msgid "Plugin not yet installed"
 msgstr ""
 
-#: core/translation.class.php:757
-#: core/translation.class.php:760
+#: core/otherplugins.class.php:56
+#: core/otherplugins.class.php:87
 #@ SL_framework
-msgid "%s file has been updated from this file"
+msgid "Description and Screenshots"
 msgstr ""
 
-#: core/translation.class.php:764
-#: core/translation.class.php:767
+#: core/otherplugins.class.php:78
 #@ SL_framework
-msgid "%s file has been created with a new translation for %s"
+msgid "All author's plugins have been installed. Thank you!"
 msgstr ""
 
-#: core/translation.class.php:765
-#: core/translation.class.php:768
+#: core/otherplugins.class.php:84
 #@ SL_framework
-msgid "%s file has been created from this file"
+msgid "Installed plugins"
 msgstr ""
 
-#: core/translation.class.php:788
+#: core/otherplugins.class.php:85
 #@ SL_framework
-msgid "If you do not want to loose your translations on the next upgrading of this plugin, it is recommended to send the translation files to the author by clicking %s here %s !"
+msgid "You have already installed the following author's plugins:"
 msgstr ""
 
-#: core/translation.class.php:790
+#: core/otherplugins.class.php:87
 #@ SL_framework
-msgid "If you do not want to loose your translations on the next upgrading of this plugin, please save them on your hard disk before upgrading and then restore them after the upgrade !"
+msgid "Plugin already installed"
 msgstr ""
 
-#: core/translation.class.php:796
+#: core/otherplugins.class.php:144
 #@ SL_framework
-msgid "Confirmation"
+msgid "The Wordpress page: %s"
 msgstr ""
 
-#: core/translation.class.php:1021
-#: core/translation.class.php:1336
+#: core/otherplugins.class.php:170
 #@ SL_framework
-msgid "Summary cached %s"
+msgid "An Unexpected HTTP Error occurred during the API request."
 msgstr ""
 
-#: core/translation.class.php:1041
+#: core/otherplugins.class.php:175
 #@ SL_framework
-msgid "The sentences used in this plugin are in English. Help the others users using the same language as you by translating this plugin."
+msgid "Last update:"
 msgstr ""
 
-#: core/translation.class.php:1042
+#: core/otherplugins.class.php:176
 #@ SL_framework
-msgid "This plugin is available in %s languages."
+msgid "Rating: %s"
 msgstr ""
 
-#: core/translation.class.php:1056
+#: core/otherplugins.class.php:185
 #@ SL_framework
-msgid "There are %s sentences to be translated in this plugin."
+msgid "by %s persons"
 msgstr ""
 
-#: core/translation.class.php:1061
-#: core/translation.class.php:1371
+#: core/otherplugins.class.php:187
 #@ SL_framework
-msgid "Language"
-msgstr ""
-
-#: core/translation.class.php:1061
-#: core/translation.class.php:1371
-#@ SL_framework
-msgid "Ratio %"
-msgstr ""
-
-#: core/translation.class.php:1061
-#: core/translation.class.php:1371
-#@ SL_framework
-msgid "Translators"
-msgstr ""
-
-#: core/translation.class.php:1092
-#: core/translation.class.php:1402
-#@ SL_framework
-msgid "This is the default language of the plugin. It cannot be modified."
-msgstr ""
-
-#: core/translation.class.php:1113
-#: core/translation.class.php:1422
-#@ SL_framework
-msgid "Modify"
-msgstr ""
-
-#: core/translation.class.php:1115
-#@ SL_framework
-msgid "Send to the author of the plugin"
-msgstr ""
-
-#: core/translation.class.php:1143
-#: core/translation.class.php:1452
-#@ SL_framework
-msgid "You may add a new translation hereafter (Please note that it is recommended to send your translation to the author so that he would be able to add your translation to the future release of the plugin !)"
-msgstr ""
-
-#: core/translation.class.php:1156
-#: core/translation.class.php:1465
-#@ SL_framework
-msgid "Add"
-msgstr ""
-
-#: core/translation.class.php:1355
-#@ SL_framework
-msgid "The 'SL framework' is a framework used for developping many plugins like this one. Thus, if you participate translating the framework, it will be very helpful for a bunch of plugins."
-msgstr ""
-
-#: core/translation.class.php:1356
-#@ SL_framework
-msgid "There is %s languages supported for the 'SL framework'."
-msgstr ""
-
-#: core/translation.class.php:1366
-#@ SL_framework
-msgid "There is %s sentence to be translated in the framework."
-msgstr ""
-
-#: core/translation.class.php:1424
-#@ SL_framework
-msgid "Send to the author of the framework"
+msgid "Number of download:"
 msgstr ""
 
 #: core/parameters.class.php:53
@@ -513,155 +417,251 @@ msgstr ""
 msgid "Parameters have been reset to their default values!"
 msgstr ""
 
-#: core/otherplugins.class.php:52
+#: core/popup.class.php:74
 #@ SL_framework
-msgid "Plugins that you may install"
+msgid "Close popup"
 msgstr ""
 
-#: core/otherplugins.class.php:54
+#: core/translation.class.php:134
 #@ SL_framework
-msgid "The following plugins have been developed by the author and are not yet installed:"
+msgid "Here, you may configure three levels of translations: at the plugin level, at the framework level, and at the dashboard level."
 msgstr ""
 
-#: core/otherplugins.class.php:56
+#: core/translation.class.php:146
 #@ SL_framework
-msgid "Plugin not yet installed"
+msgid "Please be informed that your current language is %s. Text will be translated if a translation is available."
 msgstr ""
 
-#: core/otherplugins.class.php:56
-#: core/otherplugins.class.php:84
+#: core/translation.class.php:147
 #@ SL_framework
-msgid "Description and Screenshots"
+msgid "If you want to modify the language, please go in %s and find %s or %s. The second argument is your language and you may modify it as you want."
 msgstr ""
 
-#: core/otherplugins.class.php:75
+#: core/translation.class.php:152
 #@ SL_framework
-msgid "All author's plugins have been installed. Thank you!"
+msgid "Translations available for this plugin (i.e. %s)"
 msgstr ""
 
-#: core/otherplugins.class.php:81
+#: core/translation.class.php:160
 #@ SL_framework
-msgid "Installed plugins"
+msgid "Translations available for the SL framework (stored in %s)"
 msgstr ""
 
-#: core/otherplugins.class.php:82
+#: core/translation.class.php:185
 #@ SL_framework
-msgid "You have already installed the following author's plugins:"
+msgid "Adding a new translation for this language: %s"
 msgstr ""
 
-#: core/otherplugins.class.php:84
+#: core/translation.class.php:189
+#: core/translation.class.php:256
 #@ SL_framework
-msgid "Plugin already installed"
+msgid "Sentence to translate"
 msgstr ""
 
-#: core/otherplugins.class.php:141
+#: core/translation.class.php:189
+#: core/translation.class.php:256
 #@ SL_framework
-msgid "The Wordpress page: %s"
+msgid "Translation"
 msgstr ""
 
-#: core/otherplugins.class.php:167
+#: core/translation.class.php:216
 #@ SL_framework
-msgid "An Unexpected HTTP Error occurred during the API request."
+msgid "(if your name/pseudo is already in the list, there is no need to fill this input)"
 msgstr ""
 
-#: core/otherplugins.class.php:172
+#: core/translation.class.php:217
+#: core/translation.class.php:340
 #@ SL_framework
-msgid "Last update:"
+msgid "Your email or your website:"
 msgstr ""
 
-#: core/otherplugins.class.php:173
+#: core/translation.class.php:219
 #@ SL_framework
-msgid "Rating: %s"
+msgid "Create the translation files"
 msgstr ""
 
-#: core/otherplugins.class.php:182
+#: core/translation.class.php:224
+#: core/translation.class.php:1140
+#: core/translation.class.php:1446
 #@ SL_framework
-msgid "by %s persons"
+msgid "Add a new translation"
 msgstr ""
 
-#: core/otherplugins.class.php:184
+#: core/translation.class.php:252
 #@ SL_framework
-msgid "Number of download:"
+msgid "Modifying the translation for this language: %s"
 msgstr ""
 
-#: core/admin_table.class.php:191
+#: core/translation.class.php:327
 #@ SL_framework
-msgid "Filter: %s"
+msgid "The number of occurrence of %s does not match in both string. Please note that the string %s will be replaced with a contextual string."
 msgstr ""
 
-#: core/admin_table.class.php:223
+#: core/translation.class.php:343
+#: core/translation.class.php:345
 #@ SL_framework
-msgid "%s of %s"
+msgid "Modify the translation files"
 msgstr ""
 
-#: core/admin_table.class.php:223
+#: core/translation.class.php:351
 #@ SL_framework
-msgid "Current Page"
+msgid "Modify translations"
 msgstr ""
 
-#: core/feedback.class.php:39
+#: core/translation.class.php:545
+#: core/translation.class.php:1118
+#: core/translation.class.php:1424
 #@ SL_framework
-msgid "Donate"
+msgid "%s sentences have been translated (i.e. %s)."
 msgstr ""
 
-#: core/feedback.class.php:40
+#: core/translation.class.php:547
+#: core/translation.class.php:1120
+#: core/translation.class.php:1426
 #@ SL_framework
-msgid "If you like the plugin, do not hesitate to donate. Please note that this plugin is developed in my spare time for free."
+msgid "%s sentences have been translated (i.e. %s) %s %s sentences have to be checked because they are close (but not identical) to those to translate.%s"
 msgstr ""
 
-#: core/feedback.class.php:41
+#: core/translation.class.php:578
 #@ SL_framework
-msgid "This is not mandatory! but it may be a sign that this plugin fits you needs: it makes me happy..."
+msgid "The translation %s have been sent"
 msgstr ""
 
-#: core/feedback.class.php:55
+#: core/translation.class.php:588
 #@ SL_framework
-msgid "Feedback form"
+msgid "Send translation"
 msgstr ""
 
-#: core/feedback.class.php:56
+#: core/translation.class.php:739
 #@ SL_framework
-msgid "This form is an easy way to contact the author and to discuss issues/incompatibilities/etc. with him"
+msgid "%s file cannot be created for %s as there is no translated sentence. Please, translate at least one sentence to create a file"
 msgstr ""
 
-#: core/feedback.class.php:61
+#: core/translation.class.php:756
+#: core/translation.class.php:759
 #@ SL_framework
-msgid "Contact the author"
+msgid "%s file has been updated for %s"
 msgstr ""
 
-#: core/feedback.class.php:67
+#: core/translation.class.php:757
+#: core/translation.class.php:760
 #@ SL_framework
-msgid "Your email:"
+msgid "%s file has been updated from this file"
 msgstr ""
 
-#: core/feedback.class.php:67
+#: core/translation.class.php:764
+#: core/translation.class.php:767
 #@ SL_framework
-msgid "Useful... so that the author will be able to anwser you."
+msgid "%s file has been created with a new translation for %s"
 msgstr ""
 
-#: core/feedback.class.php:71
+#: core/translation.class.php:765
+#: core/translation.class.php:768
 #@ SL_framework
-msgid "Your comments:"
+msgid "%s file has been created from this file"
 msgstr ""
 
-#: core/feedback.class.php:71
+#: core/translation.class.php:788
 #@ SL_framework
-msgid "Please note that additional information on your wordpress installation will be sent to the author in order to help the debugging if needed (such as : the wordpress version, the installed plugins, etc.)"
+msgid "If you do not want to loose your translations on the next upgrading of this plugin, it is recommended to send the translation files to the author by clicking %s here %s !"
 msgstr ""
 
-#: core/feedback.class.php:77
+#: core/translation.class.php:790
 #@ SL_framework
-msgid "Send feedback"
+msgid "If you do not want to loose your translations on the next upgrading of this plugin, please save them on your hard disk before upgrading and then restore them after the upgrade !"
 msgstr ""
 
-#: core/feedback.class.php:82
+#: core/translation.class.php:796
 #@ SL_framework
-msgid "No email have been provided for the author of this plugin. Therefore, the feedback is impossible"
+msgid "Confirmation"
 msgstr ""
 
-#: core/feedback.class.php:169
+#: core/translation.class.php:1020
+#: core/translation.class.php:1332
 #@ SL_framework
-msgid "The feedback has been sent"
+msgid "Summary cached %s"
+msgstr ""
+
+#: core/translation.class.php:1039
+#@ SL_framework
+msgid "The sentences used in this plugin are in English. Help the others users using the same language as you by translating this plugin."
+msgstr ""
+
+#: core/translation.class.php:1040
+#@ SL_framework
+msgid "This plugin is available in %s languages."
+msgstr ""
+
+#: core/translation.class.php:1054
+#@ SL_framework
+msgid "There are %s sentences to be translated in this plugin."
+msgstr ""
+
+#: core/translation.class.php:1059
+#: core/translation.class.php:1366
+#@ SL_framework
+msgid "Language"
+msgstr ""
+
+#: core/translation.class.php:1059
+#: core/translation.class.php:1366
+#@ SL_framework
+msgid "Ratio %"
+msgstr ""
+
+#: core/translation.class.php:1059
+#: core/translation.class.php:1366
+#@ SL_framework
+msgid "Translators"
+msgstr ""
+
+#: core/translation.class.php:1090
+#: core/translation.class.php:1397
+#@ SL_framework
+msgid "This is the default language of the plugin. It cannot be modified."
+msgstr ""
+
+#: core/translation.class.php:1111
+#: core/translation.class.php:1417
+#@ SL_framework
+msgid "Modify"
+msgstr ""
+
+#: core/translation.class.php:1113
+#@ SL_framework
+msgid "Send to the author of the plugin"
+msgstr ""
+
+#: core/translation.class.php:1141
+#: core/translation.class.php:1447
+#@ SL_framework
+msgid "You may add a new translation hereafter (Please note that it is recommended to send your translation to the author so that he would be able to add your translation to the future release of the plugin !)"
+msgstr ""
+
+#: core/translation.class.php:1154
+#: core/translation.class.php:1460
+#@ SL_framework
+msgid "Add"
+msgstr ""
+
+#: core/translation.class.php:1350
+#@ SL_framework
+msgid "The 'SL framework' is a framework used for developping many plugins like this one. Thus, if you participate translating the framework, it will be very helpful for a bunch of plugins."
+msgstr ""
+
+#: core/translation.class.php:1351
+#@ SL_framework
+msgid "There is %s languages supported for the 'SL framework'."
+msgstr ""
+
+#: core/translation.class.php:1361
+#@ SL_framework
+msgid "There is %s sentence to be translated in the framework."
+msgstr ""
+
+#: core/translation.class.php:1419
+#@ SL_framework
+msgid "Send to the author of the framework"
 msgstr ""
 
 #: core/utils.class.php:145
@@ -677,102 +677,5 @@ msgstr ""
 #: core/utils.class.php:152
 #@ SL_framework
 msgid "GB"
-msgstr ""
-
-#: include/zip.class.php:24
-#@ SL_framework
-msgid "Error: %s function is not found"
-msgstr ""
-
-#: include/zip.class.php:148
-#: include/zip.class.php:213
-#: include/zip.class.php:250
-#: include/zip.class.php:450
-#: include/database.class.php:94
-#: include/database.class.php:118
-#@ SL_framework
-msgid "The file %s cannot be read. You should have a problem with file permissions or security restrictions."
-msgstr ""
-
-#: include/zip.class.php:159
-#@ SL_framework
-msgid "The folder %s cannot be opened. You should have a problem with folder permissions or security restrictions."
-msgstr ""
-
-#: include/zip.class.php:210
-#: include/zip.class.php:229
-#: include/zip.class.php:248
-#: include/zip.class.php:270
-#: include/zip.class.php:333
-#: include/zip.class.php:369
-#: include/zip.class.php:403
-#: include/zip.class.php:412
-#: include/zip.class.php:448
-#: include/zip.class.php:461
-#: include/zip.class.php:544
-#: include/zip.class.php:562
-#: include/zip.class.php:587
-#: include/zip.class.php:604
-#: include/zip.class.php:617
-#: include/zip.class.php:682
-#: include/zip.class.php:723
-#: include/zip.class.php:739
-#: include/zip.class.php:752
-#: include/zip.class.php:774
-#: include/zip.class.php:785
-#: include/zip.class.php:787
-#: include/zip.class.php:794
-#: include/database.class.php:173
-#: include/database.class.php:224
-#: include/database.class.php:227
-#@ SL_framework
-msgid "The file %s cannot be deleted. You should have a problem with file permissions or security restrictions."
-msgstr ""
-
-#: include/zip.class.php:218
-#: include/database.class.php:98
-#@ SL_framework
-msgid "An other process is still running (it runs for %s seconds)"
-msgstr ""
-
-#: include/zip.class.php:231
-#: include/zip.class.php:335
-#: include/zip.class.php:371
-#: include/zip.class.php:405
-#: include/zip.class.php:546
-#: include/zip.class.php:564
-#: include/zip.class.php:589
-#: include/zip.class.php:606
-#: include/zip.class.php:619
-#: include/zip.class.php:684
-#: include/zip.class.php:725
-#: include/zip.class.php:741
-#: include/database.class.php:104
-#: include/database.class.php:169
-#: include/database.class.php:220
-#@ SL_framework
-msgid "The file %s cannot be modified/created. You should have a problem with file permissions or security restrictions."
-msgstr ""
-
-#: include/zip.class.php:272
-#: include/database.class.php:141
-#@ SL_framework
-msgid "The file %s cannot be created. You should have a problem with file permissions or security restrictions."
-msgstr ""
-
-#: include/zip.class.php:463
-#@ SL_framework
-msgid "The file %s cannot be compressed."
-msgstr ""
-
-#: include/zip.class.php:754
-#: include/zip.class.php:776
-#@ SL_framework
-msgid "The file %s cannot be renamed. You should have a problem with file permissions or security restrictions."
-msgstr ""
-
-#: include/database.class.php:165
-#@ SL_framework
-msgid "The file %s cannot be modified. You should have a problem with file permissions or security restrictions."
 msgstr ""
 

@@ -447,7 +447,7 @@ if (!class_exists("parametersSedLex")) {
 						$params .= "]" ; 
 						$md5 = md5($params) ; 
 						$delete = " <a href='#' onclick='del_param(".$params.", \"".$md5."\", \"".$this->obj->pluginID."\");return false ; ' style='font-size:80%'>".__('(Delete)', 'SL_framework')."</a>" ; 
-						$x = WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)) ; 
+						$x = plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)) ; 
 						$delete .= "<img id='wait_".$md5."' src='".$x."/img/ajax-loader.gif' style='display:none;'>" ; 
 
 						// Add add button
@@ -475,7 +475,7 @@ if (!class_exists("parametersSedLex")) {
 							$params .= "]" ; 
 							$md5 = md5($params) ; 
 							$add = " <a href='#' onclick='add_param(".$params.", \"".$md5."\", \"".$this->obj->pluginID."\");return false ; ' style='font-size:80%'>(".$macroisdisplayed_text.")</a>" ; 
-							$x = WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)) ; 
+							$x = plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)) ; 
 							$add .= "<img id='wait_".$md5."' src='".$x."/img/ajax-loader.gif' style='display:none;'>" ; 
 						}
 
@@ -806,7 +806,7 @@ if (!class_exists("parametersSedLex")) {
 									<?php 								
 								} else {
 									?>
-									<p class='paramLine'><img src='<?php echo WP_PLUGIN_URL.'/'.str_replace(basename( __FILE__),"",plugin_basename(__FILE__))."img/file.png" ; ?>' width="75px" style="vertical-align:middle;"/> <a href="<?php echo $path ; ?>"><?php echo $this->obj->get_param($param) ; ?></a></p>
+									<p class='paramLine'><img src='<?php echo plugin_dir_url("/").'/'.str_replace(basename( __FILE__),"",plugin_basename(__FILE__))."img/file.png" ; ?>' width="75px" style="vertical-align:middle;"/> <a href="<?php echo $path ; ?>"><?php echo $this->obj->get_param($param) ; ?></a></p>
 									<?php 
 								}
 								?>

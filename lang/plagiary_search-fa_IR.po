@@ -1,0 +1,142 @@
+msgid ""
+msgstr ""
+"Generated: SL Framework (http://www.sedlex.fr)\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2013-07-08T21:27:11+00:00\n"
+"Last-Translator: Mehdi <behzadi724@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Language: Farsi\n"
+"X-Poedit-Country: Iran\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes\n"
+
+msgid "title"
+msgstr "عنوان"
+
+msgid "Results"
+msgstr "نتایج"
+
+msgid "Summary"
+msgstr "خلاصه"
+
+msgid "Select your content to be searched"
+msgstr "محتوای خود را انتخاب کنید تا جستجو شود."
+
+msgid "The text of your article"
+msgstr "متن مقاله‌ی شما"
+
+msgid "Avanced options"
+msgstr "تنظیمات پیشرفته"
+
+msgid "Parameters"
+msgstr "پارامترها"
+
+msgid "Manage translations"
+msgstr "مدیریت ترجمه‌ها"
+
+msgid "Information"
+msgstr "اطلاعات"
+
+msgid "FAQ"
+msgstr "سوالات رایج"
+
+msgid "Give feedback"
+msgstr "بازخورد دهید"
+
+msgid "Other plugins"
+msgstr "افزونه‌های دیگر"
+
+msgid "Status: %s"
+msgstr "وضعیت: %s"
+
+msgid "Information: %s"
+msgstr "اطلاعات: %s"
+
+msgid "Warning: %s"
+msgstr "هشدار: %s"
+
+msgid "Error: %s"
+msgstr "خطا: %s"
+
+msgid "Use the Google Search:"
+msgstr "استفاده از جستجوی گوگل:"
+
+msgid "Google API key:"
+msgstr "کلید API گوگل:"
+
+msgid "If you do not set any key, you might not be able to search with Google."
+msgstr "اگر شما هیچ کلیدی را ثبت نکنید، نمی‌توانید با گوگل جستجو کنید."
+
+msgid "If you set a key, only 100 searches are allowed per day (according to Google terms)."
+msgstr "اگر شما یک کلید ثبت کنید، تنها 100 جستجو در روز اجازه دارید (بر اساس شرایط گوگل)."
+
+msgid "Use the Bing Search:"
+msgstr "استفاده از جستجوی بینگ:"
+
+msgid "Bing API Account key:"
+msgstr "کلید API حساب کاربری بینگ:"
+
+msgid "If you do not set any key, you might not be able to search with Bing."
+msgstr "اگر شما هیچ کلیدی را ثبت نکنید، نمی‌توانید با بینگ جستجو کنید."
+
+msgid "Display results"
+msgstr "نمایش نتایج"
+
+msgid "Selected article: %s"
+msgstr "مطالب انتخاب شده: %s"
+
+msgid "No article is being analyzed"
+msgstr "هیچ مطلبی آنالیز نشده است."
+
+msgid "(End)"
+msgstr "(پایان)"
+
+msgid "Error"
+msgstr "خطا"
+
+msgid "Waiting for %s minutes"
+msgstr "هشدار برای %s دقیقه"
+
+msgid "??"
+msgstr "؟؟"
+
+msgid "Selected article: %s (%s characters)"
+msgstr "مطلب انتخاب شده: %s (حاوی %s کاراکتر)"
+
+msgid "(%s characters)"
+msgstr "(حاوی %s کاراکتر)"
+
+msgid "Current Status"
+msgstr "وضعیت جاری"
+
+msgid "Select a new article"
+msgstr "انتخاب یک مطلب جدید"
+
+msgid "Search %s"
+msgstr "جستجوی %s"
+
+msgid "Get the content of the website"
+msgstr "دریافت محتوای وب‌سایت"
+
+msgid "Compare article and website (%s)"
+msgstr "مقایسه مطلب و وب‌سایت (%s)"
+
+msgid "Filter results (%s)"
+msgstr "فیلتر نتایج (%s)"
+
+msgid "Wait for %s seconds"
+msgstr "برای %s ثانیه صبر کنید"
+
+msgid "Date of detection"
+msgstr "تاریخ شناسایی"
+

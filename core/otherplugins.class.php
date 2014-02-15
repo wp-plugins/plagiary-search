@@ -51,7 +51,7 @@ if (!class_exists("otherPlugins")) {
 
 			echo "<h3>".__("Plugins that you may install",'SL_framework')."</h3>" ; 
 			
-			echo "<p>".__("The following plugins have been developed by the author and are not yet installed:",  "SL_framework") ."</p>" ; 
+			echo "<p>".__("The following plugins have been developed by the author and are not yet been installed:",  "SL_framework") ."</p>" ; 
 			$table = new adminTable() ; 
 			$table->title(array(__("Plugin not yet installed", "SL_framework"), __("Description and Screenshots", "SL_framework")) ) ;
 			$nb = 0 ; 
@@ -65,8 +65,11 @@ if (!class_exists("otherPlugins")) {
 					}
 				}
 				if (!$found) {
+					if (is_ssl()) {
+						$plug[1] = str_replace("http://","https://",$plug[1]) ; 
+					}
 					$cel1 = new adminCell($plug[0]) ;
-					$cel2 = new adminCell($plug[1] ) ;
+					$cel2 = new adminCell($plug[1]) ;
 					$table->add_line(array($cel1, $cel2), '1') ;
 					$nb++ ; 
 				}
@@ -173,11 +176,11 @@ if (!class_exists("otherPlugins")) {
 				echo  "<div class='inline'>".sprintf(__('Rating: %s', 'SL_framework' ), $res->rating)." &nbsp; &nbsp; </div> " ; 
 				echo "<div class='star-holder inline'>" ; 
 				echo "<div class='star star-rating' style='width: ".$res->rating."px'></div>" ; 
-				echo "<div class='star star5'><img src='".WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/star.gif' alt='5 stars' /></div>" ; 
-				echo "<div class='star star4'><img src='".WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/star.gif' alt='4 stars' /></div>" ; 
-				echo "<div class='star star3'><img src='".WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/star.gif' alt='3 stars' /></div>" ; 
-				echo "<div class='star star2'><img src='".WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/star.gif' alt='2 stars' /></div>" ; 
-				echo "<div class='star star1'><img src='".WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/star.gif' alt='1 stars' /></div>" ; 
+				echo "<div class='star star5'></div>" ; 
+				echo "<div class='star star4'></div>" ; 
+				echo "<div class='star star3'></div>" ; 
+				echo "<div class='star star2'></div>" ; 
+				echo "<div class='star star1'></div>" ; 
 				echo "</div> " ; 
 				echo " <div class='inline'> &nbsp; (".sprintf(__("by %s persons", 'SL_framework' ),$res->num_ratings).")</div>";
 				echo "<br class='clearBoth' />" ; 
@@ -195,7 +198,7 @@ if (!class_exists("otherPlugins")) {
 					$screen = str_replace("<ol>", "", $screen) ; 
 					$screen = str_replace("<li>", "<div class='screenshot_wordpress'>", $screen) ; 
 					$screen = str_replace("</li>", "</div>", $screen) ; 
-					$screen = preg_replace('#<img([^>]*)src=\'([^\']*?)\'([^>]*)>#isU', '<a href="$2" target="blank"><img$1src="$2"$3></a>', $screen) ; 				
+					$screen = preg_replace('#<img([^>]*)src=\'([^\']*?)\'([^>]*)>#isU', '<a href="$2" target="blank"><img$1src="$2"$3></a>', $screen) ; 
 					echo "<div style='padding-left:10px ; '>".$screen."<div style='clear:both;'></div></div>" ; 
 				}
 				$cell2 = ob_get_clean() ; 

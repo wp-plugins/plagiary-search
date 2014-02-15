@@ -701,7 +701,7 @@ if (!class_exists('pluginSedLex')) {
 		
 		public function add_js($url) {
 			global $sedlex_list_scripts ; 
-			$sedlex_list_scripts[] = str_replace(WP_CONTENT_URL,WP_CONTENT_DIR,$url) ; 
+			$sedlex_list_scripts[] = str_replace(plugin_dir_url("/"),WP_PLUGIN_DIR,$url) ; 
 		}
 		
 		/** ====================================================================================================================================================
@@ -805,7 +805,8 @@ if (!class_exists('pluginSedLex')) {
 				
 				@chmod(WP_CONTENT_DIR."/sedlex/inline_scripts/".$md5.".js", 0755);
 				
-				$url = WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)).'core/load-scripts.php?c=0&load='.$md5 ; 
+				//$url = plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)).'core/load-scripts.php?c=0&load='.$md5 ; 
+				$url = content_url("/").'sedlex/inline_scripts/'.$md5.".js" ; 
 				wp_enqueue_script('sedlex_scripts', $url, array() ,date('Ymd'));
 				$sedlex_list_scripts = array(); 
 			}
@@ -849,7 +850,7 @@ if (!class_exists('pluginSedLex')) {
 					while($file = readdir($dir)) {
 						if (preg_match('@\.js$@i',$file)) {
 							$path = WP_PLUGIN_DIR.'/'.str_replace(basename( __FILE__),"",plugin_basename( __FILE__)) .'core/js/'.$file ; 
-							$url = WP_PLUGIN_URL.'/'.str_replace(basename( __FILE__),"",plugin_basename( __FILE__)) .'core/js/'.$file ; 
+							$url = plugin_dir_url("/").'/'.str_replace(basename( __FILE__),"",plugin_basename( __FILE__)) .'core/js/'.$file ; 
 							if (@filesize($path)>0) {
 								$this->add_js($url) ; 
 							}				
@@ -859,7 +860,7 @@ if (!class_exists('pluginSedLex')) {
 			}
 			
 			$name = 'js/js_admin.js' ; 
-			$url = WP_PLUGIN_URL.'/'.str_replace(basename( $this->path),"",plugin_basename($this->path)) .$name ; 
+			$url = plugin_dir_url("/").'/'.str_replace(basename( $this->path),"",plugin_basename($this->path)) .$name ; 
 			$path = WP_PLUGIN_DIR.'/'.str_replace(basename( $this->path),"",plugin_basename($this->path)) .$name ; 
 			if (file_exists($path)) {
 				if (@filesize($path)>0) {
@@ -878,7 +879,7 @@ if (!class_exists('pluginSedLex')) {
 		
 		public function javascript_front() {
 			$name = 'js/js_front.js' ; 
-			$url = WP_PLUGIN_URL.'/'.str_replace(basename( $this->path),"",plugin_basename($this->path)) .$name ; 
+			$url = plugin_dir_url("/").'/'.str_replace(basename( $this->path),"",plugin_basename($this->path)) .$name ; 
 			$path = WP_PLUGIN_DIR.'/'.str_replace(basename( $this->path),"",plugin_basename($this->path)) .$name ; 
 			if (file_exists($path)) {
 				if (@filesize($path)>0) {
@@ -902,7 +903,7 @@ if (!class_exists('pluginSedLex')) {
 		
 		public function add_css($url) {
 			global $sedlex_list_styles ; 
-			$sedlex_list_styles[] = str_replace(WP_CONTENT_URL,WP_CONTENT_DIR,$url) ; 
+			$sedlex_list_styles[] = str_replace(content_url(),WP_CONTENT_DIR,$url) ; 
 		}
 		
 		/** ====================================================================================================================================================
@@ -998,12 +999,20 @@ if (!class_exists('pluginSedLex')) {
 						if (strpos($file,'/sedlex/inline_styles')!==false) {
 							$out .= $content ; 
 						} else if (strpos($file,'/core/css')===false) {
-							list($plugin, $void) = explode('/', str_replace(WP_PLUGIN_DIR."/", "", $file), 2) ; 
-							$content = str_replace( '../core/img/', plugins_url()."/".$plugin.'/core/img/', $content );
-							$out .= str_replace( '../img/', plugins_url()."/".$plugin.'/img/', $content );
+							$temp_path = str_replace(WP_PLUGIN_DIR."/", "", $file) ; 
+							while (substr($temp_path, 0, 1)=="/") {
+								$temp_path = substr($temp_path, 1) ;
+							}
+							list($plugin, $void) = explode('/', $temp_path , 2) ;
+							$content = str_replace( '../core/img/', plugin_dir_url("/").$plugin.'/core/img/', $content );
+							$out .= str_replace( '../img/', plugin_dir_url("/").$plugin.'/img/', $content );
 						} else {
-							list($plugin, $void) = explode('/', str_replace(WP_PLUGIN_DIR."/", "", $file), 2) ; 
-							$out .= str_replace( '../img/', plugins_url()."/".$plugin.'/core/img/', $content );			
+							$temp_path = str_replace(WP_PLUGIN_DIR."/", "", $file) ; 
+							while (substr($temp_path, 0, 1)=="/") {
+								$temp_path = substr($temp_path, 1) ;
+							}
+							list($plugin, $void) = explode('/', $temp_path, 2) ; 
+							$out .= str_replace( '../img/', plugin_dir_url("/").$plugin.'/core/img/', $content );			
 						}
 					} else {
 						$out .=  "\n/*====================================================*/\n";
@@ -1018,7 +1027,8 @@ if (!class_exists('pluginSedLex')) {
 				
 				@chmod(WP_CONTENT_DIR."/sedlex/inline_styles/".$md5.".css", 0755);
 				
-				$url = WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename( __FILE__)).'core/load-styles.php?c=0&load='.$md5 ; 
+				//$url = plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename( __FILE__)).'core/load-styles.php?c=0&load='.$md5 ; 
+				$url = content_url("/").'sedlex/inline_styles/'.$md5.".css" ; 
 				wp_enqueue_style('sedlex_styles', $url, array() ,date('Ymd'));
 
 				$sedlex_list_styles = array(); 
@@ -1058,7 +1068,7 @@ if (!class_exists('pluginSedLex')) {
 					while($file = readdir($dir)) {
 						if (preg_match('@\.css$@i',$file)) {
 							$path = WP_PLUGIN_DIR.'/'.str_replace(basename( __FILE__),"",plugin_basename( __FILE__)) .'core/css/'.$file ; 
-							$url = WP_PLUGIN_URL.'/'.str_replace(basename( __FILE__),"",plugin_basename( __FILE__)) .'core/css/'.$file ; 
+							$url = plugin_dir_url("/").'/'.str_replace(basename( __FILE__),"",plugin_basename( __FILE__)) .'core/css/'.$file ; 
 							if (@filesize($path)>0) {
 								$this->add_css($url) ; 
 							}			
@@ -1068,7 +1078,7 @@ if (!class_exists('pluginSedLex')) {
 			}
 			
 			$name = 'css/css_admin.css' ; 
-			$url = WP_PLUGIN_URL.'/'.str_replace(basename( $this->path),"",plugin_basename($this->path)) .$name ; 
+			$url = plugin_dir_url("/").'/'.str_replace(basename( $this->path),"",plugin_basename($this->path)) .$name ; 
 			$path = WP_PLUGIN_DIR.'/'.str_replace(basename( $this->path),"",plugin_basename($this->path)) .$name ; 
 			if (file_exists($path)) {
 				if (@filesize($path)>0) {
@@ -1088,8 +1098,8 @@ if (!class_exists('pluginSedLex')) {
 		
 		function css_front() {
 			$name = 'css/css_front.css' ; 
-			$url = WP_PLUGIN_URL.'/'.str_replace(basename( $this->path),"",plugin_basename($this->path)) .$name ; 
-			$path = WP_PLUGIN_DIR.'/'.str_replace(basename( $this->path),"",plugin_basename($this->path)) .$name ; 
+			$url = plugin_dir_url("/").'/'.str_replace(basename( $this->path),"",plugin_basename($this->path)) .$name ; 
+			$path = WP_PLUGIN_DIR.'/'.str_replace(basename($this->path),"",plugin_basename($this->path)) .$name ; 
 			if (file_exists($path)) {
 				if (@filesize($path)>0) {
 					$this->add_css($url) ; 
@@ -1112,7 +1122,7 @@ if (!class_exists('pluginSedLex')) {
 				$params = new parametersSedLex ($this->frmk) ;
 				$params->add_title (__('Log options','SL_framework')) ; 
 				$params->add_param ("debug_level", __('What is the debug level:','SL_framework')) ; 
-				$params->add_comment ("<a href='".str_replace(WP_CONTENT_DIR, WP_CONTENT_URL, SL_Debug::get_log_path())."' target='_blank'>".__('See the debug logs','SL_framework')."</a>") ; 
+				$params->add_comment ("<a href='".str_replace(WP_CONTENT_DIR, content_url(), SL_Debug::get_log_path())."' target='_blank'>".__('See the debug logs','SL_framework')."</a>") ; 
 				$params->add_comment (__('1=log only the critical errors;','SL_framework')) ; 
 				$params->add_comment (__('2=log only the critical errors and the standard errors;','SL_framework')) ; 
 				$params->add_comment (__('3=log only the critical errors, the standard errors and the warnings;','SL_framework')) ; 
@@ -1193,7 +1203,7 @@ if (!class_exists('pluginSedLex')) {
 							ob_start() ; 
 								$database = "" ; 
 								if ($info['Database']!="") {
-									$database = "<img src='".WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/database.png"."' alt='".__('There is a SQL database for this plugin', 'SL_framework')."'/>" ; 
+									$database = "<img src='".plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/database.png"."' alt='".__('There is a SQL database for this plugin', 'SL_framework')."'/>" ; 
 								}
 								?>
 								<p><?php echo str_replace("<ul>", "<ul style='list-style-type:circle; padding-left:1cm;'>", $info['Description']) ; ?></p>
@@ -1205,7 +1215,7 @@ if (!class_exists('pluginSedLex')) {
 						}
 					}
 					echo $table->flush() ; 
-				$tabs->add_tab(__('List of SL plugins',  'SL_framework'), ob_get_clean(), WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_list.png" ) ; 
+				$tabs->add_tab(__('List of SL plugins',  'SL_framework'), ob_get_clean(), plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_list.png" ) ; 
 				
 				if (((is_multisite())&&($blog_id == 1))||(!is_multisite())) {
 
@@ -1214,7 +1224,7 @@ if (!class_exists('pluginSedLex')) {
 					//======================================================================================
 					
 							
-					$tabs->add_tab(__('Parameters of the framework',  'SL_framework'),  $paramSave, WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_param.png") ; 					
+					$tabs->add_tab(__('Parameters of the framework',  'SL_framework'),  $paramSave, plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_param.png") ; 					
 					
 				}
 				
@@ -1228,7 +1238,7 @@ if (!class_exists('pluginSedLex')) {
 						$plugin = str_replace("/","",str_replace(basename(__FILE__),"",plugin_basename( __FILE__))) ; 
 						$trans = new translationSL("SL_framework", $plugin) ; 
 						$trans->enable_translation() ; 
-					$tabs->add_tab(__('Manage translation of the framework',  'SL_framework'), ob_get_clean() , WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_trad.png") ; 
+					$tabs->add_tab(__('Manage translation of the framework',  'SL_framework'), ob_get_clean() , plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_trad.png") ; 
 				}
 								
 				echo $tabs->flush() ; 

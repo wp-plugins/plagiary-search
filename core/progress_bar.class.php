@@ -40,8 +40,8 @@ if (!class_exists("progressBarAdmin")) {
 			ob_start();
 			?>
 			 <div class="progressbar" style="position:relative;overflow:hidden; height: <?php echo $this->height ; ?>px;width:<?php echo $this->length ; ?>px;">
-				<img src="<?php echo WP_PLUGIN_URL."/".str_replace(basename(__FILE__),"",plugin_basename( __FILE__)); ?>/img/progressbar.png" style='position:absolute;left:0;top:-<?php echo floor(2*$this->height) ; ?>px;height:<?php echo floor(3*$this->height) ; ?>px;width:<?php echo $this->length ; ?>px;'/>
-				<img  id="<?php echo $this->id."_image"; ?>" src="<?php echo WP_PLUGIN_URL."/".str_replace(basename(__FILE__),"",plugin_basename( __FILE__)); ?>/img/progressbar.png" style='position:absolute;left:0;top:0px;height:<?php echo floor(3*$this->height) ; ?>px;width:<?php echo floor($this->length*$this->start/100) ; ?>px;'/>
+				<img src="<?php echo plugin_dir_url("/")."/".str_replace(basename(__FILE__),"",plugin_basename( __FILE__)); ?>/img/progressbar.png" style='position:absolute;left:0;top:-<?php echo floor(2*$this->height) ; ?>px;height:<?php echo floor(3*$this->height) ; ?>px;width:<?php echo $this->length ; ?>px;'/>
+				<img  id="<?php echo $this->id."_image"; ?>" src="<?php echo plugin_dir_url("/")."/".str_replace(basename(__FILE__),"",plugin_basename( __FILE__)); ?>/img/progressbar.png" style='position:absolute;left:0;top:0px;height:<?php echo floor(3*$this->height) ; ?>px;width:<?php echo floor($this->length*$this->start/100) ; ?>px;'/>
 				<div  id="<?php echo $this->id."_text"; ?>" style='position:absolute;left:0;top:0px;height:<?php echo $this->height; ?>px;text-align:center;line-height:<?php echo $this->height; ?>px;width:<?php echo $this->length ; ?>px;'><?php echo $this->insideText?>&nbsp;</div>
 			</div>
 			

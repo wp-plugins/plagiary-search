@@ -162,6 +162,7 @@ function translate_save_after_modification (plug_param,dom_param,is_framework,la
 function send_trans(plug_param,dom_param, is_framework, lang_param) {
 
 	jQuery("#wait_translation_modify").show();
+	jQuery(".tobehiddenOnSent").hide();
 		
 	var arguments = {
 		action: 'send_translation', 

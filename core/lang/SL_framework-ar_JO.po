@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-01-22T07:22:02+00:00\n"
+"PO-Revision-Date: 2013-06-13T21:10:27+00:00\n"
 "Last-Translator: GaithBader <http://www.bader.cc>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -67,4 +67,10 @@ msgstr "تم إرسال ملاحظاتك"
 
 msgid "Current Page"
 msgstr "الصفحة الحالية"
+
+msgid "Installed plugins"
+msgstr "تثبيت الاضافات"
+
+msgid "Last update:"
+msgstr "آخر تحديث:"
 

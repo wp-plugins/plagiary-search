@@ -3,7 +3,8 @@
 Plugin Name: Plagiary Search
 Plugin Tag: tag
 Description: <p>Find websites that copy/paste your content without authorization. </p><p>In addition, you will avoid to include involuntary plagiarism in your articles. </p><p>This plugin is under GPL licence.</p>
-Version: 1.0.3
+Version: 1.0.4
+
 Framework: SL_Framework
 Author: SedLex
 Author Email: sedlex@sedlex.fr
@@ -1010,8 +1011,8 @@ class plagiary_search extends pluginSedLex {
 				
 		$this->store_param() ; 
 		
-		// we re-authorize a new request (in 5 seconds)
-		$this->set_param('last_request', time()-60*$this->get_param('between_two_requests')+10) ; 
+		// we re-authorize a new request
+		$this->set_param('last_request', time()) ; 
 	}
 	
 	/** =====================================================================================================
@@ -1021,6 +1022,7 @@ class plagiary_search extends pluginSedLex {
 	*/
 	
 	function get_text_to_search($text=""){
+		global $post ; 
 		if ($text=="") {
 			$ok = false ; 
 			$iter = 0 ; 
@@ -1031,8 +1033,18 @@ class plagiary_search extends pluginSedLex {
 					'orderby'         => 'rand',
 					'post_type'       => explode(",",$this->get_param('type_list')),
 					'post_status'     => 'publish' );
-				$post = get_posts($args) ; 
-				$text = $post[0]->post_content ; 
+					
+				$myQuery = new WP_Query( $args ); 
+
+				//Looping through the posts
+				$post_temp = array() ; 
+				while ( $myQuery->have_posts() ) {
+					$myQuery->the_post();
+					$post_temp[] = $post;
+				}
+				wp_reset_postdata();
+				
+				$text = $post_temp[0]->post_content ; 
 				$iter++ ; 
 				if (($this->get_param('min_nb_words')<=count(explode(' ', $text))) || ($iter > 30)) {
 					$ok=true ; 
@@ -1056,9 +1068,9 @@ class plagiary_search extends pluginSedLex {
 		}
 		
 		// return
-		$this->param = array("next_step"=>"search_web_engines", "id"=>$post[0]->ID, "text"=>$text) ; 
+		$this->param = array("next_step"=>"search_web_engines", "id"=>$post_temp[0]->ID, "text"=>$text) ; 
 		$this->param['searched_sentence'] = $random_sentence ; 
-		$this->param['information'] = mb_strlen($post[0]->post_content) ; 
+		$this->param['information'] = mb_strlen($post_temp[0]->post_content) ; 
 	}
 	
 	/** =====================================================================================================

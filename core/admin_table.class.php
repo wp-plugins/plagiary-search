@@ -243,16 +243,16 @@ if (!class_exists("adminTable")) {
 					if ($this->current_ordercolumn()==$i_col) {
 						$name .= "&nbsp;" ; 
 						if  ($this->current_orderdir()=="DESC") {
-							$name .= "<a href='".add_query_arg( array ( 'orderdir_'.$this->id => 'ASC', 'ordercol_'.$this->id  => $i_col ) )."'><img src='".WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/arrow_up.png' style='border:0px; vertical-align:middle;'></a>" ; 
-							$name .= "<img src='".WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/arrow_down_s.png' style='border:0px; vertical-align:middle;'>" ; 							
+							$name .= "<a href='".add_query_arg( array ( 'orderdir_'.$this->id => 'ASC', 'ordercol_'.$this->id  => $i_col ) )."'><img src='".plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/arrow_up.png' style='border:0px; vertical-align:middle;'></a>" ; 
+							$name .= "<img src='".plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/arrow_down_s.png' style='border:0px; vertical-align:middle;'>" ; 							
 						} else {
-							$name .= "<img src='".WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/arrow_up_s.png' style='border:0px; vertical-align:middle;'>" ; 
-							$name .= "<a href='".add_query_arg( array ( 'orderdir_'.$this->id => 'DESC', 'ordercol_'.$this->id  => $i_col ) )."'><img src='".WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/arrow_down.png' style='border:0px; vertical-align:middle;'></a>" ; 						
+							$name .= "<img src='".plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/arrow_up_s.png' style='border:0px; vertical-align:middle;'>" ; 
+							$name .= "<a href='".add_query_arg( array ( 'orderdir_'.$this->id => 'DESC', 'ordercol_'.$this->id  => $i_col ) )."'><img src='".plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/arrow_down.png' style='border:0px; vertical-align:middle;'></a>" ; 						
 						}
 					} else {
 						$name .= "&nbsp;" ; 
-						$name .= "<a href='".add_query_arg( array ( 'orderdir_'.$this->id => 'ASC', 'ordercol_'.$this->id  => $i_col ) )."'><img src='".WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/arrow_up.png' style='border:0px; vertical-align:middle;'></a>" ; 
-						$name .= "<a href='".add_query_arg( array ( 'orderdir_'.$this->id => 'DESC', 'ordercol_'.$this->id  => $i_col ) )."'><img src='".WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/arrow_down.png' style='border:0px; vertical-align:middle;'></a>" ; 
+						$name .= "<a href='".add_query_arg( array ( 'orderdir_'.$this->id => 'ASC', 'ordercol_'.$this->id  => $i_col ) )."'><img src='".plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/arrow_up.png' style='border:0px; vertical-align:middle;'></a>" ; 
+						$name .= "<a href='".add_query_arg( array ( 'orderdir_'.$this->id => 'DESC', 'ordercol_'.$this->id  => $i_col ) )."'><img src='".plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/arrow_down.png' style='border:0px; vertical-align:middle;'></a>" ; 
 					}
 				}
 				$i_col++ ; 
@@ -369,11 +369,11 @@ if (!class_exists("adminCell")) {
 					$num ++ ;
 					if (strpos($l[1],"(")>0) {
 						$l[1] = str_replace('"', '\'', $l[1]) ; 
-?>										<span><a href="#" onclick="javascript: jQuery('#wait_<?php echo Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>').show() ; jQuery('body').bind('DOMSubtreeModified',function() {jQuery('#wait_<?php echo Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>').hide() ; })  ; <?php echo $l[1] ;?> ; return false ; " id="<?php echo Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>"><?php echo $l[0] ;?></a><img id='wait_<?php echo Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>' src='<?php echo WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)); ?>img/ajax-loader.gif' style='display:none;'><?php if ($num!=count($this->action)) { echo " |" ; }?></span>
+?>										<span><a href="#" onclick="javascript: jQuery('#wait_<?php echo Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>').show() ; jQuery('body').bind('DOMSubtreeModified',function() {jQuery('#wait_<?php echo Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>').hide() ; })  ; <?php echo $l[1] ;?> ; return false ; " id="<?php echo Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>"><?php echo $l[0] ;?></a><img id='wait_<?php echo Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>' src='<?php echo plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)); ?>img/ajax-loader.gif' style='display:none;'><?php if ($num!=count($this->action)) { echo " |" ; }?></span>
 <?php					
 					} else {
 					
-?>										<span><a href="#" onclick="javascript: jQuery('#wait_<?php echo Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>').show() ; jQuery('body').bind('DOMSubtreeModified',function() {jQuery('#wait_<?php echo Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>').hide() ; }) ; <?php echo $l[1] ;?>(<?php echo $this->idLigne ; ?>) ; return false ; " id="<?php echo $l[1] ;?>_<?php echo $this->idLigne ;?>"><?php echo $l[0] ;?></a><img id='wait_<?php echo Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>' src='<?php echo WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)); ?>img/ajax-loader.gif' style='display:none;'><?php if ($num!=count($this->action)) { echo " |" ; }?></span>
+?>										<span><a href="#" onclick="javascript: jQuery('#wait_<?php echo Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>').show() ; jQuery('body').bind('DOMSubtreeModified',function() {jQuery('#wait_<?php echo Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>').hide() ; }) ; <?php echo $l[1] ;?>(<?php echo $this->idLigne ; ?>) ; return false ; " id="<?php echo $l[1] ;?>_<?php echo $this->idLigne ;?>"><?php echo $l[0] ;?></a><img id='wait_<?php echo Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>' src='<?php echo plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)); ?>img/ajax-loader.gif' style='display:none;'><?php if ($num!=count($this->action)) { echo " |" ; }?></span>
 <?php				}
 				}
 ?>									</div>

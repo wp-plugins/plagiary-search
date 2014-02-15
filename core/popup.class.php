@@ -71,7 +71,7 @@ if (!class_exists("popupAdmin")) {
 			echo "<div id='backgroundPopup' style='".$this->css."'>" ; 
 			echo "</div>" ; 
    			echo "<div id='popupForm'>" ; 
-			echo "	<a href='#' id='popupFormClose' onClick='disablePopup() ; return false ; '><img src='".WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/close_popup.png' alt='".__("Close popup", 'SL_framework')."'/></a>" ;  
+			echo "	<a href='#' id='popupFormClose' onClick='disablePopup() ; return false ; '><img src='".plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/close_popup.png' alt='".__("Close popup", 'SL_framework')."'/></a>" ;  
 			echo "	<div id='titlePopupForm'>" ; 
 			echo "		<p>".$this->title."</p>" ; 
 			echo "	</div>" ; 

@@ -88,23 +88,23 @@ if (!class_exists("adminTabs")) {
 					setCookie(name,"",-1);
 				}
 
-				jQuery(function($){ 
-					$tabs<?php echo $rnd ; ?> = jQuery('#tabs<?php echo $rnd ; ?>').tabs();  
+				jQuery(document).ready(function($){ 
 					<?php 
 					if ($this->activated != 0) {
 					?>
-					$tabs<?php echo $rnd ; ?>.tabs('select', <?php echo ($this->activated) ?>) ; 
+					jQuery('#tabs<?php echo $rnd ; ?>').tabs({active:<?php echo ($this->activated) ?>}) ; 
 					<?php
 					} else {
 					?>
 					if (getCookie("tabSL")!=null) {
-						$tabs<?php echo $rnd ; ?>.tabs('select', "#"+getCookie("tabSL") ) ; 
+						var indexToGo = jQuery('#tabs<?php echo $rnd ; ?> a[href="#'+getCookie("tabSL")+'"]').parent().index();
+						jQuery("#tabs<?php echo $rnd ; ?>").tabs({active:indexToGo});
 					} 
 					<?php
 					}
 					?>
-					$tabs<?php echo $rnd ; ?>.tabs({ select: function(event, ui) { 
-						idToGo = ui.tab.href.split("#") ; 
+					jQuery('#tabs<?php echo $rnd ; ?>').tabs({ activate: function(event, ui) { 
+						idToGo = ui.newTab.find("a").attr('href').split("#") ; 
 						setCookie("tabSL", idToGo[1], 1 ) ; 
 					} });
 				}) ; 
@@ -117,7 +117,7 @@ if (!class_exists("adminTabs")) {
 			
 			for ($i=0 ; $i<count($this->title) ; $i++) {
 				if ($this->image[$i]=="") {
-					$this->image[$i] = WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/tab_empty.png" ; 
+					$this->image[$i] = plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/tab_empty.png" ; 
 				}
 ?>					<li><a href="#tab-<?php echo md5($all.$this->title[$i]) ?>"><img style='vertical-align:middle;' src='<?php echo $this->image[$i] ?>'> <?php echo $this->title[$i] ?></a></li>		
 <?php

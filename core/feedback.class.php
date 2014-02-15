@@ -42,11 +42,10 @@ if (!class_exists("feedbackSL")) {
 				<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
 					<input type="hidden" name="cmd" value="_donations">
 					<input type="hidden" name="business" value="<?php echo $info_file['Email'] ;?>">
-					<input type="hidden" name="lc" value="FR">
 					<input type="hidden" name="item_name" value="Wordpress plugin (<?php echo $this->plugin ;?>)">
 					<input type="hidden" name="currency_code" value="EUR">
 					<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest">
-					<input type="image" src="https://www.paypalobjects.com/fr_FR/FR/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - la solution de paiement en ligne la plus simple et la plus sécurisée !">
+					<input type="image" src="https://www.paypalobjects.com/en_US/i/bnr/vertical_solution_PP.gif" border="0" name="submit" alt="PayPal">
 					<img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
 				</form>
 			<?php
@@ -76,7 +75,7 @@ if (!class_exists("feedbackSL")) {
 				
 				echo "<p id='feedback_submit'><input id='feedback_submit_button' disabled type='submit' name='add' class='button-primary validButton' onclick='send_feedback(\"".$this->plugin."\", \"".$this->pluginID."\");return false;' value='".__('Send feedback','SL_framework')."' /></p>" ; 
 				
-				$x = WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)) ; 
+				$x = plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)) ; 
 				echo "<img id='wait_feedback' src='".$x."/img/ajax-loader.gif' style='display:none;'>" ; 
 			} else {
 				echo "<p>".__('No email have been provided for the author of this plugin. Therefore, the feedback is impossible', 'SL_framework')."</p>" ; 

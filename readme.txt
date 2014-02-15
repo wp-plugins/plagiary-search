@@ -3,10 +3,10 @@
 Author: SedLex
 Contributors: SedLex
 Author URI: http://www.sedlex.fr/
-Plugin URI: http://wordpress.org/extend/plugins/plagiary-search/
+Plugin URI: http://wordpress.org/plugins/plagiary-search/
 Tags: tag
 Requires at least: 3.0
-Tested up to: 3.5
+Tested up to: 3.8.1
 Stable tag: trunk
 
 Find websites that copy/paste your content without authorization. 
@@ -24,7 +24,8 @@ This plugin is under GPL licence.
 = Localization =
 
 * English (United States), default language
-* French (France) translation provided by SedLex
+* Farsi (Iran) translation provided by Mehdi
+* French (France) translation provided by SedLex, jlmcreation
 
 = Features of the framework =
 
@@ -41,7 +42,7 @@ Have fun !
 
 == Installation ==
 
-1. Upload this folder to your plugin directory (for instance '/wp-content/plugins/')
+1. Upload this folder plagiary-search to your plugin directory (for instance '/wp-content/plugins/')
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Navigate to the 'SL plugins' box
 4. All plugins developed with the SL core will be listed in this box
@@ -54,6 +55,9 @@ Have fun !
 
 == Changelog ==
 
+= 1.0.4 = 
+* Various enhancements
+
 = 1.0.3 = 
 * Improve the core
 
@@ -63,4 +67,4 @@ Have fun !
 == Frequently Asked Questions ==
 
  
-InfoVersion:99dc3fefac9f766507be85b0f7ec505f
+InfoVersion:7b1e8ea58043b55b9d18e52ed3fe2c81
