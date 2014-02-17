@@ -98,6 +98,9 @@ if (!class_exists("adminTabs")) {
 					?>
 					if (getCookie("tabSL")!=null) {
 						var indexToGo = jQuery('#tabs<?php echo $rnd ; ?> a[href="#'+getCookie("tabSL")+'"]').parent().index();
+						if (indexToGo==-1) {
+							indexToGo = 0 ; 
+						}
 						jQuery("#tabs<?php echo $rnd ; ?>").tabs({active:indexToGo});
 					} 
 					<?php

@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-08-24T12:17:18+00:00\n"
+"PO-Revision-Date: 2014-02-16T10:43:51+00:00\n"
 "Last-Translator: 1231 <1231>\n"
 "Last-Translator: OWenT <http://www.owent.net>\n"
 "Last-Translator: peteryeung <http://winplus.tk>\n"
@@ -439,4 +439,7 @@ msgstr "如果您喜欢这个插件, 希望您捐赠给我.(这个插件完全�
 
 msgid "This is not mandatory! but it may be a sign that this plugin fits you needs: it makes me happy..."
 msgstr "这不是强制性的! 但是这表明您喜欢我的插件, 这会让我备受鼓舞"
+
+msgid "The following plugins have been developed by the author and are not yet been installed:"
+msgstr "以下由当前作者开发的插件您可能会感兴趣(未被安装)"
 
