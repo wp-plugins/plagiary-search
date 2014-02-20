@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-11-10T17:39:03+00:00\n"
+"PO-Revision-Date: 2014-02-18T15:48:45+00:00\n"
 "Last-Translator: reitermarkus <me@reitermark.us>\n"
 "Last-Translator: ThorstenKallnischkies <http://desastre.eu>\n"
 "Last-Translator: blog.xmee.de <blog.xmee.de>\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Last-Translator: ziix.de <ziix.de>\n"
 "Last-Translator: la <info@l-aschenbrenner.de>\n"
 "Last-Translator: HenningKlocke <internet-workflow.de>\n"
+"Last-Translator: DL8AAP <http://dl8aap.koch-carsten.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -443,4 +444,10 @@ msgstr "Bis jetzt hast Du %s Plugins installiert inclusive %s Plugins, die mit S
 
 msgid "The core plugin is located at %s"
 msgstr "Das Hauptplugin ist zu finden unter %s."
+
+msgid "The following plugins have been developed by the author and are not yet been installed:"
+msgstr "Die folgenden Plugins von diesem Autor sind noch nicht installiert:"
+
+msgid "The number of occurrence of %s does not match in both string. Please note that the string %s will be replaced with a contextual string."
+msgstr "Die Häufigkeit des Vorkommens von %s stimmt in beiden Strings nicht überein. Beachten Sie dass der String %s durch einen kontext bezogen String ersetzt wird."
 
