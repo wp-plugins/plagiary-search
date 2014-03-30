@@ -257,11 +257,10 @@ class my_plugin extends pluginSedLex {
 		SL_Debug::log(get_class(), "Print the configuration page." , 4) ; 
 
 		?>
-		<div class="wrap">
-			<div id="icon-themes" class="icon32"><br></div>
+		<div class="plugin-titleSL">
 			<h2><?php echo $this->pluginName ?></h2>
 		</div>
-		<div style="padding:20px;">			
+		<div class="plugin-contentSL">			
 			<?php
 			//===============================================================================================
 			// After this comment, you may modify whatever you want

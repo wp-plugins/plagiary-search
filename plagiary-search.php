@@ -3,7 +3,8 @@
 Plugin Name: Plagiary Search
 Plugin Tag: tag
 Description: <p>Find websites that copy/paste your content without authorization. </p><p>In addition, you will avoid to include involuntary plagiarism in your articles. </p><p>This plugin is under GPL licence.</p>
-Version: 1.0.4
+Version: 1.0.5
+
 
 Framework: SL_Framework
 Author: SedLex
@@ -336,11 +337,13 @@ class plagiary_search extends pluginSedLex {
 		SL_Debug::log(get_class(), "Print the configuration page." , 4) ; 
 		
 		?>
-		<div class="wrap">
-			<div id="icon-themes" class="icon32"><br></div>
+		<div class="plugin-titleSL">
 			<h2><?php echo $this->pluginName ?></h2>
 		</div>
-		<div style="padding:20px;">			
+		
+		<div class="plugin-contentSL">		
+			<?php echo $this->signature ; ?>
+
 			<?php
 			//===============================================================================================
 			// After this comment, you may modify whatever you want

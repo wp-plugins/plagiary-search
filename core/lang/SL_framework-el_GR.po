@@ -4,8 +4,9 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-04-07T13:52:08+00:00\n"
+"PO-Revision-Date: 2014-02-24T14:59:14+00:00\n"
 "Last-Translator: JackGarivaldis <http://diasporic.org>\n"
+"Last-Translator: Prokopis <http://www.saveandwin.gr/>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,83 +27,29 @@ msgstr "Σχετικά..."
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
-msgid "Log options"
-msgstr ""
-
-msgid "What is the debug level:"
-msgstr ""
-
-msgid "See the debug logs"
-msgstr ""
-
-msgid "1=log only the critical errors;"
-msgstr ""
-
-msgid "2=log only the critical errors and the standard errors;"
-msgstr ""
-
-msgid "3=log only the critical errors, the standard errors and the warnings;"
-msgstr ""
-
-msgid "4=log information;"
-msgstr ""
-
-msgid "5=log verbose;"
-msgstr ""
-
-msgid "Multisite Management"
-msgstr ""
-
-msgid "Do you want to allow sub-blogs to modify the translations of the plugins:"
-msgstr ""
-
-msgid "If this option is unchecked, the translation tab won't be displayed in the blog administration panel."
-msgstr ""
-
 msgid "Summary page for the plugins developped with the SL framework"
-msgstr "Συνοπτική σελίδα για τα plugins που προγραμματίστηκαν με το πλαίσιο SL"
+msgstr "Όλα τα πρόσθετα που έχουν δημιουργηθεί με χρήση του SL framework"
 
 msgid "For now, you have installed %d  plugins including %d plugins developped with the 'SL framework':"
 msgstr "Για την ώρα, έχετε εγκαταστήσει % plugins συμπεριλαμβανομένων % plugins που έχει το πλαίσιο &#039;SL&#039;"
 
 msgid "Plugin name"
-msgstr "Όνομα του plugin"
+msgstr "Όνομα Προσθέτου"
 
 msgid "Description"
-msgstr "Λεπτομέρειες"
-
-msgid "There is a SQL database for this plugin"
-msgstr ""
+msgstr "Περιγραφή"
 
 msgid "Version: %s by %s"
-msgstr "Παραλλαγή (version): %s από %s"
+msgstr "Έκδοση: %s από %s"
 
 msgid "List of SL plugins"
-msgstr "Κατάλογος plugins του πλαισίου SL"
+msgstr "Κατάλογος προσθέτων που έχουν δημιουργηθεί με χρήση του SL framework"
 
 msgid "Parameters of the framework"
-msgstr "Παράμετροι του πλαισίου"
+msgstr "Παράμετροι του SL framework"
 
 msgid "Manage translation of the framework"
-msgstr "Χειριστείτε τη μετάφραση του πλαισίου"
-
-msgid "The folder %s is not %s !"
-msgstr ""
-
-msgid "The file %s is not %s !"
-msgstr ""
-
-msgid "The folder %s does not exists and cannot be created !"
-msgstr ""
-
-msgid "The file %s does not exists and cannot be created !"
-msgstr ""
-
-msgid "There are some issues with folders rights. Please corret them as soon as possible as they could induce bugs and instabilities."
-msgstr ""
-
-msgid "Please see below:"
-msgstr ""
+msgstr "Διαχείριση μετάφρασης του  SL framework"
 
 msgid "KB"
 msgstr "ΚΒ"
@@ -113,77 +60,14 @@ msgstr "ΜΒ"
 msgid "GB"
 msgstr "GB"
 
-msgid "Error: the submitted value is not an integer and thus, the parameter has not been updated!"
-msgstr ""
-
-msgid "Error: the submitted string does not match the constrains"
-msgstr ""
-
-msgid "Error: the submitted file can not be uploaded!"
-msgstr ""
-
-msgid "Error: security issue!"
-msgstr ""
-
 msgid "Parameters"
 msgstr "Παράμετροι"
 
-msgid "Here are the parameters of the plugin. Modify them at will to fit your needs."
-msgstr ""
-
-msgid "Here are the parameters of the framework. Modify them at will to fit your needs."
-msgstr ""
-
 msgid "Values"
-msgstr "Αξίες"
-
-msgid "Warning: some characters have been removed because they are not allowed here"
-msgstr ""
-
-msgid "(integer)"
-msgstr ""
-
-msgid "(If you want to delete this file, please check this box %s)"
-msgstr ""
+msgstr "Τιμές"
 
 msgid "Update"
-msgstr "Εκσυχρόνηση"
-
-msgid "Reset to default values"
-msgstr ""
-
-msgid "Some parameters have not been updated due to errors (see below)!"
-msgstr ""
-
-msgid "Parameters have been updated (but with some warnings)!"
-msgstr ""
-
-msgid "Parameters have been updated successfully!"
-msgstr ""
-
-msgid "Parameters have been reset to their default values!"
-msgstr ""
-
-msgid "Here, you may configure three levels of translations: at the plugin level, at the framework level, and at the dashboard level."
-msgstr ""
-
-msgid "Please be informed that your current language is %s. Text will be translated if a translation is available."
-msgstr ""
-
-msgid "If you want to modify the language, please go in %s and find %s or %s. The second argument is your language and you may modify it as you want."
-msgstr ""
-
-msgid "Translations available for this plugin (i.e. %s)"
-msgstr ""
-
-msgid "Translations available for the SL framework (stored in %s)"
-msgstr ""
-
-msgid "Adding a new translation for this language: %s"
-msgstr ""
-
-msgid "Sentence to translate"
-msgstr ""
+msgstr "Ενημέρωση"
 
 msgid "Translation"
 msgstr "Μετάφραση"
@@ -191,29 +75,8 @@ msgstr "Μετάφραση"
 msgid "Your name:"
 msgstr "Το όνομά σας:"
 
-msgid "(if your name/pseudo is already in the list, there is no need to fill this input)"
-msgstr ""
-
 msgid "Your email or your website:"
 msgstr "Το email ή την ιστοσελίδα σας:"
-
-msgid "Create the translation files"
-msgstr ""
-
-msgid "Modifying the translation for this language: %s"
-msgstr ""
-
-msgid "Modify the translation files"
-msgstr ""
-
-msgid "The file %s cannot be extracted from mail attachments"
-msgstr ""
-
-msgid "The file %s cannot be written in the %s folder"
-msgstr ""
-
-msgid "The file %s has been imported in the %s folder"
-msgstr ""
 
 msgid "Plugin"
 msgstr "Plugin"
@@ -229,18 +92,6 @@ msgstr "%s προτάσεις έχουν ματαφραστεί (π.χ. %s)."
 
 msgid "Delete"
 msgstr "Διαγραφή"
-
-msgid "See the new translation file and merge"
-msgstr ""
-
-msgid "%s sentences have been newly translated and %s sentences have been modified (the old file has %s translated sentences)."
-msgstr ""
-
-msgid "See the modifications/new translations and Merge"
-msgstr ""
-
-msgid "See the new translations and Merge"
-msgstr ""
 
 msgid "New translations are available"
 msgstr "Υπάρχουν νέες μεταφράσεις"
@@ -263,50 +114,11 @@ msgstr "Ν&#039; αντικαταστήσετε;"
 msgid "Merge"
 msgstr "Συγχώνεψη"
 
-msgid "%s sentences have been translated (i.e. %s) %s %s sentences have to be checked because they are close (but not identical) to those to translate.%s"
-msgstr ""
-
 msgid "The translation %s have been sent"
 msgstr "Οι μεταφράσεις %s έχουν αποσταλεί."
 
-msgid "An error occured sending the email."
-msgstr ""
-
 msgid "Make sure that your wordpress is able to send email."
 msgstr "Σιγουρευτείτε ότι το Wordpress μπορεί να στείλει ηλεκτρονικά μηνύματα (email)."
-
-msgid "%s file cannot be created for %s as there is no translated sentence. Please, translate at least one sentence to create a file"
-msgstr ""
-
-msgid "%s file has been updated for %s"
-msgstr ""
-
-msgid "%s file has been updated from this file"
-msgstr ""
-
-msgid "%s file has been created with a new translation for %s"
-msgstr ""
-
-msgid "%s file has been created from this file"
-msgstr ""
-
-msgid "If you do not want to loose your translations on the next upgrading of this plugin, it is recommended to send the translation files to the author by clicking %s here %s !"
-msgstr ""
-
-msgid "If you do not want to loose your translations on the next upgrading of this plugin, please save them on your hard disk before upgrading and then restore them after the upgrade !"
-msgstr ""
-
-msgid "Summary cached %s"
-msgstr ""
-
-msgid "The sentences used in this plugin are in English. Help the others users using the same language as you by translating this plugin."
-msgstr ""
-
-msgid "This plugin is available in %d languages."
-msgstr ""
-
-msgid "There are %d sentences to be translated in this plugin."
-msgstr ""
 
 msgid "Ratio %"
 msgstr "Αναλογία %"
@@ -330,34 +142,10 @@ msgid "You may add a new translation hereafter (Please note that it is recommend
 msgstr "Μπορείτε να προσθέσετε μια νέα μετάφραση από εδώ και στο εξής (Παρακαλείστε να στείλετε τη μετάφρασή σας στον κατασκευαστή για να μπορέσει να την προσθέσει σε μελλοντικές αλλαγές του plugin)"
 
 msgid "Add"
-msgstr "Πρόσθεση"
-
-msgid "The 'SL framework' is a framework used for developping many plugins like this one. Thus, if you participate translating the framework, it will be very helpful for a bunch of plugins."
-msgstr ""
-
-msgid "There is %d languages supported for the 'SL framework'."
-msgstr ""
-
-msgid "There is %d sentence to be translated in the framework."
-msgstr ""
-
-msgid "Send to the author of the framework"
-msgstr ""
-
-msgid "Donate"
-msgstr ""
-
-msgid "If you like the plugin, do not hesitate to donate. Please note that this plugin is developed in my spare time for free."
-msgstr ""
-
-msgid "This is not mandatory! but it may be a sign that this plugin fits you needs: it makes me happy..."
-msgstr ""
+msgstr "Προσθήκη"
 
 msgid "Feedback form"
 msgstr "Φόρμα αναπληροφόρησης"
-
-msgid "This form is an easy way to contact the author and to discuss issues/incompatibilities/etc. with him"
-msgstr ""
 
 msgid "Contact the author"
 msgstr "Επικοινωνήστε με τον κατασκευαστή"
@@ -365,59 +153,20 @@ msgstr "Επικοινωνήστε με τον κατασκευαστή"
 msgid "Your email:"
 msgstr "Η ηλεκτρονική σας διεύθυνση:"
 
-msgid "Useful... so that the author will be able to anwser you."
-msgstr ""
-
 msgid "Your comments:"
 msgstr "Τα σχόλιά σας;"
-
-msgid "Please note that additional information on your wordpress installation will be sent to the author in order to help the debugging if needed (such as : the wordpress version, the installed plugins, etc.)"
-msgstr ""
-
-msgid "Send feedback"
-msgstr ""
-
-msgid "No email have been provided for the author of this plugin. Therefore, the feedback is impossible"
-msgstr ""
-
-msgid "The feedback has been sent"
-msgstr ""
-
-msgid "Plugins that you may install"
-msgstr ""
-
-msgid "The following plugins have been developed by the author and are not yet installed:"
-msgstr ""
-
-msgid "Plugin not yet installed"
-msgstr ""
-
-msgid "Description and Screenshots"
-msgstr ""
-
-msgid "All author's plugins have been installed. Thank you!"
-msgstr ""
-
-msgid "Installed plugins"
-msgstr ""
-
-msgid "You have already installed the following author's plugins:"
-msgstr ""
-
-msgid "Plugin already installed"
-msgstr ""
 
 msgid "The Wordpress page: %s"
 msgstr "Η σελίδα του Wordpress: %s"
 
 msgid "An Unexpected HTTP Error occurred during the API request."
-msgstr "Ένας απρόσμενος HTTP Error σημειώθηκε κατά την κλήση του API."
+msgstr "Παρουσιάστηκε απροσδόκητο σφάλμα HTTP κατά την κλήση του API."
 
 msgid "Last update:"
-msgstr "Τελευταία εκσυγχρόνηση:"
+msgstr "Τελευταία ενημέρωση:"
 
 msgid "Rating: %s"
-msgstr "Εκτίμηση: %s"
+msgstr "Αξιολόγηση: %s"
 
 msgid "by %s persons"
 msgstr "από %s άτομα"
@@ -425,45 +174,63 @@ msgstr "από %s άτομα"
 msgid "Number of download:"
 msgstr "Αριθμός του download:"
 
-msgid "Close popup"
-msgstr ""
+msgid "Plugin not yet installed"
+msgstr "Το πρόσθετο δεν έχει ακόμα εγκαταστθεί"
+
+msgid "Installed plugins"
+msgstr "Εγκατεστημένα πρόσθετα"
+
+msgid "Plugin already installed"
+msgstr "Το πρόσθετο έχει ήδη εγκατασταθεί."
+
+msgid "Add new"
+msgstr "Προσθήκη νέου"
+
+msgid "(Delete)"
+msgstr "(Διαγραφή)"
+
+msgid "(integer)"
+msgstr "(ακέραιος)"
+
+msgid "Create the translation files"
+msgstr "Δημιουργία των αρχείων μετάφρασης"
+
+msgid "Modify the translation files"
+msgstr "Επεξεργασία των αρχείων μετάφρασης"
+
+msgid "Modify translations"
+msgstr "Επεξεργασία μετάφρασης"
+
+msgid "Send translation"
+msgstr "Αποστολή μετάφρασης"
+
+msgid "Confirmation"
+msgstr "Επιβεβαίωση"
+
+msgid "Log options"
+msgstr "Επιλογές αρχείου καταγραφής"
+
+msgid "Multisite Management"
+msgstr "Διαχείριση εγκατάστασης πολλαπλών σάιτ"
+
+msgid "The core plugin is located at %s"
+msgstr "Το βασικό άρθωμα του προσθέτου είναι εγκατεστημένο στο %s"
+
+msgid "The folder %s is not %s !"
+msgstr "Ο φάκελος %s δεν είναι %s !"
+
+msgid "The file %s is not %s !"
+msgstr "Το αρχείο %s δεν είναι %s !"
+
+msgid "The folder %s does not exists and cannot be created !"
+msgstr "Ο φάκελος %s ΔΕΝ υπάρχει και ΔΕΝ μπορεί να δημιουργηθεί !"
+
+msgid "The file %s does not exists and cannot be created !"
+msgstr "Το αρχείο %s ΔΕΝ υπάρχει και ΔΕΝ μπορεί να δημιουργηθεί !"
+
+msgid "Please see below:"
+msgstr "Σας παρακαλούμε δείτε παρακάτω:"
 
 msgid "Filter: %s"
-msgstr ""
-
-msgid "%s of %s"
-msgstr ""
-
-msgid "Current Page"
-msgstr ""
-
-msgid "Error: %s function is not found"
-msgstr ""
-
-msgid "The file %s cannot be read. You should have a problem with file permissions or security restrictions."
-msgstr ""
-
-msgid "The folder %s cannot be opened. You should have a problem with folder permissions or security restrictions."
-msgstr ""
-
-msgid "The file %s cannot be deleted. You should have a problem with file permissions or security restrictions."
-msgstr ""
-
-msgid "An other process is still running (it runs for %s seconds)"
-msgstr ""
-
-msgid "The file %s cannot be modified/created. You should have a problem with file permissions or security restrictions."
-msgstr ""
-
-msgid "The file %s cannot be created. You should have a problem with file permissions or security restrictions."
-msgstr ""
-
-msgid "The file %s cannot be compressed."
-msgstr ""
-
-msgid "The file %s cannot be renamed. You should have a problem with file permissions or security restrictions."
-msgstr ""
-
-msgid "The file %s cannot be modified. You should have a problem with file permissions or security restrictions."
-msgstr ""
+msgstr "Φίλτρο: %s"
 

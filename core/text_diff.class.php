@@ -37,8 +37,8 @@ if (!class_exists("textDiff")) {
 			$this->text1 = $text1 ;
 			$this->text2 = $text2 ;
 		
-			$left_lines  = split("\n", $this->text1);
-			$right_lines = split("\n", $this->text2);
+			$left_lines  = explode("\n", $this->text1);
+			$right_lines = explode("\n", $this->text2);
 			
 			$this->text_diff = new Text_Diff($left_lines, $right_lines);
 		}

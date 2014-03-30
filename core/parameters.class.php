@@ -692,7 +692,7 @@ if (!class_exists("parametersSedLex")) {
 						$currentTable->add_line(array($cel_label, $cel_value), '1') ; 			
 					}					
 					if ($type=="text") {
-						$num = count(explode("\n", $this->obj->get_param($param))) + 1 ; 
+						$num = min(22,count(explode("\n", $this->obj->get_param($param))) + 1) ; 
 						$ew = "" ; 
 						if ($problem_e!="") {	
 							$ew .= "<div class='errorSedLex'>".$problem_e."</div>" ; 
@@ -708,7 +708,7 @@ if (!class_exists("parametersSedLex")) {
 							$iii++ ; 
 						}
 						$cel_label = new adminCell($cl) ; 
-						$cel_value = new adminCell("<p class='paramLine'><textarea name='".$param."' id='".$param."' rows='".$num."' cols='70'>".htmlentities($this->obj->get_param($param), ENT_QUOTES, "UTF-8")."</textarea></p>") ; 
+						$cel_value = new adminCell("<p class='paramLine'><div style='width:100%'><textarea style='width:100%' name='".$param."' id='".$param."' rows='".$num."'>".htmlentities($this->obj->get_param($param), ENT_QUOTES, "UTF-8")."</textarea></div></p>") ; 
 						$currentTable->add_line(array($cel_label, $cel_value), '1') ; 			
 					}
 					

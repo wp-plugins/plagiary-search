@@ -722,6 +722,9 @@ if (!class_exists("translationSL")) {
 					$to_store = htmlspecialchars(htmlspecialchars_decode($trad[$i], ENT_QUOTES), ENT_QUOTES) ; 
 					$to_store = str_replace("&gt;", ">", $to_store) ; 
 					$to_store = str_replace("&lt;", "<", $to_store) ; 
+					$to_store = str_replace("% s", " %s ", $to_store) ; 
+					$to_store = str_replace("  ", " ", $to_store) ; 
+					
 					fwrite($handle,'msgstr "'.$to_store.'"'."\n\n") ;  
 					if ($trad[$i]!="") {
 						$hash[] = array('msgid' => $match[1], 'msgstr' => htmlspecialchars(htmlspecialchars_decode($trad[$i], ENT_QUOTES), ENT_QUOTES) ) ; 

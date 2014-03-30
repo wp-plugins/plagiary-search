@@ -55,6 +55,9 @@ Have fun !
 
 == Changelog ==
 
+= 1.0.5 = 
+* NEW: Improve the look of the configuration page
+
 = 1.0.4 = 
 * Various enhancements
 
@@ -67,4 +70,4 @@ Have fun !
 == Frequently Asked Questions ==
 
  
-InfoVersion:a5f44be16edaa0114de7b38890845b05
+InfoVersion:55c3cb7716892add9c666ef274d08dcb

@@ -4,10 +4,11 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-11-06T08:26:22+00:00\n"
+"PO-Revision-Date: 2014-03-03T16:30:03+00:00\n"
 "Last-Translator: Mehdi <behzadi724@gmail.com>\n"
 "Last-Translator: AhmadWayfarer <http://7eshop.ir>\n"
 "Last-Translator: eminem <>\n"
+"Last-Translator: sehrama.ir <sehrama.ir>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,28 +24,28 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 
 msgid "About..."
-msgstr "درباره"
+msgstr "در باره"
 
 msgid "Settings"
 msgstr "تنظیمات"
 
 msgid "Log options"
-msgstr "تاریخچه تنظیمات"
+msgstr "تاریخچه‌ی تنظیمات"
 
 msgid "What is the debug level:"
-msgstr "سطح اشکال زدایی:"
+msgstr "سطح اشکال‌زدایی:"
 
 msgid "See the debug logs"
-msgstr "مشاهده تاریخچه اشکالزایی"
+msgstr "مشاهده‌ی تاریخچه اشکال‌زدایی"
 
 msgid "1=log only the critical errors;"
-msgstr "1=فقط ثبت خطاهای اشكال زدایی های بحرانی؛"
+msgstr "1=فقط ثبت خطاهای اشكال‌زدایی‌های بحرانی؛"
 
 msgid "2=log only the critical errors and the standard errors;"
-msgstr "2=فقط ثبت خطاهای اشكال زدایی های بحرانی و خطاهای استاندارد؛"
+msgstr "2=فقط ثبت خطاهای اشكال‌زدایی‌های بحرانی و خطاهای استاندارد؛"
 
 msgid "3=log only the critical errors, the standard errors and the warnings;"
-msgstr "3=فقط ثبت خطاهای اشكال زدایی های بحرانی و خطاهای استاندارد و هشدارها؛"
+msgstr "3=فقط ثبت خطاهای اشكال‌زدایی‌های بحرانی و خطاهای استاندارد و هشدارها؛"
 
 msgid "4=log information;"
 msgstr "4=ثبت اطلاعات"
@@ -53,16 +54,16 @@ msgid "5=log verbose;"
 msgstr "5=ثبت verbose"
 
 msgid "Multisite Management"
-msgstr "مدیریت سایت چند"
+msgstr "مدیریت چند سایته"
 
 msgid "Summary page for the plugins developped with the SL framework"
-msgstr "صفحه خلاصه ای از پلاگین های ایجاد شده با فریم ورك SL"
+msgstr "صفحه‌ی خلاصه‌یی از پلاگین‌های ایجاد شده با فریم‌ورك SL"
 
 msgid "For now, you have installed %s plugins including %s plugins developped with the SedLex's framework"
-msgstr "هم اکنون شما از بین %s افزونه، %s افزونه توسعه یافته با چارچوب SedLex نصب کرده‌اید."
+msgstr "هم اکنون شما از بین %s افزونه، %s افزونه‌ی توسعه یافته با چارچوب SedLex نصب کرده‌اید."
 
 msgid "The core plugin is located at %s"
-msgstr "هسته پلاگین واقع در %s است"
+msgstr "هسته‌ی پلاگین واقع در %s است"
 
 msgid "Plugin name"
 msgstr "نام افزونه"
@@ -77,55 +78,55 @@ msgid "Version: %s by %s"
 msgstr "نسخه: %s از %s"
 
 msgid "List of SL plugins"
-msgstr "لیست پلاگین های SL"
+msgstr "لیست پلاگین‌های SL"
 
 msgid "Parameters of the framework"
-msgstr "پارامترهای چارچوب"
+msgstr "پارامترهای فریم‌ورک"
 
 msgid "Manage translation of the framework"
-msgstr "مدیریت ترجمه چارچوب"
+msgstr "مدیریت ترجمه‌ی فریم‌ورک"
 
 msgid "The folder %s is not %s !"
-msgstr "پوشه %s ، %s نمی باشد!"
+msgstr "پوشه %s ، %s نمی‌باشد!"
 
 msgid "The file %s is not %s !"
-msgstr "فایل %s ، %s نمی باشد!"
+msgstr "فایل %s ، %s نمی‌باشد!"
 
 msgid "The folder %s does not exists and cannot be created !"
-msgstr "پوشه %s موجود نمی باشد و نمی تواند ایجاد شود!"
+msgstr "پوشه %s موجود نمی‌باشد و نمی‌تواند ایجاد شود!"
 
 msgid "The file %s does not exists and cannot be created !"
-msgstr "فایل %s موجود نمی باشد و نمی تواند ایجاد شود!"
+msgstr "فایل %s موجود نمی‌باشد و نمی‌تواند ایجاد شود!"
 
 msgid "Please see below:"
-msgstr "به موارد زیر توجه نمایید:"
+msgstr "به موارد زیر توجه کنید:"
 
 msgid "Close popup"
 msgstr "بستن پنجره"
 
 msgid "Here, you may configure three levels of translations: at the plugin level, at the framework level, and at the dashboard level."
-msgstr "در اینجا، شما ممکن است در سه سطح ترجمه پیکربندی کنید: در سطح افزونه، در سطح چارچوب و در سطح داشبورد."
+msgstr "در این‌جا، شما ممکن است در سه سطح ترجمه پیکربندی کنید: در سطح افزونه، در سطح فریم‌ورک و در سطح پیش‌خوان."
 
 msgid "Please be informed that your current language is %s. Text will be translated if a translation is available."
 msgstr "لطفاً توجه داشته باشید که زبان جاری شما %s است. اگر یک مترجم در دسترس باشد متن ترجمه خواهد شد."
 
 msgid "If you want to modify the language, please go in %s and find %s or %s. The second argument is your language and you may modify it as you want."
-msgstr "اگر می‌خواهید زبان را ویرایش کنید، لطفاً به %s بروید و فایل %s یا %s را پیدا کنید؛ آرگومان دوم زبان شماست و شما می‌توانید آن را به دلخواه خود به هر زبانی ویرایش کنید."
+msgstr "اگر می‌خواهید زبان را ویرایش کنید، لطفاً به %s بروید و فایل %s یا %s را پیدا کنید؛ آرگومان دوم زبان شماست و شما می‌توانید آن را به دل‌خواه خود به هر زبانی ویرایش کنید."
 
 msgid "Translations available for this plugin (i.e. %s)"
-msgstr "ترجمه های موجود برای این پلاگین (برای مثال %s)"
+msgstr "ترجمه‌های موجود برای این پلاگین (برای مثال %s)"
 
 msgid "Translations available for the SL framework (stored in %s)"
-msgstr "ترجمه های موجود برای فریم ورك SL (ذخیره شده در %s)"
+msgstr "ترجمه‌های موجود برای فریم ورك SL (ذخیره شده در %s)"
 
 msgid "Adding a new translation for this language: %s"
-msgstr "اضافه كردن ترجمه جدید برای این زبان: %s"
+msgstr "اضافه كردن ترجمه‌ی جدید برای این زبان: %s"
 
 msgid "Sentence to translate"
 msgstr "جمله برای ترجمه"
 
 msgid "Translation"
-msgstr "ترجه"
+msgstr "ترجمه (توسط سئحراما)"
 
 msgid "Your name:"
 msgstr "نام شما:"
@@ -134,28 +135,28 @@ msgid "Your email or your website:"
 msgstr "ایمیل:"
 
 msgid "Create the translation files"
-msgstr "ایجاد فایل های ترجمه"
+msgstr "ایجاد فایل‌های ترجمه"
 
 msgid "Add a new translation"
-msgstr "اضافه کردن ترجمه جدید"
+msgstr "اضافه کردن ترجمه‌ی جدید"
 
 msgid "Modifying the translation for this language: %s"
-msgstr "اصلاح ترجمه این زبان: %s"
+msgstr "اصلاح ترجمه‌ی این زبان: %s"
 
 msgid "The number of occurrence of %s does not match in both string. Please note that the string %s will be replaced with a contextual string."
 msgstr "برخی از رخداد %s در هر دو رشته یا جمله مطابق ندارد. لطفاً توجه داشته باشید که رشته %s با رشته‌ی متنی جایگزین خواهد شد."
 
 msgid "Modify the translation files"
-msgstr "اصلاح فایل های ترجمه"
+msgstr "اصلاح فایل‌های ترجمه"
 
 msgid "Modify translations"
-msgstr "تغییر ترجمه ها"
+msgstr "تغییر ترجمه‌ها"
 
 msgid "%s sentences have been translated (i.e. %s)."
-msgstr "%s جمله ترجمه شده اند ( برای مثال %s )"
+msgstr "%s جمله ترجمه شده‌اند ( برای مثال %s )"
 
 msgid "%s sentences have been translated (i.e. %s) %s %s sentences have to be checked because they are close (but not identical) to those to translate.%s"
-msgstr "%s جمله ترجمه شده است. (به عبارتی %s) تعداد  %s%s جمله باید بررسی شوند بخاطر اینکه نزدیک به ترجمه هستند و به طور دقیق نیست.%s"
+msgstr "%s جمله ترجمه شده است. (به عبارتی %s) تعداد  %s%s جمله باید بررسی شوند به خاطر این که به طور دقیق ترجمه نشده است.%s"
 
 msgid "The translation %s have been sent"
 msgstr "ترجمه از %s فرستاده شده"
@@ -170,31 +171,31 @@ msgid "Send translation"
 msgstr "ارسال ترجمه"
 
 msgid "%s file has been updated for %s"
-msgstr "%s فایل برای %s به روز رسانی شدند"
+msgstr "%s فایل برای %s به‌روز رسانی شدند"
 
 msgid "%s file has been updated from this file"
-msgstr "%s فایل از این فایل به روز رسانی شدند"
+msgstr "%s فایل از این فایل به‌روز رسانی شدند"
 
 msgid "%s file has been created with a new translation for %s"
-msgstr "%s فایل برای ترجمه جدید %s ایجاد شدند"
+msgstr "%s فایل برای ترجمه‌ی جدید %s ایجاد شدند"
 
 msgid "%s file has been created from this file"
 msgstr "%s فایل از این فایل ایجاد شدند"
 
 msgid "If you do not want to loose your translations on the next upgrading of this plugin, it is recommended to send the translation files to the author by clicking %s here %s !"
-msgstr "اگر نمی‌خواهید ترجمه‌تان برای به‌روزرسانی‌ این افزونه از دست دهید، توصیه می‌شود فایل‌های ترجمه را به نویسنده بفرستید، با کلیک کردن %s اینجا %s"
+msgstr "اگر می‌خواهید ترجمه‌تان را پس از به‌روزرسانی‌ این افزونه از دست ندهید، توصیه می‌شود فایل‌های ترجمه را به نویسنده بفرستید، با کلیک کردن %s اینجا %s"
 
 msgid "If you do not want to loose your translations on the next upgrading of this plugin, please save them on your hard disk before upgrading and then restore them after the upgrade !"
-msgstr "اگر نمی‌خواهید ترجمه‌تان برای به‌روزرسانی‌ این افزونه از دست دهید، لطفاً آنها را قبل از به‌روزرسانی بر روی هارددیسک خود ذخیره نمایید و سپس بعد از به‌روزرسانی آنها را بازیابی کنید!"
+msgstr "اگر می‌خواهید ترجمه‌تان را پس از به‌روزرسانی‌ این افزونه از دست ندهید، لطفاً آن‌ها را قبل از به‌روزرسانی بر روی هارددیسک خود ذخیره نمایید و سپس بعد از به‌روزرسانی آن‌ها را بازیابی کنید!"
 
 msgid "Confirmation"
-msgstr "تایید"
+msgstr "تأیید"
 
 msgid "Summary cached %s"
-msgstr "خلاصه کش %s"
+msgstr "خلاصه‌ی کش %s"
 
 msgid "The sentences used in this plugin are in English. Help the others users using the same language as you by translating this plugin."
-msgstr "جملات استفاده شده در این افزونه انگلیسی است. کاربران دیگر کمک کنند که زبان خود را برای این افزونه ترجمه کنند."
+msgstr "جملات استفاده شده در این افزونه انگلیسی است. کاربران دیگر کمک کنند که این افزونه را به زبان خود ترجمه کنند."
 
 msgid "This plugin is available in %s languages."
 msgstr "پلاگین برای %s زبان موجود است."
@@ -212,22 +213,22 @@ msgid "Translators"
 msgstr "مترجمان"
 
 msgid "This is the default language of the plugin. It cannot be modified."
-msgstr "این زبان پیش فرض پلاگین است. قابل تغییر نمی باشد."
+msgstr "این زبان پیش فرض پلاگین است. قابل تغییر نمی‌باشد."
 
 msgid "Modify"
 msgstr "تغییر دادن"
 
 msgid "Send to the author of the plugin"
-msgstr "ارسال به نویسنده این افزونه"
+msgstr "ارسال به نویسنده‌ی این افزونه"
 
 msgid "Add"
 msgstr "اضافه کردن"
 
 msgid "There is %s languages supported for the 'SL framework'."
-msgstr "%s زبان برای \&quot;فریم ورك SL\&quot; پشتیبانی می شوند."
+msgstr "%s زبان برای \&quot;فریم ورك SL\&quot; پشتیبانی می‌شوند."
 
 msgid "There is %s sentence to be translated in the framework."
-msgstr "%s جمله در فریم ورك باید ترجمه شوند."
+msgstr "%s جمله در فریم‌ورك باید ترجمه شوند."
 
 msgid "Send to the author of the framework"
 msgstr "ارسال به نویسنده فریم ورك"
@@ -239,10 +240,10 @@ msgid "Error: the submitted value is not an integer and thus, the parameter has 
 msgstr "خطا: مقدار ثبت شده یک عدد صحیح نیست و در نتیجه پارامتر به‌روز نشده است."
 
 msgid "Error: the submitted string does not match the constrains"
-msgstr "خطا: رشته ارائه شده با محدودیت مطابقت ندارد"
+msgstr "خطا: رشته‌ی ارائه شده با محدودیت مطابقت ندارد"
 
 msgid "Error: the submitted file can not be uploaded!"
-msgstr "خطا: فایل ارائه شده را نمی توان به آپلود!"
+msgstr "خطا: فایل ارائه شده را نمی‌توان به آپلود!"
 
 msgid "Error: security issue!"
 msgstr "خطای امنیتی!"
@@ -251,10 +252,10 @@ msgid "Parameters"
 msgstr "پارامتر"
 
 msgid "Here are the parameters of the plugin. Modify them at will to fit your needs."
-msgstr "در اینجا پارامترهای افزونه قرار دارند. آنها را به قصد متناسب با نیازهای خود ویرایش کنید."
+msgstr "در این‌جا پارامترهای افزونه قرار دارند. آن‌ها را به قصد متناسب با نیازهای خود ویرایش کنید."
 
 msgid "Here are the parameters of the framework. Modify them at will to fit your needs."
-msgstr "در اینجا پارامترهای چارچوب قرار دارند. آنها را به قصد متناسب با نیازهای خود ویرایش کنید."
+msgstr "در اینجا پارامترهای چارچوب قرار دارند. آن‌ها را به قصد متناسب با نیازهای خود ویرایش کنید."
 
 msgid "(Delete)"
 msgstr "(حذف)"
@@ -263,7 +264,7 @@ msgid "Values"
 msgstr "مقدار"
 
 msgid "Warning: some characters have been removed because they are not allowed here"
-msgstr "هشدار: تعدادی کاراکتر بخاطر اینکه آنها مجاز نیستند حذف شده است."
+msgstr "هشدار: تعدادی کاراکتر به خاطر این که آن‌ها مجاز نیستند حذف شده است."
 
 msgid "(integer)"
 msgstr "(عدد)"
@@ -272,25 +273,25 @@ msgid "(If you want to delete this file, please check this box %s)"
 msgstr "(اگر قصد حذف این فایل را دارید لطفا اين باكس را تیك بزنید %s)"
 
 msgid "Update"
-msgstr "بروز رسانی"
+msgstr "به‌روز رسانی"
 
 msgid "Reset to default values"
 msgstr "باز گردانی به تنظیمات اولیه"
 
 msgid "Some parameters have not been updated due to errors (see below)!"
-msgstr "به دليل خطا چند پارامتر به روز رسانی نشدند (پایین را ببینید)!"
+msgstr "به دليل خطا چند پارامتر به‌روز رسانی نشدند (پایین را ببینید)!"
 
 msgid "Parameters have been updated (but with some warnings)!"
-msgstr "پارامترها به روز رسانی شدند (اما با چند هشدار)!"
+msgstr "پارامترها به‌روز رسانی شدند (اما با چند هشدار)!"
 
 msgid "Parameters have been updated successfully!"
-msgstr "پارامترهای موفقیت به روز رسانی شده اند!"
+msgstr "پارامترها با موفقیت به‌روز رسانی شده‌اند!"
 
 msgid "Parameters have been reset to their default values!"
-msgstr "مقادیر پارامترها به مقدار پیشفرض تغییر یافت!"
+msgstr "مقادیر پارامترها به مقدار پیش‌فرض تغییر یافت!"
 
 msgid "Plugins that you may install"
-msgstr "افزونه می تواند نصب شود"
+msgstr "افزونه می‌تواند نصب شود"
 
 msgid "Plugin not yet installed"
 msgstr "افزونه هنوز نصب نشده است"
@@ -299,28 +300,28 @@ msgid "Description and Screenshots"
 msgstr "توضیحات و تصاویر"
 
 msgid "All author's plugins have been installed. Thank you!"
-msgstr "تمام پلاگین های نویسنده نصب شدند. با تشكر!"
+msgstr "تمام پلاگین‌های نویسنده نصب شدند. با تشكر!"
 
 msgid "Installed plugins"
-msgstr "افزونه های نصب شده"
+msgstr "افزونه‌های نصب شده"
 
 msgid "You have already installed the following author's plugins:"
-msgstr "شما قبلا پلاگین نویسنده را نصب كرده اید:"
+msgstr "شما قبلاً پلاگین نویسنده را نصب كرده‌اید:"
 
 msgid "Plugin already installed"
 msgstr "افزونه نصب شد"
 
 msgid "The Wordpress page: %s"
-msgstr "صفحه : %s"
+msgstr "صفحه: %s"
 
 msgid "An Unexpected HTTP Error occurred during the API request."
-msgstr "خطای HTML غیر منتظره ای طی درخواست API اتفاق افتاد."
+msgstr "خطای HTML غیر منتظره‌ای طی درخواست API اتفاق افتاد."
 
 msgid "Last update:"
-msgstr "آخرین بروز رسانی"
+msgstr "آخرین به‌روز رسانی"
 
 msgid "Rating: %s"
-msgstr "امتیاز : %s"
+msgstr "امتیاز: %s"
 
 msgid "by %s persons"
 msgstr "بر حسب %s"
@@ -350,7 +351,7 @@ msgid "Feedback form"
 msgstr "بازخورد از:"
 
 msgid "This form is an easy way to contact the author and to discuss issues/incompatibilities/etc. with him"
-msgstr "این فرم راهی ساده برای برقراری ارتباط با نویسنده و بحث کردن در مورد مسائل، ناسازگاری‌ها و... با او."
+msgstr "این فرم راهی ساده برای برقراری ارتباط با نویسنده و بحث کردن در مورد مسائل، ناسازگاری‌ها و... با اوست."
 
 msgid "Contact the author"
 msgstr "تماس با نویسنده"
@@ -359,19 +360,19 @@ msgid "Your email:"
 msgstr "ایمیل:"
 
 msgid "Useful... so that the author will be able to anwser you."
-msgstr "مفید بود... از آنجا كه نویسنده قادر به پاسخ شما باشد."
+msgstr "مفید بود... برای این که نویسنده قادر به پاسخ شما باشد."
 
 msgid "Your comments:"
 msgstr "نظر شما:"
 
 msgid "Please note that additional information on your wordpress installation will be sent to the author in order to help the debugging if needed (such as : the wordpress version, the installed plugins, etc.)"
-msgstr "لطفاً توجه داشته باشید که یک سری اطلاعات اضافی در مورد نصب وردپرس به نویسنده به منظور کمک در اشکال زدایی در صورت نیاز فرستاده خواهد شد (مثل: نسخه وردپرس، افزونه‌های نصب شده و...)."
+msgstr "لطفاً توجه داشته باشید که یک سری اطلاعات اضافی در مورد نصب وردپرس به نویسنده به منظور کمک در اشکال‌زدایی در صورت نیاز فرستاده خواهد شد (مثل: نسخه‌ی وردپرس، افزونه‌های نصب شده و...)."
 
 msgid "Send feedback"
 msgstr "ارسال بازخورد"
 
 msgid "No email have been provided for the author of this plugin. Therefore, the feedback is impossible"
-msgstr "هیچ ایمیلی برای نویسنده این افزونه ارائه نشده است. بنابراین ارسال بازخورد غیرممکن است."
+msgstr "هیچ ایمیلی برای نویسنده‌ی این افزونه ارائه نشده است. بنا بر این ارسال بازخورد غیر ممکن است."
 
 msgid "The feedback has been sent"
 msgstr "بازخورد ارسال شده است"
@@ -414,4 +415,16 @@ msgstr "نام فایل %s نمی‌تواند تغییر کند. شما بای�
 
 msgid "The file %s cannot be modified. You should have a problem with file permissions or security restrictions."
 msgstr "فایل %s نمی‌تواند ویرایش شود. شما باید مشکلی با مجوزهای دسترسی فایل و محدودیت‌های امنیتی داشته باشید."
+
+msgid "Do you want to allow sub-blogs to modify the translations of the plugins:"
+msgstr "آیا می‌خواهید به زیردامنه‌ها برای تغییر ترجمه‌ی پلاگین اجازه بدهید؟"
+
+msgid "If this option is unchecked, the translation tab won't be displayed in the blog administration panel."
+msgstr "اگر این گزینه از حالت انتخاب خارج شود، تب ترجمه در پنل مدیریتی وبلاگ نمایش داده نخواهد شد."
+
+msgid "The following plugins have been developed by the author and are not yet been installed:"
+msgstr "افزونه‌ی زیر توسط نویسنده توسعه داده شده و هنوز نصب نشده است:"
+
+msgid "(if your name/pseudo is already in the list, there is no need to fill this input)"
+msgstr "(اگر نام شما در لیست هست، نیازی به ورود آن ندارید)"
 

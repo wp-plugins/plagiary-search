@@ -1085,6 +1085,110 @@ if (!class_exists('pluginSedLex')) {
 					$this->add_css($url) ; 
 				}
 			}
+			
+			$url_low = plugin_dir_url("/").'/'.$plugin[0] ."/img/banner-772x250" ; 
+			$path_low = WP_PLUGIN_DIR.'/'.$plugin[0]."/img/banner-772x250" ; 
+			$url_high = plugin_dir_url("/").'/'.$plugin[0]."/img/banner-1544x500" ; 
+			$path_high = WP_PLUGIN_DIR.'/'.$plugin[0]."/img/banner-1544x500" ; 
+			// Add the CSS for the configuration page
+			ob_start() ; 
+				?>
+				.plugin-titleSL h2 {
+					font-family: "Helvetica Neue",sans-serif;
+					font-weight: bold; 
+					font-size: 30px;
+					max-width: 682px;
+					position: absolute;
+					left: 30px;
+					bottom: 20px;
+					padding: 15px;
+					margin-bottom: 4px;
+					color: #ffffff;
+					background-color: rgba(30, 30, 30, 0.9);
+					background-image: none;
+					background-repeat: repeat;
+					background-attachment: scroll;
+					background-position: 0% 0%;
+					background-clip: border-box;
+					background-origin: padding-box;
+					background-size: auto auto;
+					text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
+					box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.1);
+					border-top-left-radius: 8px;
+					border-top-right-radius: 8px;
+					border-bottom-right-radius: 8px;
+					border-bottom-left-radius: 8px; 				
+				}
+				<?php if (is_file($path_low.".png")) { ?>
+				.plugin-titleSL {
+					position: absolute;
+					top: 0px;
+					left: 0px;
+					width:772px;
+					height:250px;
+					background-image: url(<?php echo $url_low.".png" ; ?>);
+					background-size:772px 250px;
+					box-shadow: 0px 0px 50px 4px rgba(0, 0, 0, 0.2) inset, 0px -1px 0px rgba(0, 0, 0, 0.1) inset;
+					z-index:-100;
+				}
+				.plugin-contentSL {
+					margin-bottom:20px;					
+					padding:20px ; 
+					padding-top:270px ; 
+				}
+				
+				<?php } elseif (is_file($path_low.".jpg")) { ?>
+				.plugin-titleSL {
+					position: absolute;
+					top: 0px;
+					left: 0px;
+					width:772px;
+					height:250px;
+					background-image: url(<?php echo $url_low.".jpg" ; ?>);
+					background-size:772px 250px;
+					box-shadow: 0px 0px 50px 4px rgba(0, 0, 0, 0.2) inset, 0px -1px 0px rgba(0, 0, 0, 0.1) inset;
+					z-index:-100;
+				}
+				.plugin-contentSL {
+					margin-bottom:20px;					
+					padding:20px ; 
+					padding-top:270px ; 
+				}
+
+				<?php } else { ?>
+				.plugin-titleSL {
+					position: absolute;
+					top: 0px;
+					left: 0px;
+					height:110px;
+					width:772px;
+					background-image: none;
+					background-size:772px 110px;
+					z-index:-100;
+				}	
+				.plugin-contentSL {
+					margin-bottom:20px;					
+					padding:20px ; 
+					padding-top:110px ; 
+				}
+				<?php } ?>
+
+
+				<?php if (is_file($path_high.".png")) { ?>
+				@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+					.plugin-titleSL {
+						background-image: url(<?php echo $url_high.".png" ; ?>);
+					}
+				}
+				<?php } elseif (is_file($path_high.".jpg")) { ?>
+				@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+					.plugin-titleSL {
+						background-image: url(<?php echo $url_high.".jpg" ; ?>);
+					}
+				}
+				<?php
+				}
+			$this->add_inline_css(ob_get_clean()) ;
 
 		}
 

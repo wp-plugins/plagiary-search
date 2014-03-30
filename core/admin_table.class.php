@@ -188,7 +188,7 @@ if (!class_exists("adminTable")) {
 <?php    							}
 								}
 ?>								<input name="paged_<?php echo $this->id ; ?>" value="1" type="hidden"/>
-								<span class="paging-input"><? echo sprintf(__("Filter: %s", "SL_framework"), "<input type='text' name='filter_".$this->id."' value=\"".$filter."\" size='30'>") ?></span>
+								<span class="paging-input"><?php echo sprintf(__("Filter: %s", "SL_framework"), "<input type='text' name='filter_".$this->id."' value=\"".$filter."\" size='30'>") ?></span>
 								<br class="clear">
 							</div>
 						</div>
@@ -220,7 +220,7 @@ if (!class_exists("adminTable")) {
 ?>								<span class="displaying-num"><?php echo $this->nbLigneTotal ; ?> items</span>
 								<a class="first-page<?php if ($page_cur == 1) {echo  ' disabled' ; } ?>" <?php if ($page_cur == 1) {echo  'onclick="javascript:return false;" ' ; } ?>title="Go to the first page" href="<?php echo add_query_arg('table_id', $this->id, add_query_arg( 'paged_'.$this->id, '1' ));?>">&laquo;</a>
 								<a class="prev-page<?php if ($page_cur == 1) {echo  ' disabled' ; } ?>" <?php if ($page_cur == 1) {echo  'onclick="javascript:return false;" ' ; } ?>title="Go to the previous page" href="<?php echo add_query_arg('table_id', $this->id, add_query_arg( 'paged_'.$this->id, $page_inf ));?>">&lsaquo;</a>
-								<span class="paging-input"><? echo sprintf(__("%s of %s", "SL_framework"), "<input class='current-page' title='".__('Current Page', 'SL_framework')."' name='paged_".$this->id."' value='".$page_cur."' size='1' type='text'>", "<span class='total-pages'>".$page_tot."</span>") ?></span>
+								<span class="paging-input"><?php echo sprintf(__("%s of %s", "SL_framework"), "<input class='current-page' title='".__('Current Page', 'SL_framework')."' name='paged_".$this->id."' value='".$page_cur."' size='1' type='text'>", "<span class='total-pages'>".$page_tot."</span>") ?></span>
 								<a class="next-page<?php if ($page_cur == $page_tot) {echo  ' disabled' ; } ?>" <?php if ($page_cur == $page_tot) {echo  'onclick="javascript:return false;" ' ; } ?>title="Go to the next page" href="<?php echo add_query_arg('table_id', $this->id, add_query_arg( 'paged_'.$this->id, $page_sup ));?>">&rsaquo;</a>
 								<a class="last-page<?php if ($page_cur == $page_tot) {echo  ' disabled' ; } ?>" <?php if ($page_cur == $page_tot) {echo  'onclick="javascript:return false;" ' ; } ?>title="Go to the last page" href="<?php echo add_query_arg('table_id', $this->id, add_query_arg( 'paged_'.$this->id, $page_tot ));?>">&raquo;</a>			
 								<br class="clear">

@@ -4,10 +4,11 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-09-30T10:44:10+00:00\n"
+"PO-Revision-Date: 2014-03-19T22:00:55+00:00\n"
 "Last-Translator: willianrodrigues <http://www.willianrodrigues.com.br>\n"
 "Last-Translator: IuriJacob <http://www.bytecodex.com>\n"
 "Last-Translator: Anderson <andersonnunes40@gmail.com>\n"
+"Last-Translator: AlbertAbrantes <http://www.maxcreative.ca>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,12 +65,6 @@ msgstr "Se esta opção estiver desmarcada, a aba de tradução não será exibi
 msgid "Summary page for the plugins developped with the SL framework"
 msgstr "Página de sumário para plugins desenvolvidos com o SL framework"
 
-msgid "For now, you have installed %s plugins including %s plugins developped with the SedLex's framework"
-msgstr ""
-
-msgid "The core plugin is located at %s"
-msgstr ""
-
 msgid "Plugin name"
 msgstr "Nome do plugin"
 
@@ -121,140 +116,8 @@ msgstr "Informamos que seu idioma atual é %s. O texto será traduzido se a trad
 msgid "If you want to modify the language, please go in %s and find %s or %s. The second argument is your language and you may modify it as you want."
 msgstr "Se você quiser modificar o idioma, por favor, vá em %s e encontrar %s ou %s. O segundo argumento é o seu idioma e você pode modificá-la como quiser."
 
-msgid "Translations available for this plugin (i.e. %s)"
-msgstr ""
-
-msgid "Translations available for the SL framework (stored in %s)"
-msgstr ""
-
-msgid "Adding a new translation for this language: %s"
-msgstr ""
-
-msgid "Sentence to translate"
-msgstr ""
-
-msgid "Translation"
-msgstr ""
-
-msgid "Your name:"
-msgstr ""
-
-msgid "(if your name/pseudo is already in the list, there is no need to fill this input)"
-msgstr ""
-
-msgid "Your email or your website:"
-msgstr ""
-
-msgid "Create the translation files"
-msgstr ""
-
-msgid "Add a new translation"
-msgstr ""
-
-msgid "Modifying the translation for this language: %s"
-msgstr ""
-
-msgid "The number of occurrence of %s does not match in both string. Please note that the string %s will be replaced with a contextual string."
-msgstr ""
-
-msgid "Modify the translation files"
-msgstr ""
-
-msgid "Modify translations"
-msgstr ""
-
-msgid "%s sentences have been translated (i.e. %s)."
-msgstr ""
-
-msgid "%s sentences have been translated (i.e. %s) %s %s sentences have to be checked because they are close (but not identical) to those to translate.%s"
-msgstr ""
-
-msgid "The translation %s have been sent"
-msgstr ""
-
-msgid "An error occured sending the email."
-msgstr ""
-
-msgid "Make sure that your wordpress is able to send email."
-msgstr ""
-
-msgid "Send translation"
-msgstr ""
-
-msgid "%s file cannot be created for %s as there is no translated sentence. Please, translate at least one sentence to create a file"
-msgstr ""
-
-msgid "%s file has been updated for %s"
-msgstr ""
-
-msgid "%s file has been updated from this file"
-msgstr ""
-
-msgid "%s file has been created with a new translation for %s"
-msgstr ""
-
-msgid "%s file has been created from this file"
-msgstr ""
-
-msgid "If you do not want to loose your translations on the next upgrading of this plugin, it is recommended to send the translation files to the author by clicking %s here %s !"
-msgstr ""
-
-msgid "If you do not want to loose your translations on the next upgrading of this plugin, please save them on your hard disk before upgrading and then restore them after the upgrade !"
-msgstr ""
-
 msgid "Confirmation"
 msgstr "Confirmação"
-
-msgid "Summary cached %s"
-msgstr ""
-
-msgid "The sentences used in this plugin are in English. Help the others users using the same language as you by translating this plugin."
-msgstr ""
-
-msgid "This plugin is available in %s languages."
-msgstr ""
-
-msgid "There are %s sentences to be translated in this plugin."
-msgstr ""
-
-msgid "Language"
-msgstr ""
-
-msgid "Ratio %"
-msgstr ""
-
-msgid "Translators"
-msgstr ""
-
-msgid "This is the default language of the plugin. It cannot be modified."
-msgstr ""
-
-msgid "Modify"
-msgstr ""
-
-msgid "Send to the author of the plugin"
-msgstr ""
-
-msgid "You may add a new translation hereafter (Please note that it is recommended to send your translation to the author so that he would be able to add your translation to the future release of the plugin !)"
-msgstr ""
-
-msgid "Add"
-msgstr ""
-
-msgid "The 'SL framework' is a framework used for developping many plugins like this one. Thus, if you participate translating the framework, it will be very helpful for a bunch of plugins."
-msgstr ""
-
-msgid "There is %s languages supported for the 'SL framework'."
-msgstr ""
-
-msgid "There is %s sentence to be translated in the framework."
-msgstr ""
-
-msgid "Send to the author of the framework"
-msgstr ""
-
-msgid "Add new"
-msgstr ""
 
 msgid "Error: the submitted value is not an integer and thus, the parameter has not been updated!"
 msgstr "Erro: o valor submetido não é um inteiro e, por isso, o parâmetro não foi atualizado!"
@@ -270,45 +133,6 @@ msgstr "Erro: problema de segurança!"
 
 msgid "Parameters"
 msgstr "Parâmetros"
-
-msgid "Here are the parameters of the plugin. Modify them at will to fit your needs."
-msgstr ""
-
-msgid "Here are the parameters of the framework. Modify them at will to fit your needs."
-msgstr ""
-
-msgid "(Delete)"
-msgstr ""
-
-msgid "Values"
-msgstr ""
-
-msgid "Warning: some characters have been removed because they are not allowed here"
-msgstr ""
-
-msgid "(integer)"
-msgstr ""
-
-msgid "(If you want to delete this file, please check this box %s)"
-msgstr ""
-
-msgid "Update"
-msgstr ""
-
-msgid "Reset to default values"
-msgstr ""
-
-msgid "Some parameters have not been updated due to errors (see below)!"
-msgstr ""
-
-msgid "Parameters have been updated (but with some warnings)!"
-msgstr ""
-
-msgid "Parameters have been updated successfully!"
-msgstr ""
-
-msgid "Parameters have been reset to their default values!"
-msgstr ""
 
 msgid "Plugins that you may install"
 msgstr "Plugins que você pode instalar"
@@ -352,90 +176,69 @@ msgstr "por %s pessoas"
 msgid "Number of download:"
 msgstr "Número de downloads:"
 
-msgid "Filter: %s"
-msgstr ""
-
-msgid "%s of %s"
-msgstr ""
-
 msgid "Current Page"
-msgstr ""
+msgstr "Página Atual"
 
 msgid "Donate"
-msgstr ""
-
-msgid "If you like the plugin, do not hesitate to donate. Please note that this plugin is developed in my spare time for free."
-msgstr ""
-
-msgid "This is not mandatory! but it may be a sign that this plugin fits you needs: it makes me happy..."
-msgstr ""
+msgstr "Doar"
 
 msgid "Feedback form"
-msgstr ""
-
-msgid "This form is an easy way to contact the author and to discuss issues/incompatibilities/etc. with him"
-msgstr ""
+msgstr "Formulário de Feedback"
 
 msgid "Contact the author"
-msgstr ""
+msgstr "Entre em contato com o Author"
+
+msgid "Your name:"
+msgstr "Nome:"
 
 msgid "Your email:"
-msgstr ""
-
-msgid "Useful... so that the author will be able to anwser you."
-msgstr ""
+msgstr "Email:"
 
 msgid "Your comments:"
-msgstr ""
-
-msgid "Please note that additional information on your wordpress installation will be sent to the author in order to help the debugging if needed (such as : the wordpress version, the installed plugins, etc.)"
-msgstr ""
+msgstr "Seus comentários:"
 
 msgid "Send feedback"
-msgstr ""
-
-msgid "No email have been provided for the author of this plugin. Therefore, the feedback is impossible"
-msgstr ""
+msgstr "Enviar feedback"
 
 msgid "The feedback has been sent"
-msgstr ""
+msgstr "Seu feedback foi enviado"
+
+msgid "An error occured sending the email."
+msgstr "Um erro ocorreu ao enviar este email."
+
+msgid "Make sure that your wordpress is able to send email."
+msgstr "Se assegure que o Wordpress está habilitado para enviar emails."
+
+msgid "The following plugins have been developed by the author and are not yet been installed:"
+msgstr "Os seguintes plugins foram desenvolvido pelo autor e ainda não foram instalados:"
+
+msgid "Add new"
+msgstr "Adicionar novo"
+
+msgid "(Delete)"
+msgstr "(Deletar)"
+
+msgid "Values"
+msgstr "Valores"
+
+msgid "Warning: some characters have been removed because they are not allowed here"
+msgstr "Atenção: alguns caracteres foram removidos pois não podem ser utilizados aqui"
+
+msgid "Modify"
+msgstr "Modificar"
+
+msgid "Send to the author of the plugin"
+msgstr "Enviar para o autor do plugin"
+
+msgid "Add"
+msgstr "Adicionar"
 
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 msgid "GB"
-msgstr ""
-
-msgid "Error: %s function is not found"
-msgstr ""
-
-msgid "The file %s cannot be read. You should have a problem with file permissions or security restrictions."
-msgstr ""
-
-msgid "The folder %s cannot be opened. You should have a problem with folder permissions or security restrictions."
-msgstr ""
-
-msgid "The file %s cannot be deleted. You should have a problem with file permissions or security restrictions."
-msgstr ""
-
-msgid "An other process is still running (it runs for %s seconds)"
-msgstr ""
-
-msgid "The file %s cannot be modified/created. You should have a problem with file permissions or security restrictions."
-msgstr ""
-
-msgid "The file %s cannot be created. You should have a problem with file permissions or security restrictions."
-msgstr ""
-
-msgid "The file %s cannot be compressed."
-msgstr ""
-
-msgid "The file %s cannot be renamed. You should have a problem with file permissions or security restrictions."
-msgstr ""
-
-msgid "The file %s cannot be modified. You should have a problem with file permissions or security restrictions."
-msgstr ""
+msgstr "GB"
 
