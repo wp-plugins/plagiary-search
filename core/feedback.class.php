@@ -81,8 +81,6 @@ if (!class_exists("feedbackSL")) {
 				echo "<p>".__('No email have been provided for the author of this plugin. Therefore, the feedback is impossible', 'SL_framework')."</p>" ; 
 			}
 			echo "</div>" ;
-			
-			
 		}
 		
 		/** ====================================================================================================================================================
@@ -138,8 +136,19 @@ if (!class_exists("feedbackSL")) {
 			$message .= "* Configuration of the plugin \n" ; 
 			$message .= "**************************************** \n" ; 
 			$options = get_option($pluginID.'_options'); 
+			// mask the password
+			$new_option = array() ; 
+			$new_plugin_copy = call_user_func(array($pluginID, 'getInstance'));
+
+			foreach ($options as $o=>$v) {
+				if ($new_plugin_copy->get_default_option($o)!=="[password]") {
+					$new_option[$o] = $v ; 
+				} else {
+					$new_option[$o] = "********** (masked)" ; 
+				}
+			}
 			ob_start() ; 
-				print_r($options) ; 
+				print_r($new_option) ; 
 			$message .= ob_get_clean() ; 
 			$message .= "\n\n\n" ; 
 			

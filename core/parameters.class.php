@@ -623,7 +623,7 @@ if (!class_exists("parametersSedLex")) {
 						}
 						if (count($related)>0) { 
 							$onClick = "onClick='activateDeactivate_Params(\"".$param."\",new Array(\"".implode("\",\"", $related)."\"))'" ;  
-							$toExecuteWhenLoaded .= "activateDeactivate_Params(\"".$param."\",new Array(\"".implode("\",\"", $related)."\"));" ; 
+							$toExecuteWhenLoaded .= "activateDeactivate_Params(\"".$param."\",new Array(\"".implode("\",\"", $related)."\"));\n" ; 
 						} else {
 							$onClick = "" ; 
 						}
@@ -830,7 +830,15 @@ if (!class_exists("parametersSedLex")) {
 					</div>
 				</form>
 			</div>
-			<script><?php echo $toExecuteWhenLoaded ;  ?></script>
+			<script>
+				if (window.attachEvent) {window.attachEvent('onload', toExecuteWhenLoadedParameter);}
+				else if (window.addEventListener) {window.addEventListener('load', toExecuteWhenLoadedParameter, false);}
+				else {document.addEventListener('load', toExecuteWhenLoadedParameter, false);} 
+				
+				function toExecuteWhenLoadedParameter() {
+					<?php echo $toExecuteWhenLoaded ;  ?>
+				}
+			</script>
 			<?php
 
 			// If the parameter have been modified, we say it !

@@ -3,9 +3,7 @@
 Plugin Name: Plagiary Search
 Plugin Tag: tag
 Description: <p>Find websites that copy/paste your content without authorization. </p><p>In addition, you will avoid to include involuntary plagiarism in your articles. </p><p>This plugin is under GPL licence.</p>
-Version: 1.0.5
-
-
+Version: 1.0.6
 Framework: SL_Framework
 Author: SedLex
 Author Email: sedlex@sedlex.fr
@@ -38,7 +36,7 @@ class plagiary_search extends pluginSedLex {
 		$this->pluginName = 'Plagiary Search' ; 
 		
 		// The structure of the SQL table if needed (for instance, 'id_post mediumint(9) NOT NULL, short_url TEXT DEFAULT '', UNIQUE KEY id_post (id_post)') 
-		$this->tableSQL = "id mediumint(9) NOT NULL AUTO_INCREMENT, id_post mediumint(9) NOT NULL, url TEXT DEFAULT '', proximity TEXT DEFAULT '', image TEXT DEFAULT '', text1 MEDIUMTEXT DEFAULT '', text2 MEDIUMTEXT DEFAULT '', ignored BOOLEAN NOT NULL DEFAULT 0, date_maj DATETIME, UNIQUE KEY id (id)" ; 
+		$this->tableSQL = "id mediumint(9) NOT NULL AUTO_INCREMENT, id_post mediumint(9) NOT NULL, url TEXT DEFAULT '', proximity TEXT DEFAULT '', image TEXT DEFAULT '', text1 MEDIUMTEXT DEFAULT '', text2 MEDIUMTEXT DEFAULT '', ignored BOOLEAN NOT NULL DEFAULT 0, authorized BOOLEAN NOT NULL DEFAULT 0, date_maj DATETIME, UNIQUE KEY id (id)" ; 
 		// The name of the SQL table (Do no modify except if you know what you do)
 		$this->table_name = $wpdb->prefix . "pluginSL_" . get_class() ; 
 
@@ -56,9 +54,15 @@ class plagiary_search extends pluginSedLex {
 		
 		// add_action( "the_content",  array($this,"modify_content")) ; 
 		add_action( "wp_ajax_notPlagiary",  array($this,"notPlagiary")) ; 
+		add_action( "wp_ajax_plagiary",  array($this,"plagiary")) ; 
+		add_action( "wp_ajax_notAuthorized",  array($this,"notAuthorized")) ; 
+		add_action( "wp_ajax_authorized",  array($this,"authorized")) ; 
+		add_action( "wp_ajax_delete_copy",  array($this,"delete_copy")) ; 
+
 		add_action( "wp_ajax_viewText",  array($this,"viewText")) ; 
 		add_action( "wp_ajax_forceSearchPlagiary",  array($this,"forceSearchPlagiary")) ; 
 		add_action( "wp_ajax_stopPlagiary",  array($this,"stopPlagiary")) ; 
+
 		add_action( 'wp_ajax_nopriv_checkIfProcessNeeded', array( $this, 'checkIfProcessNeeded'));
 		add_action( 'wp_ajax_checkIfProcessNeeded', array( $this, 'checkIfProcessNeeded'));
 		
@@ -114,7 +118,14 @@ class plagiary_search extends pluginSedLex {
 	*/
 	
 	public function _update() {
+		global $wpdb ; 
 		SL_Debug::log(get_class(), "Update the plugin." , 4) ; 
+				
+		// This update aims at adding the authorized fields 
+		if ( !$wpdb->get_var("SHOW COLUMNS FROM ".$this->table_name." LIKE 'authorized'")  ) {
+			$wpdb->query("ALTER TABLE ".$this->table_name." ADD authorized BOOLEAN NOT NULL DEFAULT 0;");
+		}
+
 	}
 	
 	/**====================================================================================================================================================
@@ -126,7 +137,7 @@ class plagiary_search extends pluginSedLex {
 	 
 	public function _notify() {
 		global $wpdb ; 
-		$nb_plagiat = $wpdb->get_var("SELECT COUNT(*) FROM ".$this->table_name." WHERE ignored = FALSE") ; 
+		$nb_plagiat = $wpdb->get_var("SELECT COUNT(*) FROM ".$this->table_name." WHERE ignored = FALSE and  authorized = FALSE ") ; 
 		return $nb_plagiat ; 
 	}
 	
@@ -318,6 +329,8 @@ class plagiary_search extends pluginSedLex {
 			case 'nb_searches' : return 0 		; break ; 
 			
 			case "nb_char_minidelta" : return 20 ; break;
+			
+			case "enable_proximity_score_v2" : return true ; break;			
 
 		}
 		return null ;
@@ -365,7 +378,23 @@ class plagiary_search extends pluginSedLex {
 				echo "<div id='plagiaryPopup'>" ; 
 				echo "</div>" ; 
 
-			$tabs->add_tab(__('Results',  $this->pluginID), ob_get_clean()) ; 	
+			$tabs->add_tab(__('Possible Plagiaries',  $this->pluginID), ob_get_clean()) ; 	
+
+			ob_start() ; 
+				
+				echo "<div>" ; 
+				$this->displayPlagiaryIgnored() ; 
+				echo "</div>" ;  
+
+			$tabs->add_tab(__('Ignored/False Positive',  $this->pluginID), ob_get_clean()) ; 	
+			
+			ob_start() ; 
+				
+				echo "<div>" ; 
+				$this->displayPlagiaryAuthorized() ; 
+				echo "</div>" ;  
+
+			$tabs->add_tab(__('Authorized Copies',  $this->pluginID), ob_get_clean()) ; 	
 
 			ob_start() ; 
 				
@@ -405,6 +434,8 @@ class plagiary_search extends pluginSedLex {
 				$params->add_comment(__("This value should be between 10 and 90.",  $this->pluginID)) ; 
 				$params->add_param('exclude', __('Exclude results with this pattern:',  $this->pluginID)) ;
 				$params->add_comment(__("Please enter one entry per line",  $this->pluginID)) ; 
+				$params->add_param('enable_proximity_score_v2', __('Use the proximity score v2 algorithm:',  $this->pluginID)) ;
+				$params->add_comment(__("This algorithm try to enhance the identification of plagiaries that reproduce a plurality of consecutive sentences of your post/page.",  $this->pluginID)) ; 
 				
 				$params->add_title(__('Display results',  $this->pluginID)) ; 
 				$params->add_param('img_width', __('Height of the proximity image:',  $this->pluginID)) ;
@@ -641,7 +672,7 @@ class plagiary_search extends pluginSedLex {
 
 			echo "<p>" ; 
 			echo "<input type='button' id='plagiaryButton' class='button-primary validButton' onClick='forceSearchPlagiary()'  value='". __('Force a search for plagiarism',$this->pluginID)."' />" ; 
-			echo "<input type='button' id='stopSearchButton' class='button validButton' onClick='stopSearchPlagiary()'  value='". __('Stop the forced search',$this->pluginID)."' />" ; 
+			echo "&nbsp;<input type='button' id='stopSearchButton' class='button validButton' onClick='stopSearchPlagiary()'  value='". __('Stop the forced search',$this->pluginID)."' />" ; 
 			echo "</p><p>" ; 
 			echo "<input type='button' id='stopButton' class='button-primary validButton' onClick='stopPlagiary()'  value='". __('Reset all searches and empty the search buffer',$this->pluginID)."' />" ; 
 			echo "<script>jQuery('#plagiaryButton').removeAttr('disabled');</script>" ; 
@@ -894,7 +925,7 @@ class plagiary_search extends pluginSedLex {
 
 
 	/** ====================================================================================================================================================
-	* Create a table which summarize all the found plagiaries
+	* Create a table which summarize all the found / possible plagiaries
 	*
 	* @return void
 	*/
@@ -911,7 +942,7 @@ class plagiary_search extends pluginSedLex {
 		$table = new adminTable() ;
 		$table->title(array(__('Possible Plagiary',  $this->pluginID),__('Article Plagiarized',  $this->pluginID), __('Proximity Image',  $this->pluginID), __('Proximity Score',  $this->pluginID), __('Date of detection',  $this->pluginID)) ) ;
 		
-		$select = "SELECT * FROM ".$this->table_name." WHERE ignored=FALSE" ; 
+		$select = "SELECT * FROM ".$this->table_name." WHERE ignored=FALSE and authorized=FALSE" ; 
 		$results = $wpdb->get_results($select) ; 
 		
 		$nb = 0 ; 
@@ -920,6 +951,8 @@ class plagiary_search extends pluginSedLex {
 		
 			$cel1 = new adminCell("<p><a href='".$r->url."'>".$r->url."</a><p>") ;
 			$cel1->add_action(__("Not plagiary", $this->pluginID), "notPlagiary('".$r->id."', '".addslashes(__("Do you confirm that this entry is not a plagiary?", $this->pluginID))."')") ; 
+			$cel1->add_action(__("Authorized copy", $this->pluginID), "authorized('".$r->id."', '".addslashes(__("Do you confirm that this entry is an authorized copy?", $this->pluginID))."')") ; 
+			$cel1->add_action(__("Plagiary Deleted", $this->pluginID), "delete_copy('".$r->id."', '".addslashes(__("Do you confirm that this plagiary has been deleted?", $this->pluginID))."')") ; 
 			$cel1->add_action(__("View the texts", $this->pluginID), "viewText('".$r->id."')") ; 
 			$thepost = get_post($r->id_post); 
 			$cel2 = new adminCell("<p><a href='".get_permalink($r->id_post)."'>".$thepost->post_title."</a><p>") ;
@@ -945,6 +978,112 @@ class plagiary_search extends pluginSedLex {
 		echo $table->flush() ;
 	}
 
+	/** ====================================================================================================================================================
+	* Create a table which summarize all the plagiaries being ignored
+	*
+	* @return void
+	*/
+	
+	function displayPlagiaryIgnored() {
+		global $blog_id ; 
+		global $wpdb ; 
+		// We create the folder for the backup files
+		$blog_fold = "" ; 
+		if (is_multisite()) {
+			$blog_fold = $blog_id."/" ; 
+		}
+		
+		$table = new adminTable() ;
+		$table->title(array(__('Ignored Plagiary',  $this->pluginID),__('Article Plagiarized',  $this->pluginID), __('Proximity Image',  $this->pluginID), __('Proximity Score',  $this->pluginID), __('Date of detection',  $this->pluginID)) ) ;
+		
+		$select = "SELECT * FROM ".$this->table_name." WHERE ignored=TRUE and authorized=FALSE" ; 
+		$results = $wpdb->get_results($select) ; 
+		
+		$nb = 0 ; 
+		 
+		foreach ($results as $r) {
+		
+			$cel1 = new adminCell("<p><a href='".$r->url."'>".$r->url."</a><p>") ;
+			$cel1->add_action(__("Plagiary", $this->pluginID), "plagiary('".$r->id."', '".addslashes(__("Do you confirm that this entry is a plagiary?", $this->pluginID))."')") ; 
+			$cel1->add_action(__("Authorized copy", $this->pluginID), "authorized('".$r->id."', '".addslashes(__("Do you confirm that this entry is an authorized copy?", $this->pluginID))."')") ; 
+			$cel1->add_action(__("Plagiary Deleted", $this->pluginID), "delete_copy('".$r->id."', '".addslashes(__("Do you confirm that this plagiary has been deleted?", $this->pluginID))."')") ; 
+			$cel1->add_action(__("View the texts", $this->pluginID), "viewText('".$r->id."')") ; 
+			$thepost = get_post($r->id_post); 
+			$cel2 = new adminCell("<p><a href='".get_permalink($r->id_post)."'>".$thepost->post_title."</a><p>") ;
+			$cel3 = new adminCell("<p><img src='".WP_CONTENT_URL.$r->image."'><p>") ;
+			$cel4 = new adminCell("<p>".$r->proximity."<p>") ;
+			$cel5 = new adminCell("<p id='date".$r->id."'>".$r->date_maj."<p>") ;
+			
+			$table->add_line(array($cel1, $cel2, $cel3, $cel4, $cel5), $r->id."") ;
+			
+			$nb++ ; 
+		}
+		
+		if ($nb==0) {
+			$cel1 = new adminCell("<p>".__('(For now, there is no ignored plagiary...)',  $this->pluginID)."</p>") ;
+			$cel2 = new adminCell("") ;
+			$cel3 = new adminCell("") ;
+			$cel4 = new adminCell("") ;
+			$cel5 = new adminCell("") ;
+			$table->add_line(array($cel1, $cel2, $cel3, $cel4, $cel5), '1') ;
+			$nb++ ; 			
+		}
+
+		echo $table->flush() ;
+	}
+	
+	/** ====================================================================================================================================================
+	* Create a table which summarize all the authorized copy
+	*
+	* @return void
+	*/
+	
+	function displayPlagiaryAuthorized() {
+		global $blog_id ; 
+		global $wpdb ; 
+		// We create the folder for the backup files
+		$blog_fold = "" ; 
+		if (is_multisite()) {
+			$blog_fold = $blog_id."/" ; 
+		}
+		
+		$table = new adminTable() ;
+		$table->title(array(__('Authorized Copy',  $this->pluginID),__('Article Plagiarized',  $this->pluginID), __('Proximity Image',  $this->pluginID), __('Proximity Score',  $this->pluginID), __('Date of detection',  $this->pluginID)) ) ;
+		
+		$select = "SELECT * FROM ".$this->table_name." WHERE authorized=TRUE" ; 
+		$results = $wpdb->get_results($select) ; 
+		
+		$nb = 0 ; 
+		 
+		foreach ($results as $r) {
+		
+			$cel1 = new adminCell("<p><a href='".$r->url."'>".$r->url."</a><p>") ;
+			$cel1->add_action(__("Not Authorized", $this->pluginID), "notAuthorized('".$r->id."', '".addslashes(__("Do you confirm that this entry is an non-authorized copy?", $this->pluginID))."')") ; 
+			$cel1->add_action(__("Plagiary Deleted", $this->pluginID), "delete_copy('".$r->id."', '".addslashes(__("Do you confirm that this plagiary has been deleted?", $this->pluginID))."')") ; 
+			$cel1->add_action(__("View the texts", $this->pluginID), "viewText('".$r->id."')") ; 
+			$thepost = get_post($r->id_post); 
+			$cel2 = new adminCell("<p><a href='".get_permalink($r->id_post)."'>".$thepost->post_title."</a><p>") ;
+			$cel3 = new adminCell("<p><img src='".WP_CONTENT_URL.$r->image."'><p>") ;
+			$cel4 = new adminCell("<p>".$r->proximity."<p>") ;
+			$cel5 = new adminCell("<p id='date".$r->id."'>".$r->date_maj."<p>") ;
+			
+			$table->add_line(array($cel1, $cel2, $cel3, $cel4, $cel5), $r->id."") ;
+			
+			$nb++ ; 
+		}
+		
+		if ($nb==0) {
+			$cel1 = new adminCell("<p>".__('(For now, there is no authorized plagiary...)',  $this->pluginID)."</p>") ;
+			$cel2 = new adminCell("") ;
+			$cel3 = new adminCell("") ;
+			$cel4 = new adminCell("") ;
+			$cel5 = new adminCell("") ;
+			$table->add_line(array($cel1, $cel2, $cel3, $cel4, $cel5), '1') ;
+			$nb++ ; 			
+		}
+
+		echo $table->flush() ;
+	}
 	
 	/** =====================================================================================================
 	* Force plagiary search
@@ -1496,6 +1635,59 @@ class plagiary_search extends pluginSedLex {
 				}
 				
 				$this->param['results_proximity'][$i][$h] = $proximity ; 
+				
+				// i = y et h = x
+				
+				// si le score du pixel depasse 0.4*$this->get_param('nb_char_prox')
+				
+				//     on regarde dans le carrŽ (i-2; h-2) (i-1; h) pour voir s'il y a au moins un pixel noir
+				//         On calcule la distance minimal entre ce pixel et les pixels dans le carrŽ
+				//         On ajoute ˆ la valeur max(-20,(20-distance minimal)) mais sans depasser $this->get_param('nb_char_prox')
+				//            i.e. on ajoute max 20 si la distance minimal est faible 
+				//                 on retire max 20 si la distance minimal est grande
+				
+				$max_add = 20 ; 
+				
+				if  ($this->get_param('enable_proximity_score_v2'))  {
+				
+					$this->param['results_proximity_v2'][$i][$h] = $this->param['results_proximity'][$i][$h] ; 
+					
+					if ($proximity>0.4*$this->get_param('nb_char_prox')) {
+					
+						$distance_minimal = 9999 ; 
+						for ($wi=1 ; $wi<3 ; $wi++) {
+							for ($wh=0 ; $wh<3 ; $wh++) {
+								if (isset($this->param['results_proximity'][$i-$wi][$h-$wh])) {
+									$distance_minimal = min($distance_minimal, abs($proximity - $this->param['results_proximity'][$i-$wi][$h-$wh])) ; 
+								}
+							}	
+						}
+					
+						$this->param['results_proximity_v2'][$i][$h] = max(0,min($this->get_param('nb_char_prox'), $proximity + max(-$max_add,($max_add-$distance_minimal)))) ; 
+
+				//     on regarde dans le carrŽ (i+2; h-2) (i+1; h) pour voir s'il n'y a pas de pixel noir (mais on exlu si ou meme h)
+				//         On calcule la distance minimal entre ce pixel et les pixels dans le carrŽ
+				//         On ajoute ˆ la valeur min(20,(distance minimal-20)) mais sans depasser $this->get_param('nb_char_prox')
+				//            i.e. on ajoute max 20 si la distance minimal est grande 
+				//                 on retire max 20 si la distance minimal est faible
+					
+						$distance_minimal = 9999 ; 
+						for ($wi=1 ; $wi<3 ; $wi++) {
+							for ($wh=0 ; $wh<3 ; $wh++) {
+								if (isset($this->param['results_proximity'][$i+$wi][$h-$wh])) {
+									$distance_minimal = min($distance_minimal, abs($proximity - $this->param['results_proximity'][$i+$wi][$h-$wh])) ; 
+								}
+							}	
+						}
+					
+						$this->param['results_proximity_v2'][$i][$h] = max(0,min($this->get_param('nb_char_prox'), $proximity + min($max_add,($distance_minimal-$max_add)))) ; 
+
+				// sinon, on le met a 0
+				
+					} else {
+							$this->param['results_proximity_v2'][$i][$h] = 30 ; 
+					}
+				}
 					
 				$nb_calc ++ ; 
 				// To avoid saturation
@@ -1518,6 +1710,11 @@ class plagiary_search extends pluginSedLex {
 			// nothing 
 		} else {
 			$this->param["next_step"] = "filter_results" ;	
+			if  ($this->get_param('enable_proximity_score_v2'))  {
+				// On remplace avec l'image filtrŽ
+				$this->param['results_proximity'] = $this->param['results_proximity_v2'] ;
+				unset($this->param['results_proximity_v2']) ; 
+			}
 		}
 	}
 	
@@ -1778,7 +1975,7 @@ class plagiary_search extends pluginSedLex {
 	function store_result(){
 		global $wpdb ; 
 		
-		$insert = "INSERT INTO ".$this->table_name." (id_post, url, proximity, image, text1, text2, ignored, date_maj) VALUES ('".$this->param["id"]."', '".mysql_real_escape_string($this->param["url"])."', '".$this->param['percentage_proximity']."', '".$this->param['image_proximity']."', '".mysql_real_escape_string($this->param['new_text'])."', '".mysql_real_escape_string($this->param['new_content'])."', FALSE, NOW())" ; 
+		$insert = "INSERT INTO ".$this->table_name." (id_post, url, proximity, image, text1, text2, ignored, date_maj) VALUES ('".$this->param["id"]."', '".esc_attr($this->param["url"])."', '".$this->param['percentage_proximity']."', '".$this->param['image_proximity']."', '".esc_attr($this->param['new_text'])."', '".esc_attr($this->param['new_content'])."', FALSE, NOW())" ; 
 		$wpdb->query($insert) ; 
 		
 		unset($this->param['image_proximity']) ; 
@@ -1821,7 +2018,75 @@ class plagiary_search extends pluginSedLex {
 	function notPlagiary(){
 		global $wpdb ;
 		$id = $_POST['id'] ; 
-		if (FALSE===$wpdb->query("UPDATE ".$this->table_name." SET ignored = TRUE WHERE id=".$id)) {
+		if (FALSE===$wpdb->query("UPDATE ".$this->table_name." SET ignored = TRUE, authorized = FALSE WHERE id=".$id)) {
+			echo "error" ; 
+		} else {
+			echo "ok" ; 
+		}
+		die() ; 
+	}
+
+	/** =====================================================================================================
+	* Callback to say it is plagiary
+	*
+	* @return string
+	*/
+	
+	function plagiary(){
+		global $wpdb ;
+		$id = $_POST['id'] ; 
+		if (FALSE===$wpdb->query("UPDATE ".$this->table_name." SET ignored = FALSE, authorized = FALSE WHERE id=".$id)) {
+			echo "error" ; 
+		} else {
+			echo "ok" ; 
+		}
+		die() ; 
+	}
+	
+	/** =====================================================================================================
+	* Callback to indicated not authorized
+	*
+	* @return string
+	*/
+	
+	function notAuthorized(){
+		global $wpdb ;
+		$id = $_POST['id'] ; 
+		if (FALSE===$wpdb->query("UPDATE ".$this->table_name." SET ignored = FALSE, authorized = FALSE WHERE id=".$id)) {
+			echo "error" ; 
+		} else {
+			echo "ok" ; 
+		}
+		die() ; 
+	}
+
+	/** =====================================================================================================
+	* Callback to say it is authorized copy
+	*
+	* @return string
+	*/
+	
+	function authorized(){
+		global $wpdb ;
+		$id = $_POST['id'] ; 
+		if (FALSE===$wpdb->query("UPDATE ".$this->table_name." SET ignored = FALSE, authorized = TRUE WHERE id=".$id)) {
+			echo "error" ; 
+		} else {
+			echo "ok" ; 
+		}
+		die() ; 
+	}
+	
+	/** =====================================================================================================
+	* Callback to say it is deleted copy
+	*
+	* @return string
+	*/
+	
+	function delete_copy(){
+		global $wpdb ;
+		$id = $_POST['id'] ; 
+		if (FALSE===$wpdb->query("DELETE FROM ".$this->table_name." WHERE id=".$id)) {
 			echo "error" ; 
 		} else {
 			echo "ok" ; 

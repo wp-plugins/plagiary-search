@@ -6,7 +6,7 @@ Author URI: http://www.sedlex.fr/
 Plugin URI: http://wordpress.org/plugins/plagiary-search/
 Tags: tag
 Requires at least: 3.0
-Tested up to: 3.8.1
+Tested up to: 3.9
 Stable tag: trunk
 
 Find websites that copy/paste your content without authorization. 
@@ -29,14 +29,9 @@ This plugin is under GPL licence.
 
 = Features of the framework =
 
-This plugin uses the SL framework. This framework eases the creation of new plugins by providing incredible tools and frames.
+This plugin uses the SL framework. This framework eases the creation of new plugins by providing tools and frames (see dev-toolbox plugin for more info).
 
-For instance, a new created plugin comes with
-
-* A translation interface to simplify the localization of the text of the plugin ; 
-* An embedded SVN client (subversion) to easily commit/update the plugin in wordpress.org repository ; 
-* A detailled documentation of all available classes and methodes ; 
-* etc.
+You may easily translate the text of the plugin and submit it to the developer, send a feedback, or choose the location of the plugin in the admin panel.
 
 Have fun !
 
@@ -55,6 +50,10 @@ Have fun !
 
 == Changelog ==
 
+= 1.0.6 = 
+* NEW: Option to identify the plagiary as an authorized plagiary or a deleted plagiary
+* NEW: New algorithm
+
 = 1.0.5 = 
 * NEW: Improve the look of the configuration page
 
@@ -70,4 +69,4 @@ Have fun !
 == Frequently Asked Questions ==
 
  
-InfoVersion:3577193850940576cbf62ba6b0b83dc4
+InfoVersion:d3651e2ef63e34c92949ecb22d9852f8

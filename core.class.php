@@ -16,7 +16,14 @@ if (!class_exists('pluginSedLex')) {
 	}
 
 	$sedlex_list_scripts = array() ; 
-	$sedlex_list_styles = array() ; 
+	$sedlex_list_styles = array() ;
+	 
+	$sedlex_adminJavascript_tobedisplayed = true ;
+	$sedlex_adminCSS_tobedisplayed = true ; 
+	
+	$SLtopLevel_alreadyInstalled = false ; 
+	
+	$SLpluginActivated = array() ; 
 	
 	/** =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
 	* This PHP class aims at simplifying the developement of new plugin for Wordpress and especially if you do not know how to develop it.
@@ -494,27 +501,35 @@ if (!class_exists('pluginSedLex')) {
 		*/
 		public function admin_menu() {   
 		
-			global $menu;
+			global $menu,$SLtopLevel_alreadyInstalled,$SLpluginActivated ;
 			
 			$tmp = explode('/',plugin_basename($this->path)) ; 
 			$plugin = $tmp[0]."/".$tmp[0].".php" ; 
 			$topLevel = "sedlex.php" ; 
 			
-			// Fait en sorte qu'il n'y ait qu'un seul niveau 1 pour l'ensemble des plugins que j'ai redige
-			$menu_added=false ; 
-			foreach ($menu as $i) {
-				$key = array_search($topLevel, $i);
-				if ($key != '') {
-					$menu_added = true;
+			
+			$glp = $this->frmk->get_param('global_location_plugin') ;
+			$selection_pos = "std" ;  
+			foreach ($glp as $a) {
+				if (substr($a[0],0,1)=="*") {
+					$selection_pos = $a[1] ; 
 				}
 			}
-			if ($menu_added) {
-				// Nothing ... because menu is already added
-				} else {
-				//add main menu
-				add_object_page('SL Plugins', 'SL Plugins', 'activate_plugins', $topLevel, array($this,'sedlex_information'));
 			
-				$page = add_submenu_page($topLevel, __('About...', 'SL_framework'), __('About...', 'SL_framework'), 'activate_plugins', $topLevel, array($this,'sedlex_information'));
+			if (!$SLtopLevel_alreadyInstalled) {
+				$SLtopLevel_alreadyInstalled = true ; 
+				
+				if ($selection_pos=="plugins") {
+					$page = add_submenu_page('plugins.php', __('About SL plugins...', 'SL_framework'), __('About SL plugins...', 'SL_framework'), 'activate_plugins', $topLevel, array($this,'sedlex_information'));
+				} else if ($selection_pos=="tools") {
+					$page = add_submenu_page('tools.php', __('About SL plugins...', 'SL_framework'), __('About SL plugins...', 'SL_framework'), 'activate_plugins', $topLevel, array($this,'sedlex_information'));
+				} else if ($selection_pos=="settings") {
+					$page = add_submenu_page('options-general.php', __('About SL plugins...', 'SL_framework'), __('About SL plugins...', 'SL_framework'), 'activate_plugins', $topLevel, array($this,'sedlex_information'));
+				} else {
+					//add main menu
+					add_object_page('SL Plugins', 'SL Plugins', 'activate_plugins', $topLevel, array($this,'sedlex_information'));
+					$page = add_submenu_page($topLevel, __('About...', 'SL_framework'), __('About...', 'SL_framework'), 'activate_plugins', $topLevel, array($this,'sedlex_information'));
+				}
 			}
 		
 			//add sub menus
@@ -532,8 +547,17 @@ if (!class_exists('pluginSedLex')) {
 				}
 			}
 			
-			$page = add_submenu_page($topLevel, $this->pluginName, $this->pluginName . $number, 'activate_plugins', $plugin, array($this,'configuration_page'));			
-
+			$SLpluginActivated[] = $plugin ; 
+			
+			if ($selection_pos=="plugins") {
+				$page = add_submenu_page('plugins.php', $this->pluginName, $this->pluginName . $number, 'activate_plugins', $plugin, array($this,'configuration_page'));			
+			} else if ($selection_pos=="tools") {
+				$page = add_submenu_page('tools.php', $this->pluginName, $this->pluginName . $number, 'activate_plugins', $plugin, array($this,'configuration_page'));			
+			} else if ($selection_pos=="settings") {
+				$page = add_submenu_page('options-general.php', $this->pluginName, $this->pluginName . $number, 'activate_plugins', $plugin, array($this,'configuration_page'));			
+			} else {
+				$page = add_submenu_page($topLevel, $this->pluginName, $this->pluginName . $number, 'activate_plugins', $plugin, array($this,'configuration_page'));			
+			}
 		}
 		
 		/** ====================================================================================================================================================
@@ -546,6 +570,12 @@ if (!class_exists('pluginSedLex')) {
 		* @return array of new links set with a Settings link added
 		*/
 		public function plugin_actions($links, $file) { 
+		
+			// Ne pas mettre de lien pour la partie admin
+			if (is_network_admin()) {
+				return $links ;
+			}
+			
 			$tmp = explode('/',plugin_basename($this->path)) ; 
 			$plugin = $tmp[0]."/".$tmp[0].".php" ; 
 			if ($file == $plugin) {
@@ -554,6 +584,7 @@ if (!class_exists('pluginSedLex')) {
 					array( '<a href="admin.php?page='.$plugin.'">'. __('Settings', 'SL_framework') .'</a>')
 				);
 			}
+			
 			return $links;
 		}
 		
@@ -821,6 +852,8 @@ if (!class_exists('pluginSedLex')) {
 		*/
 		
 		public function javascript_admin($hook) {
+			global $sedlex_adminJavascript_tobedisplayed ; 
+			
 			// If it not a plugin page SL page
 			$plugin = explode("_", $hook) ; 
 			if (!isset($plugin[count($plugin)-1])) {
@@ -832,7 +865,10 @@ if (!class_exists('pluginSedLex')) {
 					return;
 			}	
 			
-			if (str_replace(basename( __FILE__),"",plugin_basename( __FILE__))==str_replace(basename( $this->path),"",plugin_basename($this->path))) {
+			if ($sedlex_adminJavascript_tobedisplayed) {
+				$sedlex_adminJavascript_tobedisplayed = false ; 
+				
+			//if (str_replace(basename( __FILE__),"",plugin_basename( __FILE__))==str_replace(basename( $this->path),"",plugin_basename($this->path))) {
 				// For the tabs of the admin page
 				wp_enqueue_script('jquery');   
 				wp_enqueue_script('jquery-ui-core', '', array('jquery'), false );   
@@ -840,6 +876,8 @@ if (!class_exists('pluginSedLex')) {
 				wp_enqueue_script('jquery-ui-tabs', '', array('jquery'), false );
 				wp_enqueue_script( 'jquery-ui-sortable', '', array('jquery'), false );
 				wp_enqueue_script( 'jquery-ui-effects', '', array('jquery', 'jquery-ui'), false );
+				
+				
 				
 				echo '<script> addLoadEvent = function(func){if(typeof jQuery!="undefined")jQuery(document).ready(func);else if(typeof wpOnload!=\'function\'){wpOnload=func;}else{var oldonload=wpOnload;wpOnload=function(){oldonload();func();}}};</script>'."\r\n" ; 
 			
@@ -1045,6 +1083,7 @@ if (!class_exists('pluginSedLex')) {
 		*/
 		
 		public function css_admin($hook) {
+			global $sedlex_adminCSS_tobedisplayed ; 
 
 			// If it not a plugin page SL page
 			$plugin = explode("_", $hook) ; 
@@ -1057,7 +1096,11 @@ if (!class_exists('pluginSedLex')) {
 					return;
 			}
 			
-			if (str_replace(basename( __FILE__),"",plugin_basename( __FILE__))==str_replace(basename( $this->path),"",plugin_basename($this->path))) {
+			if ($sedlex_adminCSS_tobedisplayed) {
+				$sedlex_adminCSS_tobedisplayed = false ; 		
+
+			//if (str_replace(basename( __FILE__),"",plugin_basename( __FILE__))==str_replace(basename( $this->path),"",plugin_basename($this->path))) {
+			
 				wp_enqueue_style('wp-admin');
 				wp_enqueue_style('dashboard');
 				wp_enqueue_style('plugin-install');
@@ -1220,6 +1263,7 @@ if (!class_exists('pluginSedLex')) {
 		function sedlex_information() {
 			global $submenu;
 			global $blog_id ; 
+			global $SLpluginActivated ; 
 			
 			if (((is_multisite())&&($blog_id == 1))||(!is_multisite())) {
 				ob_start() ; 
@@ -1238,10 +1282,12 @@ if (!class_exists('pluginSedLex')) {
 					$params->add_param ("global_allow_translation_by_blogs", __('Do you want to allow sub-blogs to modify the translations of the plugins:','SL_framework')) ; 
 					$params->add_comment (__("If this option is unchecked, the translation tab won't be displayed in the blog administration panel.",'SL_framework')) ; 
 				}
+				
+				$params->add_title (__('Location of the SL plugins','SL_framework')) ; 
+				$params->add_param ("global_location_plugin", __('Where do you want to display the SL plugins:','SL_framework')) ; 
 	
 				echo $params->flush() ; 
 				$paramSave = ob_get_clean() ; 
-
 				
 				echo "<a name='top'></a>" ; 
 			}
@@ -1266,7 +1312,7 @@ if (!class_exists('pluginSedLex')) {
 					}
 				}
 				$sl_count = 0 ; 
-				foreach ($submenu['sedlex.php'] as $ov) {
+				foreach ($SLpluginActivated as $ov) {
 					$sl_count ++ ; 
 				}
 ?>
@@ -1284,10 +1330,9 @@ if (!class_exists('pluginSedLex')) {
 					$table = new adminTable() ; 
 					$table->title(array(__("Plugin name", 'SL_framework'), __("Description", 'SL_framework'))) ; 
 					$ligne=0 ; 
-					foreach ($submenu['sedlex.php'] as $i => $ov) {
+					foreach ($SLpluginActivated as $i => $url) {
 						$ligne++ ; 
 
-						$url = $ov[2] ; 
 						$plugin_name = explode("/",$url) ;
 						if (isset($plugin_name[count($plugin_name)-2])) {
 							$plugin_name = $plugin_name[count($plugin_name)-2] ; 
@@ -1600,6 +1645,11 @@ if (!class_exists('pluginSedLex')) {
 				// Alternative default return values (Please modify)
 				case 'debug_level' 			: return 3 		; break ; 
 				case 'global_allow_translation_by_blogs' : return true ; break ; 
+				case 'global_location_plugin'		: return array(		array("*".__("Standard", 'SL_framework'), "std"), 
+								array(__("under Plugins", 'SL_framework'), "plugins"),											
+								array(__("under Tools", 'SL_framework'), "tools"),
+								array(__("under Settings", 'SL_framework'), "settings")
+						   ) ; break ; 
 			}
 			return null ;
 		}	

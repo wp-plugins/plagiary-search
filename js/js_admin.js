@@ -77,8 +77,114 @@ function notPlagiary(idEntry, msg) {
 		jQuery.post(ajaxurl, arguments, function(response) {
 			if (response=="ok") {
 				jQuery("#ligne"+idEntry).hide();
+				window.location.href=window.location.href ; 
 			} else {
 				jQuery("#date"+idEntry).append(" "); // Just to stop the waiting image
+				alert(response) ; 
+			}
+		}).error(function(x,e) { 
+			alert("Error "+x.status) ; 
+			jQuery("#date"+idEntry).append(" ");// Just to stop the waiting image
+		});		
+	} else {
+		jQuery("#date"+idEntry).append(" ");// Just to stop the waiting image
+	}
+}
+
+function plagiary(idEntry, msg) {
+	var res = confirm(msg) ; 
+	if (res==true) {
+		var arguments = {
+			action: 'plagiary' ,
+			id: idEntry
+		} 
+		  
+		//POST the data and append the results to the results div
+		jQuery.post(ajaxurl, arguments, function(response) {
+			if (response=="ok") {
+				jQuery("#ligne"+idEntry).hide();
+				window.location.href=window.location.href ; 
+			} else {
+				jQuery("#date"+idEntry).append(" "); // Just to stop the waiting image
+				alert(response) ; 			
+			}
+		}).error(function(x,e) { 
+			alert("Error "+x.status) ; 
+			jQuery("#date"+idEntry).append(" ");// Just to stop the waiting image
+		});		
+	} else {
+		jQuery("#date"+idEntry).append(" ");// Just to stop the waiting image
+	}
+}
+
+function notAuthorized(idEntry, msg) {
+	var res = confirm(msg) ; 
+	if (res==true) {
+		var arguments = {
+			action: 'notAuthorized' ,
+			id: idEntry
+		} 
+		  
+		//POST the data and append the results to the results div
+		jQuery.post(ajaxurl, arguments, function(response) {
+			if (response=="ok") {
+				jQuery("#ligne"+idEntry).hide();
+				window.location.href=window.location.href ; 
+			} else {
+				jQuery("#date"+idEntry).append(" "); // Just to stop the waiting image
+				alert(response) ; 
+			}
+		}).error(function(x,e) { 
+			alert("Error "+x.status) ; 
+			jQuery("#date"+idEntry).append(" ");// Just to stop the waiting image
+		});		
+	} else {
+		jQuery("#date"+idEntry).append(" ");// Just to stop the waiting image
+	}
+}
+
+function authorized(idEntry, msg) {
+	var res = confirm(msg) ; 
+	if (res==true) {
+		var arguments = {
+			action: 'authorized' ,
+			id: idEntry
+		} 
+		  
+		//POST the data and append the results to the results div
+		jQuery.post(ajaxurl, arguments, function(response) {
+			if (response=="ok") {
+				jQuery("#ligne"+idEntry).hide();
+				window.location.href=window.location.href ; 
+			} else {
+				jQuery("#date"+idEntry).append(" "); // Just to stop the waiting image
+				alert(response) ; 			
+			}
+		}).error(function(x,e) { 
+			alert("Error "+x.status) ; 
+			jQuery("#date"+idEntry).append(" ");// Just to stop the waiting image
+		});		
+	} else {
+		jQuery("#date"+idEntry).append(" ");// Just to stop the waiting image
+	}
+}
+
+function delete_copy(idEntry, msg) {
+	var res = confirm(msg) ; 
+	if (res==true) {
+		var arguments = {
+			action: 'delete_copy' ,
+			id: idEntry
+		} 
+		  
+		//POST the data and append the results to the results div
+		jQuery.post(ajaxurl, arguments, function(response) {
+			if (response=="ok") {
+				jQuery("#ligne"+idEntry).hide();
+				window.location.href=window.location.href ; 
+			} else {
+				jQuery("#date"+idEntry).append(" "); // Just to stop the waiting image
+				alert(response) ; 			
 			}
 		}).error(function(x,e) { 
 			alert("Error "+x.status) ; 
