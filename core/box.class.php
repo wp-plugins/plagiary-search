@@ -6,8 +6,8 @@ VersionInclude : 3.0
 /** =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
 * This PHP class enables the creation of a box in the admin backend
 */
-if (!class_exists("boxAdmin")) {
-	class boxAdmin {
+if (!class_exists("SLFramework_Box")) {
+	class SLFramework_Box {
 		
 		var $title ; 
 		var $content ; 
@@ -17,10 +17,10 @@ if (!class_exists("boxAdmin")) {
 		* 
 		* @param string $title the title of the box
 		* @param string $content the HTML code of the content of the box
-		* @return boxAdmin the box object
+		* @return SLFramework_Box the box object
 		*/
 		
-		function boxAdmin($title, $content) {
+		function SLFramework_Box($title, $content) {
 			$this->title = $title ; 
 			$this->content = $content ; 
 		}
@@ -50,6 +50,12 @@ if (!class_exists("boxAdmin")) {
 			<?php
 			return ob_get_clean();
 		}
+	}
+}
+
+if (!class_exists("boxAdmin")) {
+	class boxAdmin extends SLFramework_Box {
+	
 	}
 }
 

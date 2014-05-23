@@ -108,7 +108,7 @@ class my_plugin extends pluginSedLex {
 	*/
 	
 	public function _update() {
-		SL_Debug::log(get_class(), "Update the plugin." , 4) ; 
+		SLFramework_Debug::log(get_class(), "Update the plugin." , 4) ; 
 	}
 	
 	/**====================================================================================================================================================
@@ -254,7 +254,7 @@ class my_plugin extends pluginSedLex {
 		global $wpdb;
 		global $blog_id ; 
 		
-		SL_Debug::log(get_class(), "Print the configuration page." , 4) ; 
+		SLFramework_Debug::log(get_class(), "Print the configuration page." , 4) ; 
 
 		?>
 		<div class="plugin-titleSL">
@@ -271,7 +271,7 @@ class my_plugin extends pluginSedLex {
 			// We check rights
 			$this->check_folder_rights( array(array(WP_CONTENT_DIR."/sedlex/test/", "rwx")) ) ;
 			
-			$tabs = new adminTabs() ; 
+			$tabs = new SLFramework_Tabs() ; 
 			
 			ob_start() ; 
 			
@@ -279,7 +279,7 @@ class my_plugin extends pluginSedLex {
 				//----------------------------------
 				
 				echo "<h5>".__("Tables", $this->pluginID)."</h5>" ; 
-				$table = new adminTable() ; 
+				$table = new SLFramework_Table() ; 
 				$table->title(array(__("Col1", $this->pluginID), __("Col2", $this->pluginID), __("Col2", $this->pluginID))) ; 
 				
 				ob_start() ; 
@@ -309,7 +309,7 @@ class my_plugin extends pluginSedLex {
 			$tabs->add_tab(__('Summary',  $this->pluginID), ob_get_clean()) ; 	
 
 			ob_start() ; 
-				$params = new parametersSedLex($this, "tab-parameters") ; 
+				$params = new SLFramework_Parameters($this, "tab-parameters") ; 
 				$params->add_title(__('Title 1',  $this->pluginID)) ; 
 				$params->add_param('opt1', __('Modify arg 1:',  $this->pluginID)) ; 
 				$params->add_comment(__("This is a comment. The default value is:",  $this->pluginID)) ; 
@@ -333,14 +333,14 @@ class my_plugin extends pluginSedLex {
 			if (((is_multisite())&&($blog_id == 1))||(!is_multisite())||($frmk->get_param('global_allow_translation_by_blogs'))) {
 				ob_start() ; 
 					$plugin = str_replace("/","",str_replace(basename(__FILE__),"",plugin_basename( __FILE__))) ; 
-					$trans = new translationSL($this->pluginID, $plugin) ; 
+					$trans = new SLFramework_Translation($this->pluginID, $plugin) ; 
 					$trans->enable_translation() ; 
 				$tabs->add_tab(__('Manage translations',  $this->pluginID), ob_get_clean() , plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_trad.png") ; 	
 			}
 
 			ob_start() ; 
 				$plugin = str_replace("/","",str_replace(basename(__FILE__),"",plugin_basename( __FILE__))) ; 
-				$trans = new feedbackSL($plugin, $this->pluginID) ; 
+				$trans = new SLFramework_Feedback($plugin, $this->pluginID) ; 
 				$trans->enable_feedback() ; 
 			$tabs->add_tab(__('Give feedback',  $this->pluginID), ob_get_clean() , plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_mail.png") ; 	
 			
@@ -348,7 +348,7 @@ class my_plugin extends pluginSedLex {
 				// A list of plugin slug to be excluded
 				$exlude = array('wp-pirate-search') ; 
 				// Replace sedLex by your own author name
-				$trans = new otherPlugins("sedLex", $exlude) ; 
+				$trans = new SLFramework_OtherPlugins("sedLex", $exlude) ; 
 				$trans->list_plugins() ; 
 			$tabs->add_tab(__('Other plugins',  $this->pluginID), ob_get_clean() , plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_plug.png") ; 	
 			

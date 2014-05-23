@@ -6,8 +6,8 @@ VersionInclude : 3.0
 /** =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
 * This PHP class enable the creation of form to manage the parameter of your plugin 
 */
-if (!class_exists("parametersSedLex")) {
-	class parametersSedLex {
+if (!class_exists("SLFramework_Parameters")) {
+	class SLFramework_Parameters {
 		
 		var $output ; 
 		var $maj ; 
@@ -24,10 +24,10 @@ if (!class_exists("parametersSedLex")) {
 		* @see  pluginSedLex::set_param
 		* @param class $obj a reference to the object containing the parameter (usually, you need to provide "$this"). If it is "new rootSLframework()", it means that it is the framework parameters.
 		* @param string $tab if you want to activate a tabulation after the submission of the form
-		* @return parametersSedLex the form class to manage parameter/options of your plugin
+		* @return SLFramework_Parameters the form class to manage parameter/options of your plugin
 		*/
 		
-		function parametersSedLex($obj, $tab="") {
+		function SLFramework_Parameters($obj, $tab="") {
 			$this->buffer = array() ; 
 			$this->obj = $obj ; 
 		}
@@ -88,7 +88,7 @@ if (!class_exists("parametersSedLex")) {
 		/** ====================================================================================================================================================
 		* Add a textarea, input, checkbox, etc. in the form to enable the modification of parameter of the plugin
 		* 	
-		* Please note that the default value of the parameter (defined in the  <code>get_default_option</code> function) will define the type of input form. If the default  value is a: <br/>&nbsp; &nbsp; &nbsp; - string, the input form will be an input text <br/>&nbsp; &nbsp; &nbsp; - integer, the input form will be an input text accepting only integer <br/>&nbsp; &nbsp; &nbsp; - string beggining with a '*', the input form will be a textarea <br/>&nbsp; &nbsp; &nbsp; - string equals to '[file]$path', the input form will be a file input and the file will be stored at $path (relative to the upload folder)<br/>&nbsp; &nbsp; &nbsp; - string equals to '[password]$password', the input form will be a password input ; <br/>&nbsp; &nbsp; &nbsp; - array of string, the input form will be a dropdown list<br/>&nbsp; &nbsp; &nbsp; - boolean, the input form will be a checkbox 
+		* Please note that the default value of the parameter (defined in the  <code>get_default_option</code> function) will define the type of input form. If the default  value is a: <br/>&nbsp; &nbsp; &nbsp; - string, the input form will be an input text <br/>&nbsp; &nbsp; &nbsp; - integer, the input form will be an input text accepting only integer <br/>&nbsp; &nbsp; &nbsp; - string beggining with a '*', the input form will be a textarea <br/>&nbsp; &nbsp; &nbsp; - string equals to '[file]$path', the input form will be a file input and the file will be stored at $path (relative to the upload folder)<br/>&nbsp; &nbsp; &nbsp; - string equals to '[password]$password', the input form will be a password input ; <br/>&nbsp; &nbsp; &nbsp; - string equals to '[media]$media', the input form will be a element in the media library ; <br/>&nbsp; &nbsp; &nbsp; - array of string, the input form will be a dropdown list<br/>&nbsp; &nbsp; &nbsp; - boolean, the input form will be a checkbox 
 		*
 		* @param string $param the name of the parameter/option as defined in your plugin and especially in the <code>get_default_option</code> of your plugin
 		* @param string $name the displayed name of the parameter in the form
@@ -162,6 +162,10 @@ if (!class_exists("parametersSedLex")) {
 			if (is_string($this->obj->get_default_option($param))) {
 				if (str_replace("[password]","",$this->obj->get_default_option($param)) != $this->obj->get_default_option($param)) $type = "password" ; 
 			}
+			// C'est un media si dans le texte par defaut est egal a [media]
+			if (is_string($this->obj->get_default_option($param))) {
+				if (str_replace("[media]","",$this->obj->get_default_option($param)) != $this->obj->get_default_option($param)) $type = "media" ; 
+			}
 			
 			// We format the param
 			//---------------------------------------
@@ -193,7 +197,7 @@ if (!class_exists("parametersSedLex")) {
 				
 				if ($type=="int") {
 					if (isset($_POST[$param])) {
-						if (Utils::is_really_int($_POST[$param])) {
+						if (SLFramework_Utils::is_really_int($_POST[$param])) {
 							return (int)$_POST[$param] ; 
 						} else {
 							if ($_POST[$param]=="") {
@@ -239,7 +243,7 @@ if (!class_exists("parametersSedLex")) {
 									$array[$i] = substr($array[$i], 1) ; 
 								} 
 								// On met une etoile si c'est celui qui est selectionne par defaut
-								if ($selected == Utils::create_identifier($array[$i])) {
+								if ($selected == SLFramework_Utils::create_identifier($array[$i])) {
 									$array[$i] = '*'.$array[$i] ; 
 								}
 							} else {
@@ -258,8 +262,17 @@ if (!class_exists("parametersSedLex")) {
 					}
 				} 
 				
-				// Is it a file ?
+				// is it a media
 				
+				if ($type=="media") {
+					if (isset($_POST[$param])) {
+						return $_POST[$param] ; 
+					} else {
+						return $this->obj->get_default_option($param) ; 
+					}				
+				}
+				
+				// Is it a file ?
 				if ($type=="file") {
 					// deleted ?
 					$upload_dir = wp_upload_dir();
@@ -345,6 +358,7 @@ if (!class_exists("parametersSedLex")) {
 		function flush()  {
 			global $_POST ; 
 			global $_FILES ; 
+			global $wpdb ; 
 
 			$this->buffer[] = array('end', "") ; 
 
@@ -416,7 +430,7 @@ if (!class_exists("parametersSedLex")) {
 					$macroisdisplayed_avoidnext = false ; 
 
 					// We create a new table 
-					$currentTable = new adminTable() ; 
+					$currentTable = new SLFramework_Table() ; 
 					$currentTable->removeFooter() ; 
 					$hastobeclosed = true ;
 					if ($ligne[0]=="title") {
@@ -445,7 +459,7 @@ if (!class_exists("parametersSedLex")) {
 							}
 						}
 						$params .= "]" ; 
-						$md5 = md5($params) ; 
+						$md5 = sha1($params) ; 
 						$delete = " <a href='#' onclick='del_param(".$params.", \"".$md5."\", \"".$this->obj->pluginID."\");return false ; ' style='font-size:80%'>".__('(Delete)', 'SL_framework')."</a>" ; 
 						$x = plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)) ; 
 						$delete .= "<img id='wait_".$md5."' src='".$x."/img/ajax-loader.gif' style='display:none;'>" ; 
@@ -473,7 +487,7 @@ if (!class_exists("parametersSedLex")) {
 								}
 							}
 							$params .= "]" ; 
-							$md5 = md5($params) ; 
+							$md5 = sha1($params) ; 
 							$add = " <a href='#' onclick='add_param(".$params.", \"".$md5."\", \"".$this->obj->pluginID."\");return false ; ' style='font-size:80%'>(".$macroisdisplayed_text.")</a>" ; 
 							$x = plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)) ; 
 							$add .= "<img id='wait_".$md5."' src='".$x."/img/ajax-loader.gif' style='display:none;'>" ; 
@@ -500,7 +514,7 @@ if (!class_exists("parametersSedLex")) {
 				if ($ligne[0]=="comment") {	
 					if (!$hastobeclosed) {
 						// We create a default table as no title has been provided
-						$currentTable = new adminTable() ; 
+						$currentTable = new SLFramework_Table() ; 
 						$currentTable->removeFooter() ; 
 						$currentTable->title(array(__("Parameters","SL_framework"), __("Values","SL_framework")) ) ; 
 						$hastobeclosed = true ; 
@@ -532,7 +546,7 @@ if (!class_exists("parametersSedLex")) {
 					$related = $ligne[5] ; 
 					if (!$hastobeclosed) {
 						// We create a default table as no title has been provided
-						$currentTable = new adminTable() ; 
+						$currentTable = new SLFramework_Table() ; 
 						$currentTable->removeFooter() ; 
 						$currentTable->title(array(__("Parameters","SL_framework"), __("Values","SL_framework")) ) ; 
 						$hastobeclosed = true ; 
@@ -555,6 +569,10 @@ if (!class_exists("parametersSedLex")) {
 					// C'est un password si dans le texte par defaut est egal a [password]
 					if (is_string($this->obj->get_default_option($param_default))) {
 						if (str_replace("[password]","",$this->obj->get_default_option($param_default)) != $this->obj->get_default_option($param_default)) $type = "password" ; 
+					}
+					// C'est un media si dans le texte par defaut est egal a [media]
+					if (is_string($this->obj->get_default_option($param_default))) {
+						if (str_replace("[media]","",$this->obj->get_default_option($param_default)) != $this->obj->get_default_option($param_default)) $type = "media" ; 
 					}
 					
 					// We reset the param
@@ -601,7 +619,7 @@ if (!class_exists("parametersSedLex")) {
 							if ($new_param != $old_param) {
 								$modified = true ; 
 								$this->obj->set_param($param, $new_param) ; 
-								SL_Debug::log(get_class(), "The parameter ".$param." of the plugin ".$this->obj->getPluginID()." have been modified", 4) ; 
+								SLFramework_Debug::log(get_class(), "The parameter ".$param." of the plugin ".$this->obj->getPluginID()." have been modified", 4) ; 
 							}
 						}
 					}
@@ -690,7 +708,8 @@ if (!class_exists("parametersSedLex")) {
 						$cel_label = new adminCell($cl) ; 
 						$cel_value = new adminCell("<p class='paramLine'><input name='".$param."' id='".$param."' type='password' value='".htmlentities($this->obj->get_param($param), ENT_QUOTES, "UTF-8")."' size='".min(30,max(6,(strlen($this->obj->get_param($param).'')+1)))."'></p>") ; 
 						$currentTable->add_line(array($cel_label, $cel_value), '1') ; 			
-					}					
+					}	
+									
 					if ($type=="text") {
 						$num = min(22,count(explode("\n", $this->obj->get_param($param))) + 1) ; 
 						$ew = "" ; 
@@ -739,7 +758,7 @@ if (!class_exists("parametersSedLex")) {
 										$a = substr($a, 1) ; 
 									}
 									?>
-										<option value="<?php echo Utils::create_identifier($a) ; ?>" <?php echo $selected ; ?>><?php echo $a ; ?></option>
+										<option value="<?php echo SLFramework_Utils::create_identifier($a) ; ?>" <?php echo $selected ; ?>><?php echo $a ; ?></option>
 									<?php
 								} else {
 									$selected = "" ; 
@@ -761,6 +780,35 @@ if (!class_exists("parametersSedLex")) {
 						$currentTable->add_line(array($cel_label, $cel_value), '1') ; 			
 					}
 					
+					if ($type=="media") {
+						$cl = "<p class='paramLine'><label for='".$param."'>".$name."</label></p>".$ew ; 
+						// We check if there is a comment just after it
+						while (isset($this->buffer[$iii+1])) {
+							if ($this->buffer[$iii+1][0]!="comment") break ; 
+							$cl .= "<p class='paramComment' style='color: #a4a4a4;'>".$this->buffer[$iii+1][1]."</p>" ; 
+							$iii++ ; 
+						}
+						$cel_label = new adminCell($cl) ; 
+						
+						// If this is the URL of an auto-generated thumbnail, get the URL of the original image
+						$attachment_url = preg_replace( '/-\d+x\d+(?=\.(jpg|jpeg|png|gif)$)/i', '',  $this->obj->get_param($param) );						
+						$attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid='%s';",$attachment_url)); 
+        				if (isset($attachment[0])) {
+        					$id_media =  $attachment[0]; 
+        					$msg_media = "<p class='paramComment' style='color: #a4a4a4;'>".sprintf(__("The URL is correct and the ID of the media file is %s.",'SL_framework'),'<code>'.$id_media."</code>")."</p>" ; 
+        					if (wp_attachment_is_image( $id_media )) {
+        						$msg_media .= '<p class="paramComment" style="color: #a4a4a4; text-align:center;"><a href="'.get_attachment_link( $id_media ).'">'.wp_get_attachment_image( $id_media, "thumbnail").'</a></p>' ; 
+        					} else {
+        						$msg_media .= '<p class="paramComment" style="color: #a4a4a4; text-align:center;>coucou</p>' ; 
+        					}
+        					
+        				} else {
+        					$msg_media = "<p class='paramComment' style='color: #a4a4a4;'>".__("The URL is not a media file.",'SL_framework')."</p>" ; 
+        				} 
+						$cel_value = new adminCell("<p class='paramLine'><div style='width:100%'><input id='".$param."' type='text' size='20' name='".$param."' value='".htmlentities($this->obj->get_param($param), ENT_QUOTES, "UTF-8")."' /><input id='media_".$param."' class='button' type='button' value='".__('Choose a media', 'SL_framework')."' onclick=\"paramMediaReturn = '".$param."'; formfield = jQuery('#".$param."').attr('name'); tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true'); return false;\"/></div></p>".$msg_media) ; 
+						
+						$currentTable->add_line(array($cel_label, $cel_value), '1') ; 	
+					}
 					if ($type=="file") {
 						$ew = "" ; 
 						if ($problem_e!="") {	
@@ -876,5 +924,13 @@ if (!class_exists("parametersSedLex")) {
 		}
 	}
 }
+
+
+if (!class_exists("parametersSedLex")) {
+	class parametersSedLex extends SLFramework_Parameters {
+	
+	}
+}
+
 
 ?>

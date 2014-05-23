@@ -79,13 +79,13 @@ if (!class_exists('pluginSedLex')) {
 			}
 			add_action('admin_enqueue_scripts', array( $this, 'flush_js'), 10000000);// Only for SL page
 			add_action('admin_enqueue_scripts', array( $this, 'flush_css'), 10000000);// Only for SL page
-			
+						
 			// We add an ajax call for the translation class
-			add_action('wp_ajax_translate_add', array('translationSL','translate_add')) ; 
-			add_action('wp_ajax_translate_modify', array('translationSL','translate_modify')) ; 
-			add_action('wp_ajax_translate_create', array('translationSL','translate_create')) ; 
-			add_action('wp_ajax_send_translation', array('translationSL','send_translation')) ; 
-			add_action('wp_ajax_update_summary', array('translationSL','update_summary')) ; 
+			add_action('wp_ajax_translate_add', array('SLFramework_Translation','translate_add')) ; 
+			add_action('wp_ajax_translate_modify', array('SLFramework_Translation','translate_modify')) ; 
+			add_action('wp_ajax_translate_create', array('SLFramework_Translation','translate_create')) ; 
+			add_action('wp_ajax_send_translation', array('SLFramework_Translation','send_translation')) ; 
+			add_action('wp_ajax_update_summary', array('SLFramework_Translation','update_summary')) ; 
 			
 			// We add an ajax call for the parameter class
 			add_action('wp_ajax_del_param', array($this,'del_param_callback')) ; 
@@ -132,7 +132,6 @@ if (!class_exists('pluginSedLex')) {
 		
 		public function install ($network_wide) {
 			global $wpdb;
-			global $db_version;
 			
 			// If the website is multisite, we have to call each install manually to create the table because it is called only for the main site.
 			// (see http://core.trac.wordpress.org/ticket/14170#comment:18) 
@@ -166,6 +165,7 @@ if (!class_exists('pluginSedLex')) {
 
 		public function singleSite_install($table_name) {
 			global $wpdb ; 
+			global $db_version;
 			
 			if (strlen(trim($this->tableSQL))>0) {
 				if($wpdb->get_var("show tables like '".$table_name."'") != $table_name) {
@@ -245,7 +245,7 @@ if (!class_exists('pluginSedLex')) {
 		* @see  pluginSedLex::set_param
 		* @see  pluginSedLex::get_name_params
 		* @see  pluginSedLex::del_param
-		* @see parametersSedLex::parametersSedLex
+		* @see SLFramework_Parameters::SLFramework_Parameters
 		* @param string $option the name of the option
 		* @return mixed  the value of the option requested
 		*/
@@ -283,7 +283,7 @@ if (!class_exists('pluginSedLex')) {
 		* @see  pluginSedLex::set_param
 		* @see  pluginSedLex::get_name_params
 		* @see  pluginSedLex::del_param
-		* @see parametersSedLex::parametersSedLex
+		* @see SLFramework_Parameters::SLFramework_Parameters
 		* @param string $option the name of the option
 		* @return mixed  the value of the option requested
 		*/
@@ -315,7 +315,7 @@ if (!class_exists('pluginSedLex')) {
 		* @see  pluginSedLex::set_param
 		* @see  pluginSedLex::get_param
 		* @see  pluginSedLex::del_param
-		* @see parametersSedLex::parametersSedLex
+		* @see SLFramework_Parameters::SLFramework_Parameters
 		* @return array an array with all option names
 		*/
 		
@@ -345,7 +345,7 @@ if (!class_exists('pluginSedLex')) {
 		* @see  pluginSedLex::set_param
 		* @see  pluginSedLex::get_name_params
 		* @see  pluginSedLex::gel_param
-		* @see parametersSedLex::parametersSedLex
+		* @see SLFramework_Parameters::SLFramework_Parameters
 		* @param string $option the name of the option
 		* @param string $pluginID the plugin ID (or the current plugin ID by default)
 		* @return void
@@ -471,7 +471,7 @@ if (!class_exists('pluginSedLex')) {
 		* For instance, <code>$this->set_param('opt1', 'val1')</code> will store the string 'val1' for the option 'opt1'. Any object may be stored in the options
 		* 
 		* @see  pluginSedLex::get_param
-		* @see parametersSedLex::parametersSedLex
+		* @see SLFramework_Parameters::SLFramework_Parameters
 		* @param string $option the name of the option
 		* @param mixed $value the value of the option to be saved
 		* @return void
@@ -750,7 +750,7 @@ if (!class_exists('pluginSedLex')) {
 		
 		public function add_inline_js($text) {
 			global $sedlex_list_scripts ; 
-			$id = md5($text) ; 
+			$id = sha1($text) ; 
 			// Repertoire de stockage des css inlines
 			$path =  WP_CONTENT_DIR."/sedlex/inline_scripts";
 			$path_ok = false ; 
@@ -758,7 +758,7 @@ if (!class_exists('pluginSedLex')) {
 				if (@mkdir("$path", 0755, true)) {
 					$path_ok = true ; 				
 				} else {
-					SL_Debug::log(get_class(), "The folder ". WP_CONTENT_DIR."/sedlex/inline_scripts"." cannot be created", 2) ; 
+					SLFramework_Debug::log(get_class(), "The folder ". WP_CONTENT_DIR."/sedlex/inline_scripts"." cannot be created", 2) ; 
 				}
 			} else {
 				$path_ok = true ; 
@@ -791,7 +791,7 @@ if (!class_exists('pluginSedLex')) {
 		
 		public  function flush_js($hook) {
 			global $sedlex_list_scripts ; 
-			
+						
 			// If it not a plugin page SL page
 			if (is_admin()) {
 				$plugin = explode("_", $hook) ; 
@@ -810,7 +810,7 @@ if (!class_exists('pluginSedLex')) {
 			$path =  WP_CONTENT_DIR."/sedlex/inline_scripts";
 			if (!is_dir($path)) {
 				if (!@mkdir("$path", 0755, true)) {
-					SL_Debug::log(get_class(), "The folder ". WP_CONTENT_DIR."/sedlex/inline_scripts"." cannot be created", 2) ; 
+					SLFramework_Debug::log(get_class(), "The folder ". WP_CONTENT_DIR."/sedlex/inline_scripts"." cannot be created", 2) ; 
 				}
 			}
 			
@@ -829,11 +829,10 @@ if (!class_exists('pluginSedLex')) {
 						$out .=  "/*====================================================*/\n";						
 					}
 				}
-				$md5 = md5($out) ; 
+				$md5 = sha1($out) ; 
 				if (!@is_file(WP_CONTENT_DIR."/sedlex/inline_scripts/".$md5.".js")) {
 					@file_put_contents(WP_CONTENT_DIR."/sedlex/inline_scripts/".$md5.".js", $out) ; 
-				}
-				
+				}				
 				@chmod(WP_CONTENT_DIR."/sedlex/inline_scripts/".$md5.".js", 0755);
 				
 				//$url = plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)).'core/load-scripts.php?c=0&load='.$md5 ; 
@@ -874,10 +873,12 @@ if (!class_exists('pluginSedLex')) {
 				wp_enqueue_script('jquery-ui-core', '', array('jquery'), false );   
 				wp_enqueue_script('jquery-ui-dialog', '', array('jquery'), false );
 				wp_enqueue_script('jquery-ui-tabs', '', array('jquery'), false );
-				wp_enqueue_script( 'jquery-ui-sortable', '', array('jquery'), false );
-				wp_enqueue_script( 'jquery-ui-effects', '', array('jquery', 'jquery-ui'), false );
+				wp_enqueue_script('jquery-ui-sortable', '', array('jquery'), false );
+				wp_enqueue_script('jquery-ui-effects', '', array('jquery', 'jquery-ui'), false );
 				
-				
+				// Pour accéder au media library
+				wp_enqueue_script('media-upload');
+				wp_enqueue_script('thickbox');
 				
 				echo '<script> addLoadEvent = function(func){if(typeof jQuery!="undefined")jQuery(document).ready(func);else if(typeof wpOnload!=\'function\'){wpOnload=func;}else{var oldonload=wpOnload;wpOnload=function(){oldonload();func();}}};</script>'."\r\n" ; 
 			
@@ -959,7 +960,7 @@ if (!class_exists('pluginSedLex')) {
 		
 		public function add_inline_css($text) {
 			global $sedlex_list_styles ; 
-			$id = md5($text) ; 
+			$id = sha1($text) ; 
 			// Repertoire de stockage des css inlines
 			$path =  WP_CONTENT_DIR."/sedlex/inline_styles";
 			$path_ok = false ; 
@@ -967,7 +968,7 @@ if (!class_exists('pluginSedLex')) {
 				if (@mkdir("$path", 0755, true)) {
 					$path_ok = true ; 				
 				} else {
-					SL_Debug::log(get_class(), "The folder ". WP_CONTENT_DIR."/sedlex/inline_styles"." cannot be created", 2) ; 
+					SLFramework_Debug::log(get_class(), "The folder ". WP_CONTENT_DIR."/sedlex/inline_styles"." cannot be created", 2) ; 
 				}
 			} else {
 				$path_ok = true ; 
@@ -1020,7 +1021,7 @@ if (!class_exists('pluginSedLex')) {
 			$path_ok = false ; 
 			if (!is_dir($path)) {
 				if (!@mkdir("$path", 0755, true)) {
-					SL_Debug::log(get_class(), "The folder ". WP_CONTENT_DIR."/sedlex/inline_styles cannot be created", 2) ; 
+					SLFramework_Debug::log(get_class(), "The folder ". WP_CONTENT_DIR."/sedlex/inline_styles cannot be created", 2) ; 
 				}
 			}
 
@@ -1058,7 +1059,7 @@ if (!class_exists('pluginSedLex')) {
 						$out .=  "/*====================================================*/\n";						
 					}
 				}
-				$md5 = md5($out) ; 
+				$md5 = sha1($out) ; 
 				if (!@is_file(WP_CONTENT_DIR."/sedlex/inline_styles/".$md5.".css")) {
 					@file_put_contents(WP_CONTENT_DIR."/sedlex/inline_styles/".$md5.".css", $out) ; 
 				}
@@ -1097,7 +1098,10 @@ if (!class_exists('pluginSedLex')) {
 			}
 			
 			if ($sedlex_adminCSS_tobedisplayed) {
-				$sedlex_adminCSS_tobedisplayed = false ; 		
+				$sedlex_adminCSS_tobedisplayed = false ; 
+				
+				// Pour le media box
+				wp_enqueue_style('thickbox');		
 
 			//if (str_replace(basename( __FILE__),"",plugin_basename( __FILE__))==str_replace(basename( $this->path),"",plugin_basename($this->path))) {
 			
@@ -1267,10 +1271,10 @@ if (!class_exists('pluginSedLex')) {
 			
 			if (((is_multisite())&&($blog_id == 1))||(!is_multisite())) {
 				ob_start() ; 
-				$params = new parametersSedLex ($this->frmk) ;
+				$params = new SLFramework_Parameters ($this->frmk) ;
 				$params->add_title (__('Log options','SL_framework')) ; 
 				$params->add_param ("debug_level", __('What is the debug level:','SL_framework')) ; 
-				$params->add_comment ("<a href='".str_replace(WP_CONTENT_DIR, content_url(), SL_Debug::get_log_path())."' target='_blank'>".__('See the debug logs','SL_framework')."</a>") ; 
+				$params->add_comment ("<a href='".str_replace(WP_CONTENT_DIR, content_url(), SLFramework_Debug::get_log_path())."' target='_blank'>".__('See the debug logs','SL_framework')."</a>") ; 
 				$params->add_comment (__('1=log only the critical errors;','SL_framework')) ; 
 				$params->add_comment (__('2=log only the critical errors and the standard errors;','SL_framework')) ; 
 				$params->add_comment (__('3=log only the critical errors, the standard errors and the warnings;','SL_framework')) ; 
@@ -1324,10 +1328,10 @@ if (!class_exists('pluginSedLex')) {
 				//= Tab listing all the plugins
 				//======================================================================================
 		
-				$tabs = new adminTabs() ; 
+				$tabs = new SLFramework_Tabs() ; 
 									
 				ob_start() ; 
-					$table = new adminTable() ; 
+					$table = new SLFramework_Table() ; 
 					$table->title(array(__("Plugin name", 'SL_framework'), __("Description", 'SL_framework'))) ; 
 					$ligne=0 ; 
 					foreach ($SLpluginActivated as $i => $url) {
@@ -1344,7 +1348,7 @@ if (!class_exists('pluginSedLex')) {
 							ob_start() ; 
 							?>
 								<p><b><?php echo $info['Plugin_Name'] ; ?></b></p>
-								<p><a href='admin.php?page=<?php echo $url  ; ?>'><?php echo __('Settings', 'SL_framework') ; ?></a> | <?php echo Utils::byteSize(Utils::dirSize(dirname(WP_PLUGIN_DIR.'/'.$url ))) ;?></p>
+								<p><a href='admin.php?page=<?php echo $url  ; ?>'><?php echo __('Settings', 'SL_framework') ; ?></a> | <?php echo SLFramework_Utils::byteSize(SLFramework_Utils::dirSize(dirname(WP_PLUGIN_DIR.'/'.$url ))) ;?></p>
 							<?php
 
 							$cel1 = new adminCell(ob_get_clean()) ; 
@@ -1385,7 +1389,7 @@ if (!class_exists('pluginSedLex')) {
 										
 					ob_start() ; 
 						$plugin = str_replace("/","",str_replace(basename(__FILE__),"",plugin_basename( __FILE__))) ; 
-						$trans = new translationSL("SL_framework", $plugin) ; 
+						$trans = new SLFramework_Translation("SL_framework", $plugin) ; 
 						$trans->enable_translation() ; 
 					$tabs->add_tab(__('Manage translation of the framework',  'SL_framework'), ob_get_clean() , plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_trad.png") ; 
 				}
@@ -1509,8 +1513,8 @@ if (!class_exists('pluginSedLex')) {
 			$result = "" ; 
 			foreach ($folders as $f ) {
 				if ( (is_dir($f[0])) || (@is_file($f[0])) ) {
-					$readable = Utils::is_readable($f[0]) ; 
-					$writable = Utils::is_writable($f[0]) ; 
+					$readable = SLFramework_Utils::is_readable($f[0]) ; 
+					$writable = SLFramework_Utils::is_writable($f[0]) ; 
 					
 					@chmod($f[0], 0755) ; 
 					

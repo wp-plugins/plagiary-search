@@ -8,8 +8,8 @@ VersionInclude : 3.0
 /** =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
 * This PHP class regroups a few useful method to manage directory, string, ... 
 */
-if (!class_exists("Utils")) {
-	class Utils {
+if (!class_exists("SLFramework_Utils")) {
+	class SLFramework_Utils {
 	
 		/** ====================================================================================================================================================
 		* To convert into UTF8
@@ -50,7 +50,7 @@ if (!class_exists("Utils")) {
 			while($file = $fd->read()){
 				if(($file != ".") && ($file != "..")){
 					if(@is_dir($path.'/'.$file)) {
-						$result += $recursive?Utils::dirSize($path.'/'.$file):0;
+						$result += $recursive?SLFramework_Utils::dirSize($path.'/'.$file):0;
 					} else {
 						$result += filesize($path.'/'.$file);
 					}
@@ -201,7 +201,7 @@ if (!class_exists("Utils")) {
 					}
 					$PathDir = $source . '/' . $readdirectory; 
 					if ( is_dir( $PathDir ) ) {
-						Utils::copy_rec( $PathDir, $destination . '/' . $readdirectory );
+						SLFramework_Utils::copy_rec( $PathDir, $destination . '/' . $readdirectory );
 						continue;
 					}
 					copy( $PathDir, $destination . '/' . $readdirectory );
@@ -227,7 +227,7 @@ if (!class_exists("Utils")) {
 				foreach ($objects as $object) {
 					if ($object != "." && $object != "..") {
 						if (filetype($path."/".$object) == "dir") 
-							Utils::rm_rec($path."/".$object); 
+							SLFramework_Utils::rm_rec($path."/".$object); 
 						else 
 							@unlink($path."/".$object);
 					}
@@ -271,8 +271,9 @@ if (!class_exists("Utils")) {
 									$toexclu = true ; 
 								}
 							}
-							if (!$toexclu)  
-								$text .= Utils::md5_rec($path."/".$object, $exclu); 
+							if (!$toexclu) {
+								$text .= SLFramework_Utils::md5_rec($path."/".$object, $exclu); 
+							}
 						} else {
 							$toexclu = false ; 
 							foreach($exclu as $e) {
@@ -285,9 +286,9 @@ if (!class_exists("Utils")) {
 						}
 					}
 				}
-				$md5 = md5($text) ; 
+				$md5 = sha1($text) ; 
 			} else {
-				$md5 = md5(file_get_contents($path)) ; 
+				$md5 = sha1_file($path) ; 
 			}
 			return $md5 ; 
 		}	
@@ -302,9 +303,9 @@ if (!class_exists("Utils")) {
 		
 		static function is_writable($path) {
 			if ($path{strlen($path)-1}=='/') // recursively return a temporary file path
-				return Utils::is_writable($path.uniqid(mt_rand()).'.tmp');
+				return SLFramework_Utils::is_writable($path.uniqid(mt_rand()).'.tmp');
 			else if (is_dir($path))
-				return Utils::is_writable($path.'/'.uniqid(mt_rand()).'.tmp');
+				return SLFramework_Utils::is_writable($path.'/'.uniqid(mt_rand()).'.tmp');
 			
 			// check tmp file for read/write capabilities
 			$rm = file_exists($path);
@@ -340,6 +341,12 @@ if (!class_exists("Utils")) {
 			return false ; 
 		}
 	} 
+}
+
+if (!class_exists("Utils")) {
+	class Utils extends SLFramework_Utils {
+	
+	}
 }
 
 ?>

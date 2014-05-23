@@ -6,8 +6,8 @@ VersionInclude : 3.0
 /** =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
 * This PHP class enables the creation of a progress bar
 */
-if (!class_exists("progressBarAdmin")) {
-	class progressBarAdmin {
+if (!class_exists("SLFramework_Progressbar")) {
+	class SLFramework_Progressbar {
 		
 		/** ====================================================================================================================================================
 		* Constructor of the class
@@ -20,7 +20,7 @@ if (!class_exists("progressBarAdmin")) {
 		* @return boxAdmin the box object
 		*/
 		
-		function progressBarAdmin($length=300, $height=20, $start=0, $insideText="", $id="progressbar") {
+		function SLFramework_Progressbar($length=300, $height=20, $start=0, $insideText="", $id="progressbar") {
 			$this->length = $length ; 
 			$this->insideText = $insideText ; 
 			$this->height = $height ; 
@@ -48,6 +48,12 @@ if (!class_exists("progressBarAdmin")) {
 			<?php
 			echo ob_get_clean();
 		}
+	}
+}
+
+if (!class_exists("progressBarAdmin")) {
+	class progressBarAdmin extends SLFramework_Progressbar {
+	
 	}
 }
 

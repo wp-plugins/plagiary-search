@@ -7,17 +7,17 @@ VersionInclude : 3.0
 /** =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
 * This PHP class enables the translation of the plugin using the framework
 */
-if (!class_exists("feedbackSL")) {
-	class feedbackSL {
+if (!class_exists("SLFramework_Feedback")) {
+	class SLFramework_Feedback {
 
 		/** ====================================================================================================================================================
 		* Constructor of the class
 		* 
 		* @param string $plugin the name of the plugin (probably <code>str_replace("/","",str_replace(basename(__FILE__),"",plugin_basename( __FILE__)))</code>)
 		* @param string $pluginID the pluginID of the plugin (probably <code>$this->pluginID</code>)
-		* @return feedbackSL the feedbackSL object
+		* @return SLFramework_Feedback the SLFramework_Feedback object
 		*/
-		function feedbackSL($plugin, $pluginID) {
+		function SLFramework_Feedback($plugin, $pluginID) {
 			$this->plugin = $plugin ; 
 			$this->pluginID = $pluginID ; 
 		}
@@ -56,7 +56,7 @@ if (!class_exists("feedbackSL")) {
 			echo "<a name='top_feedback'></a><div id='form_feedback_info'></div><div id='form_feedback'>" ; 
 
 			if (preg_match("#^[a-z0-9-_.]+@[a-z0-9-_.]{2,}\.[a-z]{2,4}$#",$info_file['Email'])) {
-				$table = new adminTable() ; 
+				$table = new SLFramework_Table() ; 
 				$table->title(array(__("Contact the author", "SL_framework"), "") ) ;
 				// Name
 				$cel1 = new adminCell("<p>".__('Your name:', 'SL_framework')."*</p>") ;
@@ -98,7 +98,7 @@ if (!class_exists("feedbackSL")) {
 			$comment = strip_tags($_POST['comment']) ; 
 			
 			// If applicable, we select the log file
-			$logfile = SL_Debug::get_log_path() ; 
+			$logfile = SLFramework_Debug::get_log_path() ; 
 			
 			$info_file = pluginSedLex::get_plugins_data(WP_PLUGIN_DIR."/".$plugin."/".$plugin.".php") ; 
 			
@@ -176,18 +176,24 @@ if (!class_exists("feedbackSL")) {
 				echo "<div class='updated  fade'>" ; 
 				echo "<p>".__("The feedback has been sent", 'SL_framework')."</p>" ; 
 				echo "</div>" ; 
-				SL_Debug::log(get_class(), "A feedback mail has been sent.", 4) ; 
+				SLFramework_Debug::log(get_class(), "A feedback mail has been sent.", 4) ; 
 			} else {
 				echo "<div class='error  fade'>" ; 
 				echo "<p>".__("An error occured sending the email.", 'SL_framework')."</p><p>".__("Make sure that your wordpress is able to send email.", 'SL_framework')."</p>" ; 
 				echo "</div>" ; 	
-				SL_Debug::log(get_class(), "A feedback mail has failed to be sent.", 2) ; 
+				SLFramework_Debug::log(get_class(), "A feedback mail has failed to be sent.", 2) ; 
 			}
 
 			//Die in order to avoid the 0 character to be printed at the end
 			die() ;
 		}
-		
+	}
+}
+
+
+if (!class_exists("feedbackSL")) {
+	class feedbackSL extends SLFramework_Feedback {
+	
 	}
 }
 

@@ -7,16 +7,16 @@ VersionInclude : 3.0
 /** =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
 * This PHP class enables the Browser and OS detection
 */
-if (!class_exists("browsersOsDetection")) {
-	class browsersOsDetection  {
+if (!class_exists("SLFramework_BrowsersOsDetection")) {
+	class SLFramework_BrowsersOsDetection  {
 		
 		/** ====================================================================================================================================================
 		* Constructor of the class
 		* 
 		* @param $agent the browser agent (i.e. should be $_SERVER['HTTP_USER_AGENT'])
-		* @return browsersOsDetection 
+		* @return SLFramework_BrowsersOsDetection 
 		*/
-		function browsersOsDetection($agent) {	
+		function SLFramework_BrowsersOsDetection($agent) {	
 			// Default value
 			$this->browser_name = 'Other';
 			$this->browser_version = "?";
@@ -434,7 +434,12 @@ if (!class_exists("browsersOsDetection")) {
 		function getPlatformVersion() {
 			return $this->platform_version ;  
 		}		
-		
+	}
+}
+
+if (!class_exists("browsersOsDetection")) {
+	class browsersOsDetection extends SLFramework_BrowsersOsDetection {
+	
 	}
 }
 ?>

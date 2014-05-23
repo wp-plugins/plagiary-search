@@ -7,8 +7,8 @@ VersionInclude : 3.0
 /** =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
 * This PHP class allows to determine which part of a text has been removed and added
 */
-if (!class_exists("textDiff")) {
-	class textDiff {
+if (!class_exists("SLFramework_Textdiff")) {
+	class SLFramework_Textdiff {
 	
 		var $text1 ;
 		var $text2 ;
@@ -21,7 +21,7 @@ if (!class_exists("textDiff")) {
 		* @access private
 		* @return void
 		*/
-		function textDiff() {
+		function SLFramework_Textdiff() {
 			require_once( ABSPATH . WPINC . '/wp-diff.php' );
 		}
 
@@ -212,6 +212,12 @@ if (!class_exists("textDiff")) {
 			return $return ; 
 		}	
 		
+	}
+}
+
+if (!class_exists("textDiff")) {
+	class textDiff extends SLFramework_Textdiff {
+	
 	}
 }
 

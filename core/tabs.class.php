@@ -7,8 +7,8 @@ VersionInclude : 3.0
 /** =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
 * This PHP class enables the creation of tabulation in the admin backend
 */
-if (!class_exists("adminTabs")) {
-	class adminTabs  {
+if (!class_exists("SLFramework_Tabs")) {
+	class SLFramework_Tabs  {
 		var $title ; 
 		var $content ; 
 		var $activated ; 
@@ -16,9 +16,10 @@ if (!class_exists("adminTabs")) {
 		/** ====================================================================================================================================================
 		* Constructor of the class
 		* 
-		* @return adminTabs the tabs
+		* @return SLFramework_Tabs the tabs
 		*/
-		function adminTabs() {	
+		
+		function SLFramework_Tabs() {	
 			$this->title = array() ; 
 			$this->content = array() ; 
 			$this->image = array() ; 
@@ -28,13 +29,14 @@ if (!class_exists("adminTabs")) {
 		/** ====================================================================================================================================================
 		* Add a tabulation
 		* For instance, 
-		* <code>$tabs = new adminTabs() ; <br/> ob_start() ;  <br/> echo "Content 1" ;  <br/> $tabs->add_tab("Tab1", ob_get_clean() ) ; 	 <br/> ob_start() ;  <br/> echo "Content 2" ;  <br/> $tabs->add_tab("Tab2", ob_get_clean() ) ;  <br/> echo $tabs->flush() ; </code>
+		* <code>$tabs = new SLFramework_Tabs() ; <br/> ob_start() ;  <br/> echo "Content 1" ;  <br/> $tabs->add_tab("Tab1", ob_get_clean() ) ; 	 <br/> ob_start() ;  <br/> echo "Content 2" ;  <br/> $tabs->add_tab("Tab2", ob_get_clean() ) ;  <br/> echo $tabs->flush() ; </code>
 		* will create to basic tabulation.
 		* @param string $title the title of the tabulation
 		* @param string $content the HTML content of the tab
 		* @param string $image the path of an image that will be display before the title. Please indicate a 20x20px image.
 		* @return void
 		*/
+		
 		function add_tab($title, $content, $image="") {
 			$this->title[] = $title ; 
 			$this->content[] = $content ; 
@@ -122,22 +124,27 @@ if (!class_exists("adminTabs")) {
 				if ($this->image[$i]=="") {
 					$this->image[$i] = plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/tab_empty.png" ; 
 				}
-?>					<li><a href="#tab-<?php echo md5($all.$this->title[$i]) ?>"><img style='vertical-align:middle;' src='<?php echo $this->image[$i] ?>'> <?php echo $this->title[$i] ?></a></li>		
+?>					<li><a href="#tab-<?php echo sha1($all.$this->title[$i]) ?>"><img style='vertical-align:middle;' src='<?php echo $this->image[$i] ?>'> <?php echo $this->title[$i] ?></a></li>		
 <?php
 			}
 ?>				</ul>
 <?php
 			for ($i=0 ; $i<count($this->title) ; $i++) {
-?>				<div id="tab-<?php echo md5($all.$this->title[$i]) ?>" class="blc-section">
+?>				<div id="tab-<?php echo sha1($all.$this->title[$i]) ?>" class="blc-section">
 					<?php echo $this->content[$i] ; ?>
 				</div>
 <?php
-				
 			}
 ?>
 			</div>
 <?php		return ob_get_clean() ; 
 		}
+	}
+}
+
+if (!class_exists("adminTabs")) {
+	class adminTabs extends SLFramework_Tabs {
+	
 	}
 }
 ?>

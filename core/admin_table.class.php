@@ -7,10 +7,12 @@ VersionInclude : 3.0
 /** =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
 * This PHP class enables the creation of tables in the admin backend
 */
-if (!class_exists("adminTable")) {
+
+
+if (!class_exists("SLFramework_Table")) {
 	$SLframework_id_table = 0 ; 
 	
-	class adminTable  {
+	class SLFramework_Table  {
 		var $nbCol ; 
 		var $nbLigneTotal ; 
 		var $nbLignePerPage ; 
@@ -27,10 +29,10 @@ if (!class_exists("adminTable")) {
 		* @param integer $nb_all_Items the number of all items. If the number of submitted lines are less than this number, a navigation bar will be added at the top of the table
 		* @param integer $nb_max_per_page the number of item per page. This parameter is useful if you have submitted the previous parameter.
 		* @param boolean $order allow the ordering of the columns with small arrows 
-		* @return adminTable the table
+		* @return SLFramework_Table the table
 		*/
 		
-		function adminTable($nb_all_Items=0, $nb_max_per_page=0, $order=false, $search=false) {	
+		function SLFramework_Table($nb_all_Items=0, $nb_max_per_page=0, $order=false, $search=false) {	
 			global $SLframework_id_table ; 
 			
 			$SLframework_id_table ++ ; 
@@ -141,7 +143,7 @@ if (!class_exists("adminTable")) {
 		/** ====================================================================================================================================================
 		* Add a line in your table
 		* For instance
-		* <code>$table = new adminTable() ; <br/> $table->title(array("Col1", "Col2", "Col3") ) ; <br/> $cel1 = new adminCell("Cel1-1") ; <br/> $cel2 = new adminCell("Cel1-2") ; <br/> $cel3 = new adminCell("Cel1-3") ; <br/> $table->add_line(array($cel1, $cel2, $cel3), '1') ; <br/> echo $table->flush() ; </code>
+		* <code>$table = new SLFramework_Table() ; <br/> $table->title(array("Col1", "Col2", "Col3") ) ; <br/> $cel1 = new adminCell("Cel1-1") ; <br/> $cel2 = new adminCell("Cel1-2") ; <br/> $cel3 = new adminCell("Cel1-3") ; <br/> $table->add_line(array($cel1, $cel2, $cel3), '1') ; <br/> echo $table->flush() ; </code>
 		* This code will display a table with a unique line
 		* 
 		* @param array $array it is an array of adminCell object. The length of this array is the same size of the number of your columns
@@ -309,7 +311,7 @@ if (!class_exists("adminTable")) {
 }
 
 /** =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
-* This PHP class create cells to be used with the adminTable::add_line method
+* This PHP class create cells to be used with the SLFramework_Table::add_line method
 */
 if (!class_exists("adminCell")) {
 	class adminCell  {
@@ -369,11 +371,11 @@ if (!class_exists("adminCell")) {
 					$num ++ ;
 					if (strpos($l[1],"(")>0) {
 						$l[1] = str_replace('"', '\'', $l[1]) ; 
-?>										<span><a href="#" onclick="javascript: jQuery('#wait_<?php echo Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>').show() ; jQuery('body').bind('DOMSubtreeModified',function() {jQuery('#wait_<?php echo Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>').hide() ; })  ; <?php echo $l[1] ;?> ; return false ; " id="<?php echo Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>"><?php echo $l[0] ;?></a><img id='wait_<?php echo Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>' src='<?php echo plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)); ?>img/ajax-loader.gif' style='display:none;'><?php if ($num!=count($this->action)) { echo " |" ; }?></span>
+?>										<span><a href="#" onclick="javascript: jQuery('#wait_<?php echo SLFramework_Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>').show() ; jQuery('body').bind('DOMSubtreeModified',function() {jQuery('#wait_<?php echo SLFramework_Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>').hide() ; })  ; <?php echo $l[1] ;?> ; return false ; " id="<?php echo SLFramework_Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>"><?php echo $l[0] ;?></a><img id='wait_<?php echo SLFramework_Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>' src='<?php echo plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)); ?>img/ajax-loader.gif' style='display:none;'><?php if ($num!=count($this->action)) { echo " |" ; }?></span>
 <?php					
 					} else {
 					
-?>										<span><a href="#" onclick="javascript: jQuery('#wait_<?php echo Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>').show() ; jQuery('body').bind('DOMSubtreeModified',function() {jQuery('#wait_<?php echo Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>').hide() ; }) ; <?php echo $l[1] ;?>(<?php echo $this->idLigne ; ?>) ; return false ; " id="<?php echo $l[1] ;?>_<?php echo $this->idLigne ;?>"><?php echo $l[0] ;?></a><img id='wait_<?php echo Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>' src='<?php echo plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)); ?>img/ajax-loader.gif' style='display:none;'><?php if ($num!=count($this->action)) { echo " |" ; }?></span>
+?>										<span><a href="#" onclick="javascript: jQuery('#wait_<?php echo SLFramework_Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>').show() ; jQuery('body').bind('DOMSubtreeModified',function() {jQuery('#wait_<?php echo SLFramework_Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>').hide() ; }) ; <?php echo $l[1] ;?>(<?php echo $this->idLigne ; ?>) ; return false ; " id="<?php echo $l[1] ;?>_<?php echo $this->idLigne ;?>"><?php echo $l[0] ;?></a><img id='wait_<?php echo SLFramework_Utils::create_identifier($l[1]) ;?>_<?php echo $this->idLigne ;?>' src='<?php echo plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__)); ?>img/ajax-loader.gif' style='display:none;'><?php if ($num!=count($this->action)) { echo " |" ; }?></span>
 <?php				}
 				}
 ?>									</div>
@@ -382,6 +384,13 @@ if (!class_exists("adminCell")) {
 ?>								</td>
 <?php
 		}
+	}
+}
+
+
+if (!class_exists("adminTable")) {
+	class adminTable extends SLFramework_Table {
+	
 	}
 }
 

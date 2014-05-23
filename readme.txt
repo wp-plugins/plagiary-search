@@ -50,6 +50,12 @@ Have fun !
 
 == Changelog ==
 
+= 1.1.0 = 
+* NEW: New interface to view the number of last check
+* NEW: How to
+* NEW: When a plagiary is found, a screen capture may be performed to save the external content.
+* NEW: Send an email when plagiary is found
+
 = 1.0.6 = 
 * NEW: Option to identify the plagiary as an authorized plagiary or a deleted plagiary
 * NEW: New algorithm
@@ -69,4 +75,4 @@ Have fun !
 == Frequently Asked Questions ==
 
  
-InfoVersion:04285b9710abbc6ef7b431bb2b3ca27f
+InfoVersion:1c5a43775fdf3b2b08c505d1e65e90df4c7c541b

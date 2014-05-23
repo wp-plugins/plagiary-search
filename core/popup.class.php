@@ -8,8 +8,8 @@ VersionInclude : 3.0
 * This PHP class create a page with the other plugins of the author listed
 */
 
-if (!class_exists("popupAdmin")) {
-	class popupAdmin {
+if (!class_exists("SLFramework_Popup")) {
+	class SLFramework_Popup {
 	   
 		/** ====================================================================================================================================================
 		* Constructor of the class
@@ -20,7 +20,7 @@ if (!class_exists("popupAdmin")) {
 		* @return void 
 		*/
 		
-		public function popupAdmin($title, $content, $css="", $callback="") {
+		public function SLFramework_Popup($title, $content, $css="", $callback="") {
 			$this->callback = $callback ; 
 			$this->css = $css ; 
 			$this->title = $title ; 
@@ -93,6 +93,12 @@ if (!class_exists("popupAdmin")) {
    			echo ob_get_clean() ; 
 		}
 	} 
+}
+
+if (!class_exists("popupAdmin")) {
+	class popupAdmin extends SLFramework_Popup {
+	
+	}
 }
 
 ?>

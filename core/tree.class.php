@@ -7,8 +7,8 @@ VersionInclude : 3.0
 /** =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
 * This PHP class allows to display hierachical list in a smart way
 */
-if (!class_exists("treeList")) {
-	class treeList {
+if (!class_exists("SLFramework_Treelist")) {
+	class SLFramework_Treelist {
 				
 		/** ====================================================================================================================================================
 		* Constructor
@@ -16,7 +16,7 @@ if (!class_exists("treeList")) {
 		* @access private
 		* @return void
 		*/
-		function treeList() {
+		function SLFramework_Treelist() {
 		}
 		
 		/** ====================================================================================================================================================
@@ -24,7 +24,7 @@ if (!class_exists("treeList")) {
 		* 
 		* For instance : 
 		* <code>$array = array(<br/>      array('first element', null),<br/>      array('second element', array(<br/>            array('sub1', null),<br/>            array('sub2', null)<br/>      )),<br/>      array('third element', null)<br/>) ;</code>
-		* <code>treeList::render($array) ; </code>
+		* <code>SLFramework_Treelist::render($array) ; </code>
 		* if the array have 1 elements i.e. array('title element') the first element is the title (no children)
 		* if the array have 2 elements i.e. array('title element', "E45AF"), the second element will be considered as the id of the array
 		* if the array have 3 elements i.e. array('title element', "E45AF", null) the third element is the children (array or null)
@@ -40,7 +40,7 @@ if (!class_exists("treeList")) {
 		static function render($array, $reduce_develop=false, $reorder_callback=null, $classPerso=""){
 			$rand = rand(1, 10000000) ; 
 			echo "<div id='sortableTreeView".$rand."' class='".$classPerso."'>" ; 
-				treeList::render_sub($array,$reduce_develop, false, $rand) ; 
+				SLFramework_Treelist::render_sub($array,$reduce_develop, false, $rand) ; 
 			echo "</div>" ; 
 			?>
 			<script>
@@ -207,7 +207,7 @@ if (!class_exists("treeList")) {
 				
 				echo "<li".$id."".$toggle.">"."<div>".$item[0]."</div>" ; 
 				if ($children!=null) {
-					treeList::render_sub($children, $reduce_develop, $next_hide, $rand) ; 
+					SLFramework_Treelist::render_sub($children, $reduce_develop, $next_hide, $rand) ; 
 				} else {
 					echo "<ul></ul>" ; 
 				}
@@ -215,6 +215,12 @@ if (!class_exists("treeList")) {
 			}
 			echo "</ul>" ; 
 		}
+	}
+}
+
+if (!class_exists("treeList")) {
+	class treeList extends SLFramework_Treelist {
+	
 	}
 }
 

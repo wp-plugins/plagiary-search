@@ -8,8 +8,8 @@ VersionInclude : 3.0
 * This PHP class create a page with the other plugins of the author referenced
 */
 
-if (!class_exists("otherPlugins")) {
-	class otherPlugins {
+if (!class_exists("SLFramework_OtherPlugins")) {
+	class SLFramework_OtherPlugins {
 	   
 		/** ====================================================================================================================================================
 		* Constructor of the class
@@ -19,7 +19,7 @@ if (!class_exists("otherPlugins")) {
 		* @return void 
 		*/
 		
-		public function otherPlugins($nameAuthor="", $exclu=array()) {
+		public function SLFramework_OtherPlugins($nameAuthor="", $exclu=array()) {
 			$this->nameAuthor = $nameAuthor ; 
 			$this->exclu = $exclu ; 
 		}
@@ -32,27 +32,27 @@ if (!class_exists("otherPlugins")) {
 		
 		public function list_plugins() {
 			// On cherche 
-			if (!is_file(dirname(__FILE__)."/data/otherplugins_".date('Ym').".data")) {
-				// On efface les autres otherplugins s'ils existent
+			if (!is_file(dirname(__FILE__)."/data/SLFramework_OtherPlugins_".date('Ym').".data")) {
+				// On efface les autres SLFramework_OtherPlugins s'ils existent
 				$path = dirname(__FILE__)."/data/" ; 
 				$files = @scandir($path) ;
 				if ($files!==FALSE) {
 					foreach ($files as $f) {
-						if (preg_match("/^otherplugins/i", $f)) {
+						if (preg_match("/^SLFramework_OtherPlugins/i", $f)) {
 							@unlink($path.$f) ; 
 						} 
 					}
 				}
 				$this->get_list_plugins() ; 
 			}
-			$plugins = unserialize(@file_get_contents(dirname(__FILE__)."/data/otherplugins_".date('Ym').".data")) ;
+			$plugins = unserialize(@file_get_contents(dirname(__FILE__)."/data/SLFramework_OtherPlugins_".date('Ym').".data")) ;
 
 			$plugins_active = get_plugins() ; 
 
 			echo "<h3>".__("Plugins that you may install",'SL_framework')."</h3>" ; 
 			
 			echo "<p>".__("The following plugins have been developed by the author and are not yet been installed:",  "SL_framework") ."</p>" ; 
-			$table = new adminTable() ; 
+			$table = new SLFramework_Table() ; 
 			$table->title(array(__("Plugin not yet installed", "SL_framework"), __("Description and Screenshots", "SL_framework")) ) ;
 			$nb = 0 ; 
 			foreach ($plugins as $slug => $plug) {	
@@ -83,7 +83,7 @@ if (!class_exists("otherPlugins")) {
 			
 			echo "<h3>".__("Installed plugins",'SL_framework')."</h3>" ; 
 			echo "<p>".__("You have already installed the following author's plugins:",  "SL_framework") ."</p>" ; 
-			$table = new adminTable() ; 
+			$table = new SLFramework_Table() ; 
 			$table->title(array(__("Plugin already installed", "SL_framework"), __("Description and Screenshots", "SL_framework")) ) ;
 			$nb = 0 ; 
 			foreach ($plugins as $slug => $plug) {	
@@ -147,7 +147,7 @@ if (!class_exists("otherPlugins")) {
 							$to_save [$plug->slug] = array(ob_get_clean(), $cells[1]) ; 
 						}
 					}
-					@file_put_contents(dirname(__FILE__)."/data/otherplugins_".date('Ym').".data", serialize($to_save)) ;
+					@file_put_contents(dirname(__FILE__)."/data/SLFramework_OtherPlugins_".date('Ym').".data", serialize($to_save)) ;
 				}
 			}
 		}		
@@ -206,6 +206,12 @@ if (!class_exists("otherPlugins")) {
 			}
 		}
 	} 
+}
+
+if (!class_exists("otherPlugins")) {
+	class otherPlugins extends SLFramework_OtherPlugins {
+	
+	}
 }
 
 ?>

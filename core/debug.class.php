@@ -7,11 +7,11 @@ VersionInclude : 3.0
 /** =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
 * This PHP class allow to log debug information regarding the execution of plugins
 * For instance : 
-* <code>SL_Debug::log(get_class(), "An error occurred!", $error_level);</code>
+* <code>SLFramework_Debug::log(get_class(), "An error occurred!", $error_level);</code>
 * the error_level may be 1=critical ; 2=error ; 3=warning ; 4=information ; 5=verbose.
 */
-if (!class_exists("SL_Debug")) {
-	class SL_Debug {
+if (!class_exists("SLFramework_Debug")) {
+	class SLFramework_Debug {
 	
 
 		/** ====================================================================================================================================================
@@ -64,7 +64,7 @@ if (!class_exists("SL_Debug")) {
 			if ($level<$error_level)
 				return ; 
 			
-			$namelogfile = SL_Debug::get_log_path() ; 
+			$namelogfile = SLFramework_Debug::get_log_path() ; 
 			
 			// We get the old content
 			$old_content = @array_slice(@file($namelogfile), 0, 1999) ; 
@@ -90,6 +90,12 @@ if (!class_exists("SL_Debug")) {
 			@file_put_contents($namelogfile, $new_content) ; 
 		}
 	} 
+}
+
+if (!class_exists("SL_Debug")) {
+	class SL_Debug extends SLFramework_Debug {
+	
+	}
 }
 
 

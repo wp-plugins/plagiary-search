@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-01-11T18:00:36+00:00\n"
+"PO-Revision-Date: 2014-05-23T06:40:36+00:00\n"
 "Last-Translator: SedLex <http://www.sedlex.fr/>\n"
 "Last-Translator: PierreF <pf@romanliturgy.org>\n"
 "Last-Translator: wkpixearts <wkpixeartsforall@gmail.com>\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Last-Translator: jlmcreation <http://www.jlmcreation.fr>\n"
 "Last-Translator: allostrip <www.allostrip.fr>\n"
 "Last-Translator: Dominique <http://www.handi-voyages.org>\n"
+"Last-Translator: ChristopheLemuet <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -72,12 +73,6 @@ msgstr "Si cette option est décoché, l&#039;onglet de traduction n&#039;est pa
 
 msgid "Summary page for the plugins developped with the SL framework"
 msgstr "Page de synthèse pour les plugins développés avec le framework SL"
-
-msgid "For now, you have installed %s plugins including %s plugins developped with the SedLex's framework"
-msgstr ""
-
-msgid "The core plugin is located at %s"
-msgstr ""
 
 msgid "Plugin name"
 msgstr "Nom du plugin"
@@ -217,9 +212,6 @@ msgstr "par %s personnes"
 msgid "Number of download:"
 msgstr "Nombre de téléchargement :"
 
-msgid "Add new"
-msgstr ""
-
 msgid "Error: the submitted value is not an integer and thus, the parameter has not been updated!"
 msgstr "Erreur : la valeur soumises n&#039;est pas un entier, la valeur du paramètre n&#039;est donc pas mise à jour"
 
@@ -290,7 +282,7 @@ msgid "Translations available for this plugin (i.e. %s)"
 msgstr "Traductions disponibles pour ce plugin (i.e. %s)"
 
 msgid "Translations available for the SL framework (stored in %s)"
-msgstr "Traductions disponibles pour le SL framework (stocké dans %s)"
+msgstr "Traductions disponibles pour le SL framework (stockées dans %s)"
 
 msgid "Adding a new translation for this language: %s"
 msgstr "Ajouter une traduction pour cette langue : %s"
@@ -302,7 +294,7 @@ msgid "Translation"
 msgstr "Traduction"
 
 msgid "(if your name/pseudo is already in the list, there is no need to fill this input)"
-msgstr "(si votre nom/pseudo est déja dans la liste, il n&#039;est pas nécessiare de remplir ce champ)"
+msgstr "(si votre nom/pseudo est déja dans la liste, il n&#039;est pas nécessaire de remplir ce champ)"
 
 msgid "Your email or your website:"
 msgstr "Votre email ou votre site internet :"
@@ -315,9 +307,6 @@ msgstr "Ajouter une nouvelle traduction"
 
 msgid "Modifying the translation for this language: %s"
 msgstr "Modifier la traduction pour cette langue : %s"
-
-msgid "The number of occurrence of %s does not match in both string. Please note that the string %s will be replaced with a contextual string."
-msgstr ""
 
 msgid "Modify the translation files"
 msgstr "Modifier les fichiers de traduction"
@@ -400,12 +389,6 @@ msgstr "Ajouter"
 msgid "The 'SL framework' is a framework used for developping many plugins like this one. Thus, if you participate translating the framework, it will be very helpful for a bunch of plugins."
 msgstr "Le &#039;SL framework&#039; est un framework utilisé pour développer beaucoup d&#039;autres plugins comme celui-ci. Ainsi, si vous participez à traduire ce framework, cela sera bénéfique pour beaucoup de plugins."
 
-msgid "There is %s languages supported for the 'SL framework'."
-msgstr ""
-
-msgid "There is %s sentence to be translated in the framework."
-msgstr ""
-
 msgid "Send to the author of the framework"
 msgstr "Envoyer à l&#039;auteur du framework"
 
@@ -447,4 +430,13 @@ msgstr "Le fichier %s ne peut pas être compressé."
 
 msgid "The file %s cannot be renamed. You should have a problem with file permissions or security restrictions."
 msgstr "Le fichier %s ne peut pas être renommé. Vous avez probablement un problème de droit sur ce fichier et des restrictions de sécurité."
+
+msgid "The following plugins have been developed by the author and are not yet been installed:"
+msgstr "Les plugins suivants ont été développés par l&#039;auteur et n&#039;ont pas encore été installés:"
+
+msgid "There is %s languages supported for the 'SL framework'."
+msgstr "%s phrases sont prises en charge par le &#039;SL framework&#039;"
+
+msgid "There is %s sentence to be translated in the framework."
+msgstr "%s phrases sont à traduire dans le framework"
 

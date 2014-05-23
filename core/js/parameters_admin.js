@@ -91,3 +91,21 @@ function add_param(param, md5, pluginID) {
 		} 
 	});    
 }
+
+/* =====================================================================================
+*
+*  Pour ajouter un media
+*
+*/
+
+var paramMediaReturn = "" ; 
+
+jQuery(document).ready(function() {
+ 
+	window.send_to_editor = function(html) {
+	    imgurl = jQuery('img',html).attr('src');
+	    jQuery('#'+paramMediaReturn).val(imgurl);
+	    tb_remove();
+	}
+ 
+});

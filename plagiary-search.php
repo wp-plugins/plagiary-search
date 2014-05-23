@@ -3,7 +3,8 @@
 Plugin Name: Plagiary Search
 Plugin Tag: tag
 Description: <p>Find websites that copy/paste your content without authorization. </p><p>In addition, you will avoid to include involuntary plagiarism in your articles. </p><p>This plugin is under GPL licence.</p>
-Version: 1.0.6
+Version: 1.1.0
+
 Framework: SL_Framework
 Author: SedLex
 Author Email: sedlex@sedlex.fr
@@ -119,7 +120,7 @@ class plagiary_search extends pluginSedLex {
 	
 	public function _update() {
 		global $wpdb ; 
-		SL_Debug::log(get_class(), "Update the plugin." , 4) ; 
+		SLFramework_Debug::log(get_class(), "Update the plugin." , 4) ; 
 				
 		// This update aims at adding the authorized fields 
 		if ( !$wpdb->get_var("SHOW COLUMNS FROM ".$this->table_name." LIKE 'authorized'")  ) {
@@ -327,11 +328,17 @@ class plagiary_search extends pluginSedLex {
 			case 'bing_error_msg' 		: return "" 		; break ;
 			
 			case 'nb_searches' : return 0 		; break ; 
+			case 'history_searches' : return array() 		; break ; 
 			
 			case "nb_char_minidelta" : return 20 ; break;
 			
-			case "enable_proximity_score_v2" : return true ; break;			
+			case "enable_proximity_score_v2" : return true ; break;	
+					
+			case "send_email_when_found" : return false ; break;			
+			case "send_email_when_found_email" : return "" ; break;			
 
+			case 'enable_wkhtmltoimage' : return false ; break ;  
+			case 'enable_wkhtmltoimage_winw' : return 1024 ; break ;  
 		}
 		return null ;
 	}
@@ -347,7 +354,7 @@ class plagiary_search extends pluginSedLex {
 		global $wpdb;
 		global $blog_id ; 
 				
-		SL_Debug::log(get_class(), "Print the configuration page." , 4) ; 
+		SLFramework_Debug::log(get_class(), "Print the configuration page." , 4) ; 
 		
 		?>
 		<div class="plugin-titleSL">
@@ -360,15 +367,11 @@ class plagiary_search extends pluginSedLex {
 			<?php
 			//===============================================================================================
 			// After this comment, you may modify whatever you want
-			?>
-			<p><?php echo __("With this plugin, you may find external websites that copy-and-paste your content without authorization.", $this->pluginID) ;?></p>
-			<p><?php echo __("In addition, you will avoid to include involuntary plagiarism in your articles.", $this->pluginID) ;?></p>
-			<?php
 			
 			// We check rights
 			$this->check_folder_rights( array(array(WP_CONTENT_DIR."/sedlex/test/", "rwx")) ) ;
 			
-			$tabs = new adminTabs() ; 
+			$tabs = new SLFramework_Tabs() ; 
 			
 			ob_start() ; 
 				
@@ -402,10 +405,66 @@ class plagiary_search extends pluginSedLex {
 				$this->displayCurrentSearch() ; 
 				echo "</div>" ; 
 
+			$tabs->add_tab(__('Search Status',  $this->pluginID), ob_get_clean()) ; 	
+			
+			ob_start() ; 
+				
+				echo "<div>" ; 
+				$this->displayCurrentSearch_summary() ; 
+				echo "</div>" ; 
+
 			$tabs->add_tab(__('Summary',  $this->pluginID), ob_get_clean()) ; 	
 
+			// HOW To
+			ob_start() ;
+				echo "<p>".__("With this plugin, you may find external websites that copy-and-paste your content without authorization.", $this->pluginID)."</p>" ; 
+				echo "<p>".__("In addition, you will avoid to include involuntary plagiarism in your articles.", $this->pluginID)."</p>" ; 
+			$howto1 = new SLFramework_Box (__("Purpose of that plugin", $this->pluginID), ob_get_clean()) ; 
+			ob_start() ;
+				echo "<p>".__("There is two different ways to look for plagiaries:", $this->pluginID)."</p>" ; 
+				echo "<ul style='list-style-type: disc;padding-left:40px;'>" ; 
+					echo "<li><p>".__("an automatic process (namely background process):", $this->pluginID)."</p></li>" ; 
+						echo "<ul style='list-style-type: circle;padding-left:40px;'>" ; 
+							echo "<li><p>".__("Every time a user visits a page of the frontside of your website, a small portion of the search process is performed;", $this->pluginID)."</p></li>" ; 
+							echo "<li><p>".__("Note that if you have very few visits, the searches may be quite long.", $this->pluginID)."</p></li>" ; 
+						echo "</ul>" ;
+					echo "<li><p>".__("a forced process:", $this->pluginID)."</p></li>" ; 
+						echo "<ul style='list-style-type: circle;padding-left:40px;'>" ; 
+							echo "<li><p>".__("The button that triggers this forced process may be found in the Search Status tab;", $this->pluginID)."</p></li>" ; 
+							echo "<li><p>".__("You have to stay on that page to force the processing: if you go on another page (or if you reload the page), the process will be stopped.", $this->pluginID)."</p></li>" ; 
+						echo "</ul>" ;				
+				echo "</ul>" ; 
+			$howto2 = new SLFramework_Box (__("How to search for plagiary?", $this->pluginID), ob_get_clean()) ; 
+			ob_start() ;
+				echo "<p>".__("To search for a page that is a plagiary, different steps are executed:", $this->pluginID)."</p>" ; 
+				echo "<ul style='list-style-type: disc;padding-left:40px;'>" ; 
+					echo "<li><p>".__("a page/post is randomly selected (see the first block in the parameter tab);", $this->pluginID)."</p></li>" ; 
+					echo "<li><p>".__("a sentence of that page/post is selected (see the second block in the parameter tab);", $this->pluginID)."</p></li>" ; 
+					echo "<li><p>".__("this sentence is searched on the Internet (see the third block in the parameter tab);", $this->pluginID)."</p></li>" ; 
+					echo "<li><p>".__("if the result of this search is close to the search sentence (see the fourth block in the parameter tab), retrieve the content of the external page and compare it with the content of your page/post (see the fifth block in the parameter tab);", $this->pluginID)."</p></li>" ; 		
+					echo "<li><p>".__("if the comparison shows that the external page is very similar to your page/post, the plugin may send you an email (see the sixth block in the parameter tab) and generate an image representing the plagiary (see the seventh block in the parameter tab).", $this->pluginID)."</p></li>" ; 		
+				echo "</ul>" ; 
+			$howto3 = new SLFramework_Box (__("How to search process works?", $this->pluginID), ob_get_clean()) ; 
+			ob_start() ;
+				echo "<p>".__('The plagiary image is a set of grey pixels.', $this->pluginID)."</p>" ; 
+				echo "<p>".__('In fact, your text is represented in the X-axis and the external page is represented in the Y-Axis.', $this->pluginID)."</p>" ; 
+				echo "<p><img src='".WP_PLUGIN_URL."/".str_replace(basename(__FILE__),"",plugin_basename( __FILE__))."img/plagiarism.png'></p>" ; 
+				echo "<p>".__('Each pixel (x,y) represent a correlation (i.e. proximity) between a sentence of your post at a given position x and a sentence of the external page at another given position y.', $this->pluginID)."</p>" ; 
+				echo "<p>".__('The darker this pixel is, the more correlation the sentences have.', $this->pluginID)."</p>" ; 
+				echo "<p>".__('Most of the time, if you have a oblic line in the image, it means that a part of your post has been reproduced (or that you reproduce this part :) ).', $this->pluginID)."</p>" ; 
+			$howto4 = new SLFramework_Box (__("How to interpret the plagiary image", $this->pluginID), ob_get_clean()) ; 
+
+			ob_start() ;
+				 echo $howto1->flush() ; 
+				 echo $howto2->flush() ; 
+				 echo $howto3->flush() ; 
+				 echo $howto4->flush() ; 
+			$tabs->add_tab(__('How To',  $this->pluginID), ob_get_clean() , plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_how.png") ; 	
+				
+			
+			
 			ob_start() ; 
-				$params = new parametersSedLex($this, "tab-parameters") ; 
+				$params = new SLFramework_Parameters($this, "tab-parameters") ; 
 				
 				$params->add_title(__('Select your content to be searched',  $this->pluginID)) ; 
 				$params->add_param('type_list', __('What type of articles do you want to search?',  $this->pluginID)) ; 
@@ -413,9 +472,10 @@ class plagiary_search extends pluginSedLex {
 				$params->add_comment_default_value('type_list') ; 
 				$params->add_param('min_nb_words', __('The minimum number of words that the article contains:',  $this->pluginID)) ; 
 				
-				$params->add_title(__('Search your content',  $this->pluginID)) ; 
+				$params->add_title(__('Select a sentence in the content',  $this->pluginID)) ; 
 				$params->add_param('nb_words_of_sentences', __('Exclude from the search sentences shorter than (nb words):',  $this->pluginID)) ; 
-				$params->add_param('proximity_words_results', __('Exclude from the results if the searched sentence matches less than (% words):',  $this->pluginID)) ; 
+
+				$params->add_title(__('Search your sentence',  $this->pluginID)) ; 
 				$params->add_param('google', "<img src='".WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."img/google.png"."'/> ".__('Use the Google Search:',  $this->pluginID), "", "", array('google_key')) ;
 				$params->add_param('google_key', __('Google API key:',  $this->pluginID)) ; 
 				$params->add_comment(__("If you do not set any key, you might not be able to search with Google.",  $this->pluginID)) ; 
@@ -426,7 +486,10 @@ class plagiary_search extends pluginSedLex {
 				$params->add_comment(__("If you do not set any key, you might not be able to search with Bing.",  $this->pluginID)) ; 
 				$params->add_comment(sprintf(__("To get this API key, please visit %s, and subscribe to the free search. Then, go to your account and copy your primary account key number.",  $this->pluginID), "<a href='http://datamarket.azure.com/dataset/bing/search'>Azure Market</a>")) ; 
 				
-				$params->add_title(__('Filter the found results',  $this->pluginID)) ; 
+				$params->add_title(__('Quick filter of the found results',  $this->pluginID)) ; 
+				$params->add_param('proximity_words_results', __('Exclude from the results if the searched sentence matches less than (% words):',  $this->pluginID)) ; 
+				
+				$params->add_title(__('Deep filter of the found results',  $this->pluginID)) ; 
 				$params->add_param('equal_proximity', __('Consider that a sentence is a plagiary if it contains more than (% of identical letters) :',  $this->pluginID)) ;
 				$params->add_comment(__("This value should be between 10 and 90.",  $this->pluginID)) ; 
 				$params->add_param('threshold', __('Exclude results that plagiarize less than (% of your content):',  $this->pluginID)) ;
@@ -437,6 +500,10 @@ class plagiary_search extends pluginSedLex {
 				$params->add_param('enable_proximity_score_v2', __('Use the proximity score v2 algorithm:',  $this->pluginID)) ;
 				$params->add_comment(__("This algorithm try to enhance the identification of plagiaries that reproduce a plurality of consecutive sentences of your post/page.",  $this->pluginID)) ; 
 				
+				$params->add_title(__('Warn when plagiaray found',  $this->pluginID)) ; 
+				$params->add_param('send_email_when_found', __('Send an email when a plagiary is found.',  $this->pluginID), "", "", array("send_email_when_found_email")) ;
+				$params->add_param('send_email_when_found_email', __('Your email that should be used',  $this->pluginID)) ;
+
 				$params->add_title(__('Display results',  $this->pluginID)) ; 
 				$params->add_param('img_width', __('Height of the proximity image:',  $this->pluginID)) ;
 				$params->add_param('img_height', __('Width of the proximity image:',  $this->pluginID)) ;
@@ -448,6 +515,24 @@ class plagiary_search extends pluginSedLex {
 				$params->add_param('between_two_requests', __('Number of minutes between two background processing:',  $this->pluginID)) ;
 				$params->add_param('nb_char_minidelta', __('Number of characters for the mini delta:',  $this->pluginID)) ;
 				
+				
+				$upload_dir = wp_upload_dir() ;
+				$command_wk =  $upload_dir['basedir']."/sedlex/wkhtmltox/bin/wkhtmltoimage" ; 
+
+				$params->add_title(__('Screen capture',  $this->pluginID)) ; 
+				$params->add_param('enable_wkhtmltoimage', sprintf(__('Use the executable %s:',  $this->pluginID), "<a href='http://wkhtmltopdf.org/'>Wkhtmltoimage</a>")) ; 				
+				$params->add_comment(sprintf(__('To use this option, you should download the binary of %s compatible with your system and install it in %s',  $this->pluginID), "<a href='http://wkhtmltopdf.org/'>Wkhtmltoimage</a>", "<code>$command_wk</code>")) ; 
+				if (is_file($command_wk)) {
+					$res = $this->wkurltoimage('http://www.google.com/', 1024, 100, 100) ; 
+					if ($res['success']) {
+						$params->add_comment(sprintf(__('If you see an image here, it mean it works %s',  $this->pluginID), "<img src='".$res["thumb"]."'>")) ; 
+					} else {
+						$params->add_comment(sprintf(__('There is a problem with the installation: %s',  $this->pluginID), "<code>".$res["msg"]."</code>")) ; 
+					}
+				} else {
+					$params->add_comment(sprintf(__('For now, it appears that the file %s does not exist. This option cannot work if activated.',  $this->pluginID), "<code>$command_wk</code>")) ; 
+				}
+			
 				$params->flush() ; 
 				
 			$tabs->add_tab(__('Parameters',  $this->pluginID), ob_get_clean() , WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_param.png") ; 	
@@ -456,7 +541,7 @@ class plagiary_search extends pluginSedLex {
 			if (((is_multisite())&&($blog_id == 1))||(!is_multisite())||($frmk->get_param('global_allow_translation_by_blogs'))) {
 				ob_start() ; 
 					$plugin = str_replace("/","",str_replace(basename(__FILE__),"",plugin_basename( __FILE__))) ; 
-					$trans = new translationSL($this->pluginID, $plugin) ; 
+					$trans = new SLFramework_Translation($this->pluginID, $plugin) ; 
 					$trans->enable_translation() ; 
 				$tabs->add_tab(__('Manage translations',  $this->pluginID), ob_get_clean() , WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_trad.png") ; 	
 			}
@@ -481,7 +566,7 @@ class plagiary_search extends pluginSedLex {
 
 			ob_start() ; 
 				$plugin = str_replace("/","",str_replace(basename(__FILE__),"",plugin_basename( __FILE__))) ; 
-				$trans = new feedbackSL($plugin, $this->pluginID) ; 
+				$trans = new SLFramework_Feedback($plugin, $this->pluginID) ; 
 				$trans->enable_feedback() ; 
 			$tabs->add_tab(__('Give feedback',  $this->pluginID), ob_get_clean() , WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_mail.png") ; 	
 			
@@ -489,7 +574,7 @@ class plagiary_search extends pluginSedLex {
 				// A list of plugin slug to be excluded
 				$exlude = array('wp-pirate-search') ; 
 				// Replace sedLex by your own author name
-				$trans = new otherPlugins("sedLex", $exlude) ; 
+				$trans = new SLFramework_OtherPlugins ("sedLex", $exlude) ; 
 				$trans->list_plugins() ; 
 			$tabs->add_tab(__('Other plugins',  $this->pluginID), ob_get_clean() , WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_plug.png") ; 	
 			
@@ -504,6 +589,98 @@ class plagiary_search extends pluginSedLex {
 		<?php
 	}
 	
+	
+	/** ====================================================================================================================================================
+	* Get an image based on url
+	*
+	* @return void
+	*/
+
+	function wkurltoimage($url, $winw=0, $cropw=0, $croph=0) {
+		global $blog_id ; 
+	
+		// We create the folder for the img files
+		$blog_fold = "" ; 
+		if (is_multisite()) {
+			$blog_fold = $blog_id."/" ; 
+		}
+		
+		if (!is_dir(WP_CONTENT_DIR."/sedlex/plagiary-search/".$blog_fold)) {
+			@mkdir(WP_CONTENT_DIR."/sedlex/plagiary-search/".$blog_fold, 0777, true) ; 
+		}
+		
+		$upload_dir = wp_upload_dir() ;
+		$command_wk =  $upload_dir['basedir']."/sedlex/wkhtmltox/bin/wkhtmltoimage" ; 
+		$path_img = WP_CONTENT_DIR."/sedlex/plagiary-search/".$blog_fold."wk_".sha1($url.$winw).".jpg" ; 
+		$url_img = WP_CONTENT_URL."/sedlex/plagiary-search/".$blog_fold."wk_".sha1($url.$winw).".jpg" ;
+
+		$path_th = WP_CONTENT_DIR."/sedlex/plagiary-search/".$blog_fold."wk_th_".sha1($url.$winw).".jpg" ; 
+		$url_th = WP_CONTENT_URL."/sedlex/plagiary-search/".$blog_fold."wk_th_".sha1($url.$winw).".jpg" ;
+		
+		$path_log = WP_CONTENT_DIR."/sedlex/plagiary-search/".$blog_fold."wk_".sha1($url.$winw).".log" ; 
+		
+		if (is_file($path_img)) {
+			@unlink($path_img) ; 
+		}
+		if (is_file($path_log)) {
+			@unlink($path_log) ; 
+		}
+
+		if (is_file($command_wk)){
+			$additional_cmd = "" ; 
+			if ($winw!=0) {
+				$additional_cmd .= " --width ".$winw ; 
+			}
+			if ($cropw==0) {
+				$cropw = 200 ; 
+			}
+			if ($croph==0) {
+				$croph = 200 ; 
+			}
+			// Local file for wkhtmltoimage
+			$command = $command_wk.$additional_cmd." ".$url." ".$path_img ; 
+			$str = exec($command, $output, $return) ; 
+			
+			// on teste l'existence du fichier
+			if (is_file($path_img)) {
+			    list($width, $height) = getimagesize($path_img);
+			    $myImage = imagecreatefromjpeg($path_img);
+				
+				// Si le ratio de largeur est plus grand que le ratio de hauteur, 
+				// cela signifie que la contrainte sera la largeur
+				if ($cropw/$width > $croph/$height) {
+				  $x = 0;
+				  $origin_w = $width;
+				  $origin_h = $croph*$width/$cropw ;
+				// Sinon, 
+				// cela signifie que la contrainte sera la hauteur
+				} else {
+				  $origin_w = $cropw*$height/$croph ;
+				  $origin_h = $height;
+				  $x = ($width-$origin_w)/2;
+				}
+
+				// copying the part into thumbnail
+				
+				$thumb = imagecreatetruecolor($cropw, $croph);
+				imagecopyresampled($thumb, $myImage, 0, 0, $x, 0, $cropw, $croph, $origin_w, $origin_h);
+
+				if (imagejpeg ($thumb, $path_th, 92)) {
+					return array("success"=>true, "url"=>$url_img, "thumb"=>$url_th) ; 
+				} else {
+					@file_put_contents($path_log, sprintf(__("%s has failed.", $this->pluginID), "imagejpeg")) ; 
+					return array("success"=>false, "msg"=>sprintf(__("%s has failed.", $this->pluginID), "imagejpeg")) ; 
+				}
+				
+			} else { 
+				@file_put_contents($path_log, sprintf(__("%s has failed: %s.", $this->pluginID), "<code>".$command_wk."</code>", "<code>".implode(" - ",$output)."</code>")) ; 
+				return array("success"=>false, "msg"=>sprintf(__("%s has failed: %s.", $this->pluginID), "<code>".$command_wk."</code>", "<code>".implode(" - ",$output)."</code>")) ; 
+			}
+		} else {
+			@file_put_contents($path_log, sprintf(__("%s does not exist.", $this->pluginID), "<code>".$command_wk."</code>")) ; 
+			return array("success"=>false, "msg"=>sprintf(__("%s does not exist.", $this->pluginID), "<code>".$command_wk."</code>")) ; 
+		}
+	}
 	
 	/** =====================================================================================================
 	* Clean a text to be able to compare it
@@ -649,7 +826,7 @@ class plagiary_search extends pluginSedLex {
 		}
 		
 		if ($found==false) {
-			$found = "plagiary_".md5(rand(0,100000000).WP_CONTENT_DIR."/sedlex/plagiary-search/".$blog_fold).".txt" ; 
+			$found = "plagiary_".sha1(rand(0,100000000).WP_CONTENT_DIR."/sedlex/plagiary-search/".$blog_fold).".txt" ; 
 		}
 		
 		file_put_contents(WP_CONTENT_DIR."/sedlex/plagiary-search/".$blog_fold.$found, serialize($this->param)) ; 
@@ -666,10 +843,7 @@ class plagiary_search extends pluginSedLex {
 	function displayCurrentSearch() {
 
 		ob_start() ; 
-			echo "<div id='detail_currentSearch'>" ; 
-			echo $this->displayCurrentSearch_detail() ; 
-			echo "</div>" ; 		
-
+			echo "<h3>".__('Force the searches', $this->pluginID)."</h3>" ; 
 			echo "<p>" ; 
 			echo "<input type='button' id='plagiaryButton' class='button-primary validButton' onClick='forceSearchPlagiary()'  value='". __('Force a search for plagiarism',$this->pluginID)."' />" ; 
 			echo "&nbsp;<input type='button' id='stopSearchButton' class='button validButton' onClick='stopSearchPlagiary()'  value='". __('Stop the forced search',$this->pluginID)."' />" ; 
@@ -679,7 +853,94 @@ class plagiary_search extends pluginSedLex {
 			echo "<script>jQuery('#stopButton').removeAttr('disabled');</script>" ; 
 			echo "<img id='wait_process' src='".WP_PLUGIN_URL."/".str_replace(basename(__FILE__),"",plugin_basename( __FILE__))."core/img/ajax-loader.gif' style='display: none;'>" ; 
 			echo "</p>" ; 
-		$box = new boxAdmin(__('Status of the current search', $this->pluginID), ob_get_clean()) ; 
+
+
+			echo "<div id='detail_currentSearch'>" ; 
+			echo $this->displayCurrentSearch_detail() ; 
+			echo "</div>" ; 		
+
+		$box = new SLFramework_Box(__('Status of the current search', $this->pluginID), ob_get_clean()) ; 
+		echo $box->flush() ; 
+	}
+	
+	/** ====================================================================================================================================================
+	* Display the status of the current Search and show the buffer ...
+	*
+	* @return void
+	*/
+	
+	function displayCurrentSearch_summary() {
+		global $wpdb ; 
+		ob_start() ; 
+			echo "<h3>".__('Global Synthesis', $this->pluginID)."</h3>" ; 
+			$nb_plagiat = $wpdb->get_var("SELECT COUNT(*) FROM ".$this->table_name." WHERE ignored=FALSE") ; 
+			echo "<p>".sprintf(__("For now, %s URL have been checked for plagiarism and %s possible plagiaries have been found.", $this->pluginID), $this->get_param('nb_searches'), $nb_plagiat)."</p>" ; 
+			echo "<p>".sprintf(__("The last time a check has been performed is %s.", $this->pluginID), date_i18n("d/m/Y H:i:s", $this->get_param('last_request'), true))."</p>" ; 
+			
+			echo "<h3>".__('History Synthesis', $this->pluginID)."</h3>" ; 
+						
+			// Creating the graph for the Google
+			//----------------------------------
+
+			$rows = "" ; 
+			$history = $this->get_param('history_searches') ; 
+			
+			$first = true ; 
+			$nb = 0 ; 
+			$last_persons = "0" ; 
+			$last_visits = "0" ; 
+			
+			$width = "900" ; 
+			$height = "400" ; 
+			
+			$colors = "['#FF9999', '#5CB8E6', '#003399', '#5E5556', '#49584B', '#72705A', '#807374', '#5E5556', '#55475E', '#2F2C47']" ; 
+			$first = true ; 
+			for ($i=0 ; $i<30 ; $i++) {
+				$d = date("Ymd", time()-60*60*24*$i) ; 
+				if (!$first) $rows .= "," ; 
+				$date = date("d/m/Y", time()-60*60*24*$i) ; 
+				if (isset($history[$d])) {
+					$a = $history[$d] ; 
+				} else {
+					$a = array("search_enough_word"=>0, "search_not_enough_word"=>0, "compare_text"=>0, ) ; 
+				}
+				$search_enough_word = $a["search_enough_word"] ; 
+				if (!is_numeric($search_enough_word)) $search_enough_word = 0 ; 
+				$search_not_enough_word = $a["search_not_enough_word"] ; 
+				if (!is_numeric($search_not_enough_word)) $search_not_enough_word = 0 ; 
+				$compare_text = $a["compare_text"] ; 
+				if (!is_numeric($compare_text)) $compare_text = 0 ; 
+				$rows .= "['".$date."', ".$search_enough_word .", ".$search_not_enough_word.", ".$compare_text."]" ; 
+				$first = false ; 
+				$nb++ ; 
+			}
+			?>
+			<div id="google_plagiary_count" style="margin: 0px auto; width:<?php echo $width; ?>px; height:<?php echo $height; ?>px;"></div>
+			<script  type="text/javascript">
+				google.setOnLoadCallback(CountVisits);
+				google.load('visualization', '1', {'packages':['corechart']});
+				
+				function CountVisits() {
+					var data = new google.visualization.DataTable();
+					data.addColumn('string', '<?php echo __('Month', $this->pluginID)?>');
+					data.addColumn('number', '<?php echo __('Number of Found and Excluded Pages', $this->pluginID)?>');
+					data.addColumn('number', '<?php echo __('Number of Found and Non-Excluded Pages', $this->pluginID)?>');
+					data.addColumn('number', '<?php echo __('Number of Deeply Analyzed Pages', $this->pluginID)?>');
+					data.addRows([<?php echo $rows ; ?>]);
+					var options = {
+						width: <?php echo $width ; ?>, 
+						height: <?php echo $height ; ?>,
+						colors:<?php echo $colors ?>,
+						title: '<?php echo __("Analyzed pages", $this->pluginID) ?>',
+						hAxis: {title: '<?php echo __('Time Line', $this->pluginID)?>'}
+					};
+
+					var chart = new google.visualization.ColumnChart(document.getElementById('google_plagiary_count'));
+					chart.draw(data, options);
+				}
+			</script>
+			<?php
+		$box = new SLFramework_Box(__('Summary of plagiary searches', $this->pluginID), ob_get_clean()) ; 
 		echo $box->flush() ; 
 	}
 	
@@ -695,13 +956,129 @@ class plagiary_search extends pluginSedLex {
 			$this->retrieve_param() ; 
 		}
 		
-		echo "<h3>".__('Global Synthesis', $this->pluginID)."</h3>" ; 
+		echo "<h3>".__('Current Status', $this->pluginID)."</h3>" ; 
+		
 		$nb_plagiat = $wpdb->get_var("SELECT COUNT(*) FROM ".$this->table_name." WHERE ignored=FALSE") ; 
 		echo "<p>".sprintf(__("For now, %s URL have been checked for plagiarism and %s possible plagiaries have been found.", $this->pluginID), $this->get_param('nb_searches'), $nb_plagiat)."</p>" ; 
-		echo "<p>".sprintf(__("The last time a check has been performed is %s.", $this->pluginID), date_i18n("d/m/Y H:i:s", $this->get_param('last_request'), true))."</p>" ; 
+		
+		$nb_step = 7 ; 
+		
+		// 1
+		if ($this->param['next_step']=="get_text_to_search") {
+			$status = __("Select a new article", $this->pluginID) ;
+			$progress_status = new SLFramework_Progressbar  (300, 20, 0, __("Init", $this->pluginID)) ; 
+		// 2
+		} else if ($this->param['next_step']=="search_web_engines") {
+			if ((isset($this->param['list_search_engine']))&&(count($this->param['list_search_engine'])!=0)) {
+				$percen_val = min(100,ceil(100*($this->param['list_search_engine_index']+1)/count($this->param['list_search_engine']))) ; 
+				$percentage = $percen_val."%" ; 
+				if (isset($this->param['list_search_engine'][$this->param['list_search_engine_index']])) {
+					$search_engine = $this->param['list_search_engine'][$this->param['list_search_engine_index']] ; 
+				} else {
+					$search_engine = __('(End)', $this->pluginID) ; 
+				}
+			} else {
+				$percen_val = 0 ; 
+				$percentage = $percen_val."%" ; 
+				$search_engine = "?" ; 
+			} 
+			$status = sprintf(__("Search a sentence on the Search Engines (%s): %s", $this->pluginID), $percentage, "\"<i>".$this->param['searched_sentence'] ."</i>\"") ;
+			$progress_status = new SLFramework_Progressbar  (300, 20, ceil(0+1/$nb_step*$percen_val), sprintf(__("Search %s", $this->pluginID), ucfirst($search_engine))) ; 
+		// 3
+		} else if ($this->param['next_step']=="retrieve_content_of_url") {
+			$status = __("Get the content of the website", $this->pluginID) ;
+			$progress_status = new SLFramework_Progressbar  (300, 20, ceil(1/$nb_step*100), "1/$nb_step") ; 
+		// 4
+		} else if ($this->param['next_step']=="compare_text") {
+			if (isset($this->param['nb_current_iterations'])) {
+				$percen_val = min(100,ceil(100*$this->param['nb_current_iterations']/$this->param['nb_total_iterations'])) ; 
+				$percentage = $percen_val."%" ; 
+			} else {
+				$percen_val = 0 ; 
+				$percentage = $percen_val."%" ; 
+			} 
+			$status = sprintf(__("Compare article and website (%s)", $this->pluginID), $percentage) ;
+			$progress_status = new SLFramework_Progressbar  (300, 20, ceil(2/$nb_step*100+1/$nb_step*$percen_val), "2/$nb_step") ; 
+		// 5
+		} else if ($this->param['next_step']=="filter_results") {
+			if (isset($this->param['filter_index'])) {
+				$index_val = min(100,ceil($this->param["filter_index"]/$this->get_param("img_width")*100)) ; 
+				$index = $index_val."%" ; 
+			} else {
+				$index_val = 0 ; 
+				$index = $index_val."%" ; 
+			}
+			$status = sprintf(__("Filter results (%s)", $this->pluginID), $index) ;
+			$progress_status = new SLFramework_Progressbar  (300, 20, ceil(3/$nb_step*100+1/$nb_step*$index_val), "3/$nb_step") ; 
+		// 6
+		} else if ($this->param['next_step']=="compute_proximity_images") {
+			if (isset($this->param['image_index'])) {
+				$index_val = min(100,ceil($this->param["image_index"]/$this->get_param("img_width")*100)) ; 
+				$index = $index_val."%" ; 
+			} else {
+				$index_val = 0 ; 
+				$index = $index_val."%" ; 
+			}
+			$status = sprintf(__("Create the proximity image (%s)", $this->pluginID), $index) ;
+			$progress_status = new SLFramework_Progressbar  (300, 20, ceil(4/$nb_step*100+1/$nb_step*$index_val), "4/$nb_step") ; 
+		// 7
+		} else if ($this->param['next_step']=="text_format") {
+			if (isset($this->param['format_index1'])) {
+				$index_val = min(100,ceil(($this->param["format_index1"]+$this->param["format_index2"])/($this->get_param("img_width")+$this->get_param("img_height"))*100)) ; 
+				$index = $index_val."%" ; 
+			} else {
+				$index_val = 0 ; 
+				$index = $index_val."%" ; 
+			}
+			$status = sprintf(__("Format the texts to be correctly displayed (%s)", $this->pluginID), $index) ;
+			$progress_status = new SLFramework_Progressbar  (300, 20, ceil(5/$nb_step*100+1/$nb_step*$index_val), "5/$nb_step") ; 
+		// 7
+		} else if ($this->param['next_step']=="store_result") {
+			$status = __("Store results in the database", $this->pluginID) ;
+			$progress_status = new SLFramework_Progressbar  (300, 20, ceil(6/$nb_step*100), "6/$nb_step") ; 
+		// 8
+		} else if ($this->param['next_step']=="stop") {
+			$status = __("End of the current plagiarism check", $this->pluginID) ;
+			
+			$progress_status = new SLFramework_Progressbar  (300, 20, ceil(7/$nb_step*100), "7/7") ; 
+		//
+		} else if ($this->param['next_step']=="error") {
+			$status = sprintf(__("Error", $this->pluginID)) ;
+			$progress_status = new SLFramework_Progressbar  (300, 20, ceil(8/8*100), __("Error", $this->pluginID)) ; 
+		} else if ($this->param['next_step']=="wait_error") {
+			$status = sprintf(__("Error", $this->pluginID)) ;
+			$progress_status = new SLFramework_Progressbar  (300, 20, ceil(8/8*100), sprintf(__("Waiting for %s minutes", $this->pluginID), "".(ceil(($this->get_param('last_request')-time())/60)))) ; 
+		} else {
+			$status = __("??", $this->pluginID) ;
+			$progress_status = new SLFramework_Progressbar  (300, 20, ceil(0/8*100), __("??", $this->pluginID)) ; 
+		}
+	
+		
+		echo "<p><b>".sprintf(__('Status: %s', $this->pluginID),"</b>".$status)."</p>" ; 
+		echo "<p>" ; 
+		echo $progress_status->flush() ; 
+		echo "</p>" ; 
+
+		// Information
+		if (!isset($this->param['information'])) {
+			echo "<p><b>".sprintf(__('Information: %s', $this->pluginID),"</b> <i>".__('None', $this->pluginID)."</i>")."</p>" ; 
+		} else {
+			echo "<p><b>".sprintf(__('Information: %s', $this->pluginID),"</b> ".$this->param['information'])."</p>" ; 		
+		}
+		// Error
+		if (!isset($this->param['warning'])) {
+			echo "<p><b>".sprintf(__('Warning: %s', $this->pluginID),"</b> <i>".__('None', $this->pluginID)."</i>")."</p>" ; 
+		} else {
+			echo "<p><b>".sprintf(__('Warning: %s', $this->pluginID),"</b> <span style='color:#FF9933'>".$this->param['warning'])."</span></p>" ; 		
+		}
+		// Error
+		if (!isset($this->param['error'])) {
+			echo "<p><b>".sprintf(__('Error: %s', $this->pluginID),"</b> <i>".__('None', $this->pluginID)."</i>")."</p>" ; 
+		} else {
+			echo "<p><b>".sprintf(__('Error: %s', $this->pluginID),"</b> <span style='color:#E60000'>".$this->param['error'])."<span></p>" ; 		
+		}
 		
 		echo "<h3>".__('Article and website page', $this->pluginID)."</h3>" ; 
-		
 		// Article
 		if (isset($this->param["id"])) {
 			$thepost = get_post($this->param["id"]); 
@@ -737,126 +1114,6 @@ class plagiary_search extends pluginSedLex {
 		}
 		
 		echo "<p><b>".sprintf(__('Website to compare with: %s', $this->pluginID),"</b>".$content)."</p>" ; 
-		
-		echo "<h3>".__('Current Status', $this->pluginID)."</h3>" ; 
-		
-		$nb_step = 7 ; 
-		
-		// 1
-		if ($this->param['next_step']=="get_text_to_search") {
-			$status = __("Select a new article", $this->pluginID) ;
-			$progress_status = new progressBarAdmin (300, 20, 0, __("Init", $this->pluginID)) ; 
-		// 2
-		} else if ($this->param['next_step']=="search_web_engines") {
-			if ((isset($this->param['list_search_engine']))&&(count($this->param['list_search_engine'])!=0)) {
-				$percen_val = min(100,ceil(100*($this->param['list_search_engine_index']+1)/count($this->param['list_search_engine']))) ; 
-				$percentage = $percen_val."%" ; 
-				if (isset($this->param['list_search_engine'][$this->param['list_search_engine_index']])) {
-					$search_engine = $this->param['list_search_engine'][$this->param['list_search_engine_index']] ; 
-				} else {
-					$search_engine = __('(End)', $this->pluginID) ; 
-				}
-			} else {
-				$percen_val = 0 ; 
-				$percentage = $percen_val."%" ; 
-				$search_engine = "?" ; 
-			} 
-			$status = sprintf(__("Search a sentence on the Search Engines (%s): %s", $this->pluginID), $percentage, "\"<i>".$this->param['searched_sentence'] ."</i>\"") ;
-			$progress_status = new progressBarAdmin (300, 20, ceil(0+1/$nb_step*$percen_val), sprintf(__("Search %s", $this->pluginID), ucfirst($search_engine))) ; 
-		// 3
-		} else if ($this->param['next_step']=="retrieve_content_of_url") {
-			$status = __("Get the content of the website", $this->pluginID) ;
-			$progress_status = new progressBarAdmin (300, 20, ceil(1/$nb_step*100), "1/$nb_step") ; 
-		// 4
-		} else if ($this->param['next_step']=="compare_text") {
-			if (isset($this->param['nb_current_iterations'])) {
-				$percen_val = min(100,ceil(100*$this->param['nb_current_iterations']/$this->param['nb_total_iterations'])) ; 
-				$percentage = $percen_val."%" ; 
-			} else {
-				$percen_val = 0 ; 
-				$percentage = $percen_val."%" ; 
-			} 
-			$status = sprintf(__("Compare article and website (%s)", $this->pluginID), $percentage) ;
-			$progress_status = new progressBarAdmin (300, 20, ceil(2/$nb_step*100+1/$nb_step*$percen_val), "2/$nb_step") ; 
-		// 5
-		} else if ($this->param['next_step']=="filter_results") {
-			if (isset($this->param['filter_index'])) {
-				$index_val = min(100,ceil($this->param["filter_index"]/$this->get_param("img_width")*100)) ; 
-				$index = $index_val."%" ; 
-			} else {
-				$index_val = 0 ; 
-				$index = $index_val."%" ; 
-			}
-			$status = sprintf(__("Filter results (%s)", $this->pluginID), $index) ;
-			$progress_status = new progressBarAdmin (300, 20, ceil(3/$nb_step*100+1/$nb_step*$index_val), "3/$nb_step") ; 
-		// 6
-		} else if ($this->param['next_step']=="compute_proximity_images") {
-			if (isset($this->param['image_index'])) {
-				$index_val = min(100,ceil($this->param["image_index"]/$this->get_param("img_width")*100)) ; 
-				$index = $index_val."%" ; 
-			} else {
-				$index_val = 0 ; 
-				$index = $index_val."%" ; 
-			}
-			$status = sprintf(__("Create the proximity image (%s)", $this->pluginID), $index) ;
-			$progress_status = new progressBarAdmin (300, 20, ceil(4/$nb_step*100+1/$nb_step*$index_val), "4/$nb_step") ; 
-		// 7
-		} else if ($this->param['next_step']=="text_format") {
-			if (isset($this->param['format_index1'])) {
-				$index_val = min(100,ceil(($this->param["format_index1"]+$this->param["format_index2"])/($this->get_param("img_width")+$this->get_param("img_height"))*100)) ; 
-				$index = $index_val."%" ; 
-			} else {
-				$index_val = 0 ; 
-				$index = $index_val."%" ; 
-			}
-			$status = sprintf(__("Format the texts to be correctly displayed (%s)", $this->pluginID), $index) ;
-			$progress_status = new progressBarAdmin (300, 20, ceil(5/$nb_step*100+1/$nb_step*$index_val), "5/$nb_step") ; 
-		// 7
-		} else if ($this->param['next_step']=="store_result") {
-			$status = __("Store results in the database", $this->pluginID) ;
-			$progress_status = new progressBarAdmin (300, 20, ceil(6/$nb_step*100), "6/$nb_step") ; 
-		// 8
-		} else if ($this->param['next_step']=="stop") {
-			$status = __("End of the current plagiarism check", $this->pluginID) ;
-			
-			$progress_status = new progressBarAdmin (300, 20, ceil(7/$nb_step*100), "7/7") ; 
-		//
-		} else if ($this->param['next_step']=="error") {
-			$status = sprintf(__("Error", $this->pluginID)) ;
-			$progress_status = new progressBarAdmin (300, 20, ceil(8/8*100), __("Error", $this->pluginID)) ; 
-		} else if ($this->param['next_step']=="wait_error") {
-			$status = sprintf(__("Error", $this->pluginID)) ;
-			$progress_status = new progressBarAdmin (300, 20, ceil(8/8*100), sprintf(__("Waiting for %s minutes", $this->pluginID), "".(ceil(($this->get_param('last_request')-time())/60)))) ; 
-		} else {
-			$status = __("??", $this->pluginID) ;
-			$progress_status = new progressBarAdmin (300, 20, ceil(0/8*100), __("??", $this->pluginID)) ; 
-		}
-	
-		
-		echo "<p><b>".sprintf(__('Status: %s', $this->pluginID),"</b>".$status)."</p>" ; 
-		echo "<p>" ; 
-		echo $progress_status->flush() ; 
-		echo "</p>" ; 
-
-		// Information
-		if (!isset($this->param['information'])) {
-			echo "<p><b>".sprintf(__('Information: %s', $this->pluginID),"</b> <i>".__('None', $this->pluginID)."</i>")."</p>" ; 
-		} else {
-			echo "<p><b>".sprintf(__('Information: %s', $this->pluginID),"</b> ".$this->param['information'])."</p>" ; 		
-		}
-		// Error
-		if (!isset($this->param['warning'])) {
-			echo "<p><b>".sprintf(__('Warning: %s', $this->pluginID),"</b> <i>".__('None', $this->pluginID)."</i>")."</p>" ; 
-		} else {
-			echo "<p><b>".sprintf(__('Warning: %s', $this->pluginID),"</b> <span style='color:#FF9933'>".$this->param['warning'])."</span></p>" ; 		
-		}
-		// Error
-		if (!isset($this->param['error'])) {
-			echo "<p><b>".sprintf(__('Error: %s', $this->pluginID),"</b> <i>".__('None', $this->pluginID)."</i>")."</p>" ; 
-		} else {
-			echo "<p><b>".sprintf(__('Error: %s', $this->pluginID),"</b> <span style='color:#E60000'>".$this->param['error'])."<span></p>" ; 		
-		}
-		
 		
 		echo "<h3>".__('Search buffer', $this->pluginID)."</h3>" ; 
 		
@@ -939,7 +1196,7 @@ class plagiary_search extends pluginSedLex {
 			$blog_fold = $blog_id."/" ; 
 		}
 		
-		$table = new adminTable() ;
+		$table = new SLFramework_Table() ;
 		$table->title(array(__('Possible Plagiary',  $this->pluginID),__('Article Plagiarized',  $this->pluginID), __('Proximity Image',  $this->pluginID), __('Proximity Score',  $this->pluginID), __('Date of detection',  $this->pluginID)) ) ;
 		
 		$select = "SELECT * FROM ".$this->table_name." WHERE ignored=FALSE and authorized=FALSE" ; 
@@ -949,7 +1206,22 @@ class plagiary_search extends pluginSedLex {
 		 
 		foreach ($results as $r) {
 		
-			$cel1 = new adminCell("<p><a href='".$r->url."'>".$r->url."</a><p>") ;
+			$add_img = "" ; 
+			
+			if ($this->get_param('enable_wkhtmltoimage')) {
+			
+				if (is_file(WP_CONTENT_DIR."/sedlex/plagiary-search/".$blog_fold."wk_th_".sha1($r->url.$this->get_param('enable_wkhtmltoimage_winw')).".jpg")) {
+					$add_img .= '<p style="text-align:center"><a target="_blank" href="'.WP_CONTENT_URL."/sedlex/plagiary-search/".$blog_fold."wk_".sha1($r->url.$this->get_param('enable_wkhtmltoimage_winw')).".jpg".'"><img src="'.WP_CONTENT_URL."/sedlex/plagiary-search/".$blog_fold."wk_th_".sha1($r->url.$this->get_param('enable_wkhtmltoimage_winw')).".jpg".'" /></a></p>' ; 
+				} else {
+					if (is_file(WP_CONTENT_DIR."/sedlex/plagiary-search/".$blog_fold."wk_".sha1($r->url.$this->get_param('enable_wkhtmltoimage_winw')).".log")) {
+						$add_img .= '<p style="text-align:center; color:#999999;">'.sprintf(__("%s have generated an error while trying to generate the thumbnail: %s", $this->pluginID), "<code>wkHtmlToImage</code>", file_get_contents(WP_CONTENT_DIR."/sedlex/plagiary-search/".$blog_fold."wk_".sha1($r->url.$this->get_param('enable_wkhtmltoimage_winw')).".log")).'</p>' ; 
+					} else {
+						$add_img .= '<p style="text-align:center; color:#999999;">'.sprintf(__("Thumbnail has not been generated by %s", $this->pluginID), "<code>wkHtmlToImage</code>").'</p>' ; 
+					}
+				}
+			}
+			
+			$cel1 = new adminCell("<p><a href='".$r->url."'>".$r->url."</a><p>".$add_img) ;
 			$cel1->add_action(__("Not plagiary", $this->pluginID), "notPlagiary('".$r->id."', '".addslashes(__("Do you confirm that this entry is not a plagiary?", $this->pluginID))."')") ; 
 			$cel1->add_action(__("Authorized copy", $this->pluginID), "authorized('".$r->id."', '".addslashes(__("Do you confirm that this entry is an authorized copy?", $this->pluginID))."')") ; 
 			$cel1->add_action(__("Plagiary Deleted", $this->pluginID), "delete_copy('".$r->id."', '".addslashes(__("Do you confirm that this plagiary has been deleted?", $this->pluginID))."')") ; 
@@ -993,7 +1265,7 @@ class plagiary_search extends pluginSedLex {
 			$blog_fold = $blog_id."/" ; 
 		}
 		
-		$table = new adminTable() ;
+		$table = new SLFramework_Table() ;
 		$table->title(array(__('Ignored Plagiary',  $this->pluginID),__('Article Plagiarized',  $this->pluginID), __('Proximity Image',  $this->pluginID), __('Proximity Score',  $this->pluginID), __('Date of detection',  $this->pluginID)) ) ;
 		
 		$select = "SELECT * FROM ".$this->table_name." WHERE ignored=TRUE and authorized=FALSE" ; 
@@ -1003,7 +1275,20 @@ class plagiary_search extends pluginSedLex {
 		 
 		foreach ($results as $r) {
 		
-			$cel1 = new adminCell("<p><a href='".$r->url."'>".$r->url."</a><p>") ;
+			$add_img = "" ; 
+			if ($this->get_param('enable_wkhtmltoimage')) {
+				if (is_file(WP_CONTENT_DIR."/sedlex/plagiary-search/".$blog_fold."wk_th_".sha1($r->url.$this->get_param('enable_wkhtmltoimage_winw')).".jpg")) {
+					$add_img .= '<p style="text-align:center"><a target="_blank" href="'.WP_CONTENT_URL."/sedlex/plagiary-search/".$blog_fold."wk_".sha1($r->url.$this->get_param('enable_wkhtmltoimage_winw')).".jpg".'"><img src="'.WP_CONTENT_URL."/sedlex/plagiary-search/".$blog_fold."wk_th_".sha1($r->url.$this->get_param('enable_wkhtmltoimage_winw')).".jpg".'" /></a></p>' ; 
+				} else {
+					if (is_file(WP_CONTENT_DIR."/sedlex/plagiary-search/".$blog_fold."wk_".sha1($r->url.$this->get_param('enable_wkhtmltoimage_winw')).".log")) {
+						$add_img .= '<p style="text-align:center; color:#999999;">'.sprintf(__("%s have generated an error while trying to generate the thumbnail: %s", $this->pluginID), "<code>wkHtmlToImage</code>", file_get_contents(WP_CONTENT_DIR."/sedlex/plagiary-search/".$blog_fold."wk_".sha1($r->url.$this->get_param('enable_wkhtmltoimage_winw')).".log")).'</p>' ; 
+					} else {
+						$add_img .= '<p style="text-align:center; color:#999999;">'.sprintf(__("Thumbnail has not been generated by %s", $this->pluginID), "<code>wkHtmlToImage</code>").'</p>' ; 
+					}
+				}
+			}
+
+			$cel1 = new adminCell("<p><a href='".$r->url."'>".$r->url."</a><p>".$add_img) ;
 			$cel1->add_action(__("Plagiary", $this->pluginID), "plagiary('".$r->id."', '".addslashes(__("Do you confirm that this entry is a plagiary?", $this->pluginID))."')") ; 
 			$cel1->add_action(__("Authorized copy", $this->pluginID), "authorized('".$r->id."', '".addslashes(__("Do you confirm that this entry is an authorized copy?", $this->pluginID))."')") ; 
 			$cel1->add_action(__("Plagiary Deleted", $this->pluginID), "delete_copy('".$r->id."', '".addslashes(__("Do you confirm that this plagiary has been deleted?", $this->pluginID))."')") ; 
@@ -1047,7 +1332,7 @@ class plagiary_search extends pluginSedLex {
 			$blog_fold = $blog_id."/" ; 
 		}
 		
-		$table = new adminTable() ;
+		$table = new SLFramework_Table() ;
 		$table->title(array(__('Authorized Copy',  $this->pluginID),__('Article Plagiarized',  $this->pluginID), __('Proximity Image',  $this->pluginID), __('Proximity Score',  $this->pluginID), __('Date of detection',  $this->pluginID)) ) ;
 		
 		$select = "SELECT * FROM ".$this->table_name." WHERE authorized=TRUE" ; 
@@ -1057,7 +1342,20 @@ class plagiary_search extends pluginSedLex {
 		 
 		foreach ($results as $r) {
 		
-			$cel1 = new adminCell("<p><a href='".$r->url."'>".$r->url."</a><p>") ;
+			$add_img = "" ; 
+			if ($this->get_param('enable_wkhtmltoimage')) {
+				if (is_file(WP_CONTENT_DIR."/sedlex/plagiary-search/".$blog_fold."wk_th_".sha1($r->url.$this->get_param('enable_wkhtmltoimage_winw')).".jpg")) {
+					$add_img .= '<p style="text-align:center"><a target="_blank" href="'.WP_CONTENT_URL."/sedlex/plagiary-search/".$blog_fold."wk_".sha1($r->url.$this->get_param('enable_wkhtmltoimage_winw')).".jpg".'"><img src="'.WP_CONTENT_URL."/sedlex/plagiary-search/".$blog_fold."wk_th_".sha1($r->url.$this->get_param('enable_wkhtmltoimage_winw')).".jpg".'" /></a></p>' ; 
+				} else {
+					if (is_file(WP_CONTENT_DIR."/sedlex/plagiary-search/".$blog_fold."wk_".sha1($r->url.$this->get_param('enable_wkhtmltoimage_winw')).".log")) {
+						$add_img .= '<p style="text-align:center; color:#999999;">'.sprintf(__("%s have generated an error while trying to generate the thumbnail: %s", $this->pluginID), "<code>wkHtmlToImage</code>", file_get_contents(WP_CONTENT_DIR."/sedlex/plagiary-search/".$blog_fold."wk_".sha1($r->url.$this->get_param('enable_wkhtmltoimage_winw')).".log")).'</p>' ; 
+					} else {
+						$add_img .= '<p style="text-align:center; color:#999999;">'.sprintf(__("Thumbnail has not been generated by %s", $this->pluginID), "<code>wkHtmlToImage</code>").'</p>' ; 
+					}
+				}
+			}
+
+			$cel1 = new adminCell("<p><a href='".$r->url."'>".$r->url."</a><p>".$add_img) ;
 			$cel1->add_action(__("Not Authorized", $this->pluginID), "notAuthorized('".$r->id."', '".addslashes(__("Do you confirm that this entry is an non-authorized copy?", $this->pluginID))."')") ; 
 			$cel1->add_action(__("Plagiary Deleted", $this->pluginID), "delete_copy('".$r->id."', '".addslashes(__("Do you confirm that this plagiary has been deleted?", $this->pluginID))."')") ; 
 			$cel1->add_action(__("View the texts", $this->pluginID), "viewText('".$r->id."')") ; 
@@ -1344,14 +1642,35 @@ class plagiary_search extends pluginSedLex {
 							$count_word ++ ; 
 						}
 					}
-					//echo $this->param['searched_sentence']." - ". $r['extract']." ($count_word/$seuil_word)<br/>" ; 
+					
 					if ($count_word<$this->get_param('proximity_words_results')/100*$seuil_word) {
 						$excluded = true ; 
-						//echo (ceil($count_word/$seuil_word*1000)/10)."%<br/>" ; 
-						// On incrémente quand meme
+						// On incremente quand meme
 						$count = $this->get_param('nb_searches') ; 
 						$count++ ; 
 						$this->set_param('nb_searches', $count) ; 
+						
+						// On met ˆ jour l'history et on garde que les 100 derniers
+						$history = $this->get_param('history_searches') ;
+						if (isset($history[date('Ymd')])) {
+							$history[date('Ymd')]['search_enough_word'] ++ ; 
+						} else {
+							$history[date('Ymd')] = array('search_enough_word'=>1, 'search_not_enough_word'=>0, 'compare_text'=>0 ) ; 
+						}
+						krsort($history, SORT_STRING) ; 
+						$history = array_slice($history, 0, 100, true) ; 
+						$this->set_param('history_searches', $history) ; 
+					} else {
+						// On met ˆ jour l'history et on garde que les 100 derniers
+						$history = $this->get_param('history_searches') ;
+						if (isset($history[date('Ymd')])) {
+							$history[date('Ymd')]['search_not_enough_word'] ++ ; 
+						} else {
+							$history[date('Ymd')] = array('search_enough_word'=>0, 'search_not_enough_word'=>1, 'compare_text'=>0 ) ; 
+						}
+						krsort($history, SORT_STRING) ; 
+						$history = array_slice($history, 0, 100, true) ; 
+						$this->set_param('history_searches', $history) ; 
 					}
 				}
 				
@@ -1471,6 +1790,18 @@ class plagiary_search extends pluginSedLex {
 		$count = $this->get_param('nb_searches') ; 
 		$count++ ; 
 		$this->set_param('nb_searches', $count) ; 
+		
+		// On met ˆ jour l'history et on garde que les 100 derniers
+		$history = $this->get_param('history_searches') ;
+		if (isset($history[date('Ymd')])) {
+			$history[date('Ymd')]['compare_text'] ++ ; 
+		} else {
+			$history[date('Ymd')] = array('search_enough_word'=>0, 'search_not_enough_word'=>0, 'compare_text'=>1 ) ; 
+		}
+		krsort($history, SORT_STRING) ; 
+		$history = array_slice($history, 0, 100, true) ; 
+		$this->set_param('history_searches', $history) ; 
+
 				
 		$this->param['url_buffer'] = $buffer ; 
 		$this->param['url'] = $url[0] ; 
@@ -1809,7 +2140,7 @@ class plagiary_search extends pluginSedLex {
 		$extreme_color2 = array(0,0,0) ; 
 				
 		if (!isset($this->param["image_proximity"])) {
-			$rand = md5(rand(0, 2000000).$this->param['url']) ; 
+			$rand = sha1(rand(0, 2000000).$this->param['url']) ; 
 			$this->param["image_proximity"] = "/sedlex/plagiary-search/".$blog_fold."proximity".$rand.".png" ;
 			// Create an image
 			$im = imagecreatetruecolor($max_width+1, $max_height+1);
@@ -1973,10 +2304,44 @@ class plagiary_search extends pluginSedLex {
 	*/
 	
 	function store_result(){
-		global $wpdb ; 
+		global $wpdb, $blog_id ; 
 		
+		// We create the folder for the img files
+		$blog_fold = "" ; 
+		if (is_multisite()) {
+			$blog_fold = $blog_id."/" ; 
+		}
+
 		$insert = "INSERT INTO ".$this->table_name." (id_post, url, proximity, image, text1, text2, ignored, date_maj) VALUES ('".$this->param["id"]."', '".esc_attr($this->param["url"])."', '".$this->param['percentage_proximity']."', '".$this->param['image_proximity']."', '".esc_attr($this->param['new_text'])."', '".esc_attr($this->param['new_content'])."', FALSE, NOW())" ; 
 		$wpdb->query($insert) ; 
+		
+		// generate the screenshot
+		// ScreenShot with wkhtmltoimage
+		if ($this->get_param('enable_wkhtmltoimage')) {
+			$img_thum = $this->wkurltoimage($this->param["url"], $this->get_param('enable_wkhtmltoimage_winw'), 150, 170) ; 
+			
+		}
+
+		// and send the email
+		if ($this->get_param('send_email_when_found')) {
+			if (preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/",$this->get_param('send_email_when_found_email'))) {
+				$message = __("Dear Sirs,", $this->pluginID)."\n" ; 
+				$message .= sprintf(__("A new plagiary has been found on %s", $this->pluginID), get_bloginfo('name')." (".site_url().")")."\n" ; 
+				$message .= sprintf(__("    * The plagiary page is %s", $this->pluginID), $this->param["url"])."\n" ; 
+				$message .= sprintf(__("    * Your page is %s", $this->pluginID), get_permalink($this->param["id"]))."\n\n" ; 
+				$message .= sprintf(__("Visit %s to see the details.", $this->pluginID), get_admin_url())."\n" ; 
+				$message .= __("Best regards,", $this->pluginID)."\n" ; 
+				if (is_file(WP_CONTENT_DIR."/sedlex/plagiary-search/".$blog_fold."wk_".sha1($this->param["url"].$this->get_param('enable_wkhtmltoimage_winw')).".jpg")) {
+					wp_mail($this->get_param('send_email_when_found_email'), "[".get_bloginfo('name')."] ".__('Found a new plagiary', $this->pluginID), $message,"", array(WP_CONTENT_DIR.$this->param["image_proximity"], WP_CONTENT_DIR."/sedlex/plagiary-search/".$blog_fold."wk_".sha1($this->param["url"].$this->get_param('enable_wkhtmltoimage_winw')).".jpg")) ; 
+				} else {
+					if ($this->get_param('enable_wkhtmltoimage')) {
+						$message .= "\n".sprintf(__("PS: the image %s cannot be attached.", $this->pluginID), $blog_fold."wk_".sha1($this->param["url"].$this->get_param('enable_wkhtmltoimage_winw')).".jpg")."\n" ; 
+					}
+					wp_mail($this->get_param('send_email_when_found_email'), "[".get_bloginfo('name')."] ".__('Found a new plagiary', $this->pluginID), $message,"", array(WP_CONTENT_DIR.$this->param["image_proximity"])) ; 
+				}
+			}
+		}
+		
 		
 		unset($this->param['image_proximity']) ; 
 		unset($this->param['percentage_proximity']) ; 
@@ -1986,6 +2351,7 @@ class plagiary_search extends pluginSedLex {
 		unset($this->param['new_content']) ; 
 		unset($this->param["error"] ) ; 
 		
+	
 		$this->param["next_step"] = "stop" ;
 	}
 	
@@ -2116,7 +2482,7 @@ class plagiary_search extends pluginSedLex {
 			echo "<h2>".__('The text of the external website', $this->pluginID)."</h2>" ;
 			echo "<p>".stripslashes($result->text2)."</p>" ;
 
-		$pop = new popupAdmin(__('Show the proximity between the text', $this->pluginID), ob_get_clean()) ;
+		$pop = new SLFramework_Popup(__('Show the proximity between the text', $this->pluginID), ob_get_clean()) ;
 		$pop->render() ;
 		die() ; 
 	}
