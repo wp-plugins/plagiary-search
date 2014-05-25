@@ -88,7 +88,7 @@ if (!class_exists("SLFramework_Parameters")) {
 		/** ====================================================================================================================================================
 		* Add a textarea, input, checkbox, etc. in the form to enable the modification of parameter of the plugin
 		* 	
-		* Please note that the default value of the parameter (defined in the  <code>get_default_option</code> function) will define the type of input form. If the default  value is a: <br/>&nbsp; &nbsp; &nbsp; - string, the input form will be an input text <br/>&nbsp; &nbsp; &nbsp; - integer, the input form will be an input text accepting only integer <br/>&nbsp; &nbsp; &nbsp; - string beggining with a '*', the input form will be a textarea <br/>&nbsp; &nbsp; &nbsp; - string equals to '[file]$path', the input form will be a file input and the file will be stored at $path (relative to the upload folder)<br/>&nbsp; &nbsp; &nbsp; - string equals to '[password]$password', the input form will be a password input ; <br/>&nbsp; &nbsp; &nbsp; - string equals to '[media]$media', the input form will be a element in the media library ; <br/>&nbsp; &nbsp; &nbsp; - array of string, the input form will be a dropdown list<br/>&nbsp; &nbsp; &nbsp; - boolean, the input form will be a checkbox 
+		* Please note that the default value of the parameter (defined in the  <code>get_default_option</code> function) will define the type of input form. If the default  value is a: <br/>&nbsp; &nbsp; &nbsp; - string, the input form will be an input text <br/>&nbsp; &nbsp; &nbsp; - integer, the input form will be an input text accepting only integer <br/>&nbsp; &nbsp; &nbsp; - string beggining with a '*', the input form will be a textarea <br/>&nbsp; &nbsp; &nbsp; - string equals to '[file]$path', the input form will be a file input and the file will be stored at $path (relative to the upload folder)<br/>&nbsp; &nbsp; &nbsp; - string equals to '[password]$password', the input form will be a password input ; <br/>&nbsp; &nbsp; &nbsp; - string equals to '[page]$page', the input form will be a dropdown list with a list of the pages ; <br/>&nbsp; &nbsp; &nbsp; - string equals to '[media]$media', the input form will be a element in the media library ; <br/>&nbsp; &nbsp; &nbsp; - array of string, the input form will be a dropdown list<br/>&nbsp; &nbsp; &nbsp; - boolean, the input form will be a checkbox 
 		*
 		* @param string $param the name of the parameter/option as defined in your plugin and especially in the <code>get_default_option</code> of your plugin
 		* @param string $name the displayed name of the parameter in the form
@@ -166,6 +166,10 @@ if (!class_exists("SLFramework_Parameters")) {
 			if (is_string($this->obj->get_default_option($param))) {
 				if (str_replace("[media]","",$this->obj->get_default_option($param)) != $this->obj->get_default_option($param)) $type = "media" ; 
 			}
+			// C'est un media si dans le texte par defaut est egal a [media]
+			if (is_string($this->obj->get_default_option($param))) {
+				if (str_replace("[page]","",$this->obj->get_default_option($param)) != $this->obj->get_default_option($param)) $type = "page" ; 
+			}
 			
 			// We format the param
 			//---------------------------------------
@@ -191,7 +195,7 @@ if (!class_exists("SLFramework_Parameters")) {
 							return $this->obj->get_default_option($param) ; 
 						}
 					}
-				} 
+				}
 				
 				// Is it an integer ?
 				
@@ -209,7 +213,7 @@ if (!class_exists("SLFramework_Parameters")) {
 					} else {
 						return $this->obj->get_default_option($param) ; 
 					}
-				} 
+				}
 				
 				// Is it a string ?
 				
@@ -225,6 +229,11 @@ if (!class_exists("SLFramework_Parameters")) {
 							return stripslashes($tmp) ; 
 						}
 					} else {
+						if ($type=="text") {
+							if (substr($this->obj->get_default_option($param), 0,1)) {
+								return substr($this->obj->get_default_option($param), 1) ;
+							}
+						}
 						return $this->obj->get_default_option($param) ;
 					}
 				} 
@@ -263,12 +272,20 @@ if (!class_exists("SLFramework_Parameters")) {
 				} 
 				
 				// is it a media
-				
 				if ($type=="media") {
 					if (isset($_POST[$param])) {
 						return $_POST[$param] ; 
 					} else {
-						return $this->obj->get_default_option($param) ; 
+						return str_replace("[media]","", $this->obj->get_default_option($param)) ; 
+					}				
+				}
+				
+				// is it a page
+				if ($type=="page") {
+					if (isset($_POST[$param])) {
+						return $_POST[$param] ; 
+					} else {
+						return str_replace("[page]","", $this->obj->get_default_option($param)) ; 
 					}				
 				}
 				
@@ -574,6 +591,10 @@ if (!class_exists("SLFramework_Parameters")) {
 					if (is_string($this->obj->get_default_option($param_default))) {
 						if (str_replace("[media]","",$this->obj->get_default_option($param_default)) != $this->obj->get_default_option($param_default)) $type = "media" ; 
 					}
+					// C'est un page si dans le texte par defaut est egal a [page]
+					if (is_string($this->obj->get_default_option($param_default))) {
+						if (str_replace("[page]","",$this->obj->get_default_option($param_default)) != $this->obj->get_default_option($param_default)) $type = "page" ; 
+					}
 					
 					// We reset the param
 					//---------------------------------------
@@ -615,7 +636,6 @@ if (!class_exists("SLFramework_Parameters")) {
 							} 
 							
 							// Update of the value
-							
 							if ($new_param != $old_param) {
 								$modified = true ; 
 								$this->obj->set_param($param, $new_param) ; 
@@ -809,6 +829,27 @@ if (!class_exists("SLFramework_Parameters")) {
 						
 						$currentTable->add_line(array($cel_label, $cel_value), '1') ; 	
 					}
+					
+					if ($type=="page") {
+						$cl = "<p class='paramLine'><label for='".$param."'>".$name."</label></p>".$ew ; 
+						// We check if there is a comment just after it
+						while (isset($this->buffer[$iii+1])) {
+							if ($this->buffer[$iii+1][0]!="comment") break ; 
+							$cl .= "<p class='paramComment' style='color: #a4a4a4;'>".$this->buffer[$iii+1][1]."</p>" ; 
+							$iii++ ; 
+						}
+						$cel_label = new adminCell($cl) ; 
+						
+						$selected = 0 ;
+						if ($this->obj->get_param($param)!="[page]") {
+							$selected = $this->obj->get_param($param) ; 
+						} 
+						
+						$cel_value = new adminCell("<p class='paramLine'>".wp_dropdown_pages(array('echo' => 0,'name' => $param, 'selected' => $selected, "show_option_none" => __('(none)', "SLFramework"), "option_none_value"=>'[page]'))."</p>") ; 
+						
+						$currentTable->add_line(array($cel_label, $cel_value), '1') ; 	
+					}
+					
 					if ($type=="file") {
 						$ew = "" ; 
 						if ($problem_e!="") {	
