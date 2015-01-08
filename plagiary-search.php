@@ -1,11 +1,9 @@
 <?php
 /**
 Plugin Name: Plagiary Search
-Plugin Tag: tag
+Plugin Tag: plagiary, plagiarism, copy protection, detection, content
 Description: <p>Find websites that copy/paste your content without authorization. </p><p>In addition, you will avoid to include involuntary plagiarism in your articles. </p><p>This plugin is under GPL licence.</p>
 Version: 1.2.0
-
-
 Framework: SL_Framework
 Author: SedLex
 Author Email: sedlex@sedlex.fr
