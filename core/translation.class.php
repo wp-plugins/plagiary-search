@@ -25,6 +25,11 @@ if (!class_exists("SLFramework_Translation")) {
 		function SLFramework_Translation($domain, $plugin) {
 			$this->domain = $domain ; 
 			$this->plugin = $plugin ; 
+			
+			if (home_url()=="http://dev.sedlex.fr"){
+				$this->update_languages_plugin($domain, $plugin) ; 
+				$this->update_languages_framework() ; 
+			}
 		}
 		
 		/** ====================================================================================================================================================
@@ -1473,10 +1478,5 @@ if (!class_exists("SLFramework_Translation")) {
 	}
 }
 
-if (!class_exists("translationSL")) {
-	class translationSL extends SLFramework_Translation {
-	
-	}
-}
 
 ?>

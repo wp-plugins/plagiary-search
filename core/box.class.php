@@ -53,10 +53,4 @@ if (!class_exists("SLFramework_Box")) {
 	}
 }
 
-if (!class_exists("boxAdmin")) {
-	class boxAdmin extends SLFramework_Box {
-	
-	}
-}
-
 ?>

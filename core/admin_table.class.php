@@ -387,11 +387,4 @@ if (!class_exists("adminCell")) {
 	}
 }
 
-
-if (!class_exists("adminTable")) {
-	class adminTable extends SLFramework_Table {
-	
-	}
-}
-
 ?>

@@ -343,10 +343,4 @@ if (!class_exists("SLFramework_Utils")) {
 	} 
 }
 
-if (!class_exists("Utils")) {
-	class Utils extends SLFramework_Utils {
-	
-	}
-}
-
 ?>

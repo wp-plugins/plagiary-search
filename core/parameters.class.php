@@ -967,11 +967,4 @@ if (!class_exists("SLFramework_Parameters")) {
 }
 
 
-if (!class_exists("parametersSedLex")) {
-	class parametersSedLex extends SLFramework_Parameters {
-	
-	}
-}
-
-
 ?>

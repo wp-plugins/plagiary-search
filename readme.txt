@@ -6,8 +6,9 @@ Author URI: http://www.sedlex.fr/
 Plugin URI: http://wordpress.org/plugins/plagiary-search/
 Tags: tag
 Requires at least: 3.0
-Tested up to: 3.9
+Tested up to: 4.2
 Stable tag: trunk
+License: GPLv3
 
 Find websites that copy/paste your content without authorization. 
 
@@ -24,7 +25,7 @@ This plugin is under GPL licence.
 = Localization =
 
 * English (United States), default language
-* Farsi (Iran) translation provided by Mehdi
+* Farsi (Iran) translation provided by Mehdi, translate.parsijoo.ir, Arashbytranslate.parsijoo.ir
 * French (France) translation provided by SedLex, jlmcreation
 
 = Features of the framework =
@@ -49,6 +50,9 @@ Have fun !
 2. Process screen
 
 == Changelog ==
+
+= 1.2.0 = 
+* NEW: It is now possible to check any text you want in the "specific search" tab
 
 = 1.1.0 = 
 * NEW: New interface to view the number of last check
@@ -75,4 +79,4 @@ Have fun !
 == Frequently Asked Questions ==
 
  
-InfoVersion:8b33a99d3fe8b505da2a144d8de64a09b60a780c
+InfoVersion:b8e98a96ef943e822439e724c17757a6f27e20fc

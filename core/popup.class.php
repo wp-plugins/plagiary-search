@@ -95,10 +95,5 @@ if (!class_exists("SLFramework_Popup")) {
 	} 
 }
 
-if (!class_exists("popupAdmin")) {
-	class popupAdmin extends SLFramework_Popup {
-	
-	}
-}
 
 ?>

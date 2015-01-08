@@ -437,9 +437,5 @@ if (!class_exists("SLFramework_BrowsersOsDetection")) {
 	}
 }
 
-if (!class_exists("browsersOsDetection")) {
-	class browsersOsDetection extends SLFramework_BrowsersOsDetection {
-	
-	}
-}
+
 ?>

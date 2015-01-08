@@ -4,8 +4,10 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-07-08T21:27:11+00:00\n"
+"PO-Revision-Date: 2014-09-24T08:32:49+00:00\n"
 "Last-Translator: Mehdi <behzadi724@gmail.com>\n"
+"Last-Translator: translate.parsijoo.ir <http://arash-ne.ir>\n"
+"Last-Translator: Arashbytranslate.parsijoo.ir <http://arash-ne.ir>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -139,4 +141,28 @@ msgstr "برای %s ثانیه صبر کنید"
 
 msgid "Date of detection"
 msgstr "تاریخ شناسایی"
+
+msgid "Month"
+msgstr "ماه"
+
+msgid "None"
+msgstr "هيچ"
+
+msgid "OK"
+msgstr "تاييد"
+
+msgid "View the texts"
+msgstr "ديدن متن ها"
+
+msgid "Google has blocked your search request: %s"
+msgstr "گوگل جستجو شما را مسدود کرده است: %s"
+
+msgid "* Your page is %s"
+msgstr "صفحه شما هست %s"
+
+msgid "Visit %s to see the details."
+msgstr "ديدن جزییات بيشتر در اين صفحه %s"
+
+msgid "Authorized Copies"
+msgstr "كپي مجاز"
 

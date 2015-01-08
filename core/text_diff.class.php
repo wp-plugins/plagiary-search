@@ -215,10 +215,5 @@ if (!class_exists("SLFramework_Textdiff")) {
 	}
 }
 
-if (!class_exists("textDiff")) {
-	class textDiff extends SLFramework_Textdiff {
-	
-	}
-}
 
 ?>

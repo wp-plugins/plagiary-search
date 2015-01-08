@@ -4,11 +4,12 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-03-19T22:00:55+00:00\n"
+"PO-Revision-Date: 2014-06-17T07:09:16+00:00\n"
 "Last-Translator: willianrodrigues <http://www.willianrodrigues.com.br>\n"
 "Last-Translator: IuriJacob <http://www.bytecodex.com>\n"
 "Last-Translator: Anderson <andersonnunes40@gmail.com>\n"
 "Last-Translator: AlbertAbrantes <http://www.maxcreative.ca>\n"
+"Last-Translator: Vanderson <vandinho.on10@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -241,4 +242,46 @@ msgstr "MB"
 
 msgid "GB"
 msgstr "GB"
+
+msgid "About SL plugins..."
+msgstr "Sobre Plugins SL"
+
+msgid "Location of the SL plugins"
+msgstr "Localização dos Plugins SL"
+
+msgid "Filter: %s"
+msgstr "Filtros: %s"
+
+msgid "%s of %s"
+msgstr "%s of %s"
+
+msgid "Update"
+msgstr "Atualizar"
+
+msgid "Reset to default values"
+msgstr "Retornar aos valores Padrões"
+
+msgid "Sentence to translate"
+msgstr "Sentenças para Traduzir"
+
+msgid "Translation"
+msgstr "Tradução"
+
+msgid "Your email or your website:"
+msgstr "Seu Email ou WebSite:"
+
+msgid "Add a new translation"
+msgstr "Adicionar uma nova Tradução"
+
+msgid "Modify translations"
+msgstr "Modificar Tradução"
+
+msgid "Send translation"
+msgstr "Enviar Tradução"
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "Translators"
+msgstr "Tradutore"
 

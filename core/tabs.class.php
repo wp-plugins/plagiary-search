@@ -142,9 +142,5 @@ if (!class_exists("SLFramework_Tabs")) {
 	}
 }
 
-if (!class_exists("adminTabs")) {
-	class adminTabs extends SLFramework_Tabs {
-	
-	}
-}
+
 ?>

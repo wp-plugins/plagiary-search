@@ -191,10 +191,4 @@ if (!class_exists("SLFramework_Feedback")) {
 }
 
 
-if (!class_exists("feedbackSL")) {
-	class feedbackSL extends SLFramework_Feedback {
-	
-	}
-}
-
 ?>

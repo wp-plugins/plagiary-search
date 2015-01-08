@@ -92,11 +92,7 @@ if (!class_exists("SLFramework_Debug")) {
 	} 
 }
 
-if (!class_exists("SL_Debug")) {
-	class SL_Debug extends SLFramework_Debug {
-	
-	}
-}
+
 
 
 ?>

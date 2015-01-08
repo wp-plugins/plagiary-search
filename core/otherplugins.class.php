@@ -59,9 +59,11 @@ if (!class_exists("SLFramework_OtherPlugins")) {
 				$found = false ; 
 				// We check if the plugin is installed
 				foreach ($plugins_active as $slug_active => $plug_activ) {
-					list($slug_active, $tmp) = explode("/", $slug_active,2) ;
-					if ($slug==$slug_active) {
-						$found = true ; 
+					if (count(explode("/", $slug_active,2))==2){
+						list($slug_active, $tmp) = explode("/", $slug_active,2) ;
+						if ($slug==$slug_active) {
+							$found = true ; 
+						}
 					}
 				}
 				if (!$found) {
@@ -90,9 +92,11 @@ if (!class_exists("SLFramework_OtherPlugins")) {
 				$found = false ; 
 				// We check if the plugin is installed
 				foreach ($plugins_active as $slug_active => $plug_activ) {
-					list($slug_active, $tmp) = explode("/", $slug_active,2) ;
-					if ($slug==$slug_active) {
-						$found = true ; 
+					if (count(explode("/", $slug_active,2))==2){
+						list($slug_active, $tmp) = explode("/", $slug_active,2) ;
+						if ($slug==$slug_active) {
+							$found = true ; 
+						}
 					}
 				}
 				if ($found) {
@@ -206,12 +210,6 @@ if (!class_exists("SLFramework_OtherPlugins")) {
 			}
 		}
 	} 
-}
-
-if (!class_exists("otherPlugins")) {
-	class otherPlugins extends SLFramework_OtherPlugins {
-	
-	}
 }
 
 ?>

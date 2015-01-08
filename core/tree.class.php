@@ -8,6 +8,7 @@ VersionInclude : 3.0
 * This PHP class allows to display hierachical list in a smart way
 */
 if (!class_exists("SLFramework_Treelist")) {
+
 	class SLFramework_Treelist {
 				
 		/** ====================================================================================================================================================
@@ -39,11 +40,8 @@ if (!class_exists("SLFramework_Treelist")) {
 		
 		static function render($array, $reduce_develop=false, $reorder_callback=null, $classPerso=""){
 			$rand = rand(1, 10000000) ; 
-			echo "<div id='sortableTreeView".$rand."' class='".$classPerso."'>" ; 
-				SLFramework_Treelist::render_sub($array,$reduce_develop, false, $rand) ; 
-			echo "</div>" ; 
 			?>
-			<script>
+			<script type="text/javascript">
 				function stopPropag<?php echo $rand ?>(event) {
 					event.stopPropagation();
 					return false ; 
@@ -66,6 +64,10 @@ if (!class_exists("SLFramework_Treelist")) {
 				}
 			</script>
 			<?php
+			echo "<div id='sortableTreeView".$rand."' class='".$classPerso."'>" ; 
+				SLFramework_Treelist::render_sub($array,$reduce_develop, false, $rand) ; 
+			echo "</div>" ; 
+			
 			if ($reorder_callback!=null) {
 				?>
 				<script>
@@ -182,18 +184,19 @@ if (!class_exists("SLFramework_Treelist")) {
 				$children = null ; 
 				$plus_minus = "class='minus_folder'" ; 
 				
-				if (count($item)>=2) {
+				if (isset($item[1])) {
 					$id = " id='".$item[1]."' " ; 
 				}
-				if (count($item)>=3) {
+				if (isset($item[2])) {
 					$children = $item[2] ; 
 				}
-				if (count($item)>=4) {
+				if (isset($item[3])) {
 					if (!$item[3]) {
 						$next_hide=true ; 
 						$plus_minus = "class='plus_folder'" ; 
 					}
 				}
+				$toggle="" ; 
 				if ($reduce_develop && ($children!=null)) {
 					$toggle = " onclick='folderToggle".$rand."(event, jQuery(this).find(\"ul:first\"));' ".$plus_minus." " ; 
 				} else if ($reduce_develop) {
@@ -215,12 +218,6 @@ if (!class_exists("SLFramework_Treelist")) {
 			}
 			echo "</ul>" ; 
 		}
-	}
-}
-
-if (!class_exists("treeList")) {
-	class treeList extends SLFramework_Treelist {
-	
 	}
 }
 

@@ -51,10 +51,4 @@ if (!class_exists("SLFramework_Progressbar")) {
 	}
 }
 
-if (!class_exists("progressBarAdmin")) {
-	class progressBarAdmin extends SLFramework_Progressbar {
-	
-	}
-}
-
 ?>

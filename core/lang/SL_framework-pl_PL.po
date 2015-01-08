@@ -4,13 +4,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-01-19T19:13:05+00:00\n"
+"PO-Revision-Date: 2014-07-08T12:30:20+00:00\n"
 "Last-Translator: pablo <http://epablo.pl>\n"
 "Last-Translator: vyachek <vyachek@op.pl>\n"
 "Last-Translator: MarekMackiewicz <ickam89.com>\n"
 "Last-Translator: Albert221 <w.albert221@gmail.com>\n"
 "Last-Translator: Lukasz <orinek.info>\n"
 "Last-Translator: krzysiek <krzysztoftrojanek.pl>\n"
+"Last-Translator: MichalKotekKotnowski <michal.kotnowski@ukotka.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -230,7 +231,7 @@ msgid "Add"
 msgstr "Dodaj"
 
 msgid "The 'SL framework' is a framework used for developping many plugins like this one. Thus, if you participate translating the framework, it will be very helpful for a bunch of plugins."
-msgstr "Platforma SL służy do rozwoju wielu  wtyczek podobnych do tej. Jeśli przetłumaczysz rdzeń SL wspomoże to rozwój tłumaczeń dla innych wtyczek z rodziny SL."
+msgstr "Platforma SL służy do rozwoju wielu wtyczek podobnych do tej. Jeśli przetłumaczysz rdzeń SL wspomoże to rozwój tłumaczeń dla innych wtyczek z rodziny SL."
 
 msgid "Send to the author of the framework"
 msgstr "Wyślij autorowi platformy SL"
@@ -429,4 +430,49 @@ msgstr "Jak dotąd zainstalowano %s wtyczek, w tym %s utworzonych przez SedLex"
 
 msgid "There are %s sentences to be translated in this plugin."
 msgstr "W tej wtyczce jest %s pól do przetłumaczenia."
+
+msgid "About SL plugins..."
+msgstr "O wtyczkach SL..."
+
+msgid "Location of the SL plugins"
+msgstr "Lokalizacja wtyczek SL"
+
+msgid "Where do you want to display the SL plugins:"
+msgstr "Gdzie chcesz wyświetlić wtyczki SL:"
+
+msgid "Standard"
+msgstr "Standard"
+
+msgid "under Plugins"
+msgstr "pod Wtyczkami"
+
+msgid "under Tools"
+msgstr "pod Narzedziami"
+
+msgid "under Settings"
+msgstr "pod Ustawieniami"
+
+msgid "The following plugins have been developed by the author and are not yet been installed:"
+msgstr "Następujące wtyczki tego autora nie zostały jeszcze zainstalowane:"
+
+msgid "The URL is correct and the ID of the media file is %s."
+msgstr "URL jest poprawny, ID pliku mediów to %s."
+
+msgid "The URL is not a media file."
+msgstr "URL nie jest plikiem mediów."
+
+msgid "Choose a media"
+msgstr "Wybierz plik mediów"
+
+msgid "The number of occurrence of %s does not match in both string. Please note that the string %s will be replaced with a contextual string."
+msgstr "Liczba wystąpień %s nie pasuje do obu ciągów znaków. Zwróć uwagę, iż ciąg %s zostanie zastąpiony ciągiem kontekstowym."
+
+msgid "Summary cached %s"
+msgstr "Podsumowanie %s w cache"
+
+msgid "There is %s languages supported for the 'SL framework'."
+msgstr "&#039;Framework SL&#039; wspiera obecnie %s języków."
+
+msgid "There is %s sentence to be translated in the framework."
+msgstr "Pozostało %s wyrażeń do przetłumaczneia we frameworku."
 
