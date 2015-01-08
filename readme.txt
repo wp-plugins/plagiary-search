@@ -4,7 +4,7 @@ Author: SedLex
 Contributors: SedLex
 Author URI: http://www.sedlex.fr/
 Plugin URI: http://wordpress.org/plugins/plagiary-search/
-Tags: tag
+Tags: plagiary, plagiarism, copy protection, detection, content
 Requires at least: 3.0
 Tested up to: 4.2
 Stable tag: trunk
@@ -79,4 +79,4 @@ Have fun !
 == Frequently Asked Questions ==
 
  
-InfoVersion:b8e98a96ef943e822439e724c17757a6f27e20fc
+InfoVersion:1c096ae1a0c00422f251c2d3e02e64aa0761af28
