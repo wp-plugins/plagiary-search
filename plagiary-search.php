@@ -3,7 +3,7 @@
 Plugin Name: Plagiary Search
 Plugin Tag: plagiary, plagiarism, copy protection, detection, content
 Description: <p>Find websites that copy/paste your content without authorization. </p><p>In addition, you will avoid to include involuntary plagiarism in your articles. </p><p>This plugin is under GPL licence.</p>
-Version: 1.2.0
+Version: 1.2.1
 Framework: SL_Framework
 Author: SedLex
 Author Email: sedlex@sedlex.fr
@@ -110,6 +110,21 @@ class plagiary_search extends pluginSedLex {
 		} else {
 			$wpdb->query("DROP TABLE ".$wpdb->prefix . "pluginSL_" . 'plagiary_search' ) ; 
 		}
+		
+		// DELETE FILES if needed
+		SLFramework_Utils::rm_rec(WP_CONTENT_DIR."/sedlex/plagiary-search/"); 
+		$plugins_all = 	get_plugins() ; 
+		$nb_SL = 0 ; 	
+		foreach($plugins_all as $url => $pa) {
+			$info = pluginSedlex::get_plugins_data(WP_PLUGIN_DIR."/".$url);
+			if ($info['Framework_Email']=="sedlex@sedlex.fr"){
+				$nb_SL++ ; 
+			}
+		}
+		if ($nb_SL==1) {
+			SLFramework_Utils::rm_rec(WP_CONTENT_DIR."/sedlex/"); 
+		}
+
 	}
 
 	/**====================================================================================================================================================

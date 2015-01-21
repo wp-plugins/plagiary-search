@@ -51,6 +51,9 @@ Have fun !
 
 == Changelog ==
 
+= 1.2.1 = 
+* NEW: delete temp file upon desinstall
+
 = 1.2.0 = 
 * NEW: It is now possible to check any text you want in the "specific search" tab
 
@@ -79,4 +82,4 @@ Have fun !
 == Frequently Asked Questions ==
 
  
-InfoVersion:d931f35ccaee06ea91157ab13390436bec27c6b7
+InfoVersion:9bb21fc8c3226c22bd7a1829a3937254e687e0be
